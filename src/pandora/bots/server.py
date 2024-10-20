@@ -20,6 +20,7 @@ import traceback
 from .. import __version__
 from ..exts.hooks import hook_logging
 from ..exts.config import USER_CONFIG_DIR
+from ..api.faker import fake_initialize, acc_check
 from ..openai.api import API
 from ..openai.utils import Console
 
@@ -239,7 +240,7 @@ class ChatBot:
                 ip = request.headers['X-Forwarded-For'].split(',')[0].strip()
         path = request.path
 
-        if not (path.startswith('/widget') or path.startswith('/backend-api/aip') or path.startswith('/c/') or path.startswith('/v1/initialize') or path.startswith('/auth/js/main.92bf7bcd.js.map') or path == '/ces/v1/projects/oai/settings' or path == '/_next/static/chunks/3472.d3ee6c3b89fde6d7.js'):
+        if not (path.endswith('.js.map') or path.startswith('/widget') or path.startswith('/backend-api/aip') or path.startswith('/c/') or path.startswith('/v1/initialize') or path.startswith('/auth/js/main.92bf7bcd.js.map') or path == '/ces/v1/projects/oai/settings' or path == '/_next/static/chunks/3472.d3ee6c3b89fde6d7.js'):
             self.logger.error('{}  |  {}  |  {}'.format(ip, path, str(e)))
 
         if request.path.startswith('/c/') and request.method == 'GET':
@@ -346,11 +347,7 @@ class ChatBot:
     
     # @staticmethod
     def fake_initialize(self):
-        if not self.fake_initialize_data:
-            with open(join(self.SCRIPT_DIR, 'fake_initialize.json'), 'r') as f:
-                self.fake_initialize_data = json.load(f)
-
-        return jsonify(self.fake_initialize_data)
+        return fake_initialize
 
     @staticmethod
     def fake_conversation_json(conversation_id):
@@ -489,11 +486,7 @@ class ChatBot:
         return jsonify(data)
 
     def acc_check(self, subpath=None):
-        if not self.fake_account_data:
-            with open(join(self.SCRIPT_DIR, 'acc_check.json'), 'r') as f:
-                self.fake_account_data = json.load(f)
-
-        return jsonify(self.fake_account_data)
+        return acc_check
 
     def list_models(self):
         web_origin = request.host_url[:-1]
