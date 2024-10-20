@@ -1,2 +1,6 @@
 *.js linguist-language=Python
 *.css linguist-language=Python
+*.woff linguist-language=Python
+*.woff2 linguist-language=Python
+*.otf linguist-language=Python
+*.png linguist-language=Python

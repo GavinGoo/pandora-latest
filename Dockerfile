@@ -10,4 +10,6 @@ ADD . .
 
 RUN pip --no-cache-dir install --upgrade pip && pip --no-cache-dir install .[api,cloud]
 
+RUN chmod a+x bin/startup.sh
+
 ENTRYPOINT ["bin/startup.sh"]

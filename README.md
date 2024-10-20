@@ -32,7 +32,8 @@
 ## 相关特性
 
 - 两套UI任君选择，随意搭配
-- 设置站点密码
+- 支持设置站点密码
+- 支持隔离用户对话(隔离码长度不少于四位)
 - 支持老Pandora式的无密码直接访问(见后文配置说明)
 - API对话自动保存
 - 重定向3.5/4模型
@@ -40,18 +41,20 @@
 - 模型`Auth`轮询
 - 单独指定模型的网络代理
 - 设定内置Prompt
-- 隐藏式(假删除)对话(默认,可更改)
-- 仅OAI(仅支持3.5模型)/API或二者共存运行
+- 隐藏(假删除)对话(默认,可更改)
+- 仅 ~~OAI(仅支持3.5/4o模型)~~ /API模式或二者共存运行
 - 文生图模型可调用其他文本模型以生成/优化你的绘图Prompt
 - 对于某些以二进制文件(Blob对象)作为响应的文生图模型(比如Cloudflare AI)，自动保存并转为url输出(若使用了CDN服务，请注意**流量消耗**)
 - 文件上传(支持以Base64编码/Url携带(需公网)、支持类型/大小限制)
-- (3月24日)可以本地网络环境使用`Access Token`进行3.5对话，详见后文`更新日志0324`部分
+- ~~(3月24日)可以本地网络环境使用`Access Token`进行3.5对话，详见后文`更新日志0324`部分~~ (能力有限 不再支持 抱歉)
 
 
 
 **API模型支持：**
 
+- 支持3.5免登的[aurora项目](https://github.com/aurora-develop/aurora)
 - COP2GPT
+- DALL·E
 - ChatGLM 4V
 - ChatGLM 4
 - [kimi-free-api项目](https://github.com/LLM-Red-Team/kimi-free-api)
@@ -71,6 +74,8 @@
 ## 配置说明
 
 ### 程序参数：
+
+> 20241020：因能力有限，不再支持OAI相关代理，也请无视相关变量/参数，在此表示抱歉
 
 ```
 --email: 您的 OpenAI 邮箱。
@@ -103,11 +108,16 @@
 --type_blacklist: 限制上传文件的后缀名(黑名单)，以英文逗号","分隔。
 --file_access: 是否允许外网直接访问文件(如果对话希望以url携带文件，则需要True启用)。默认：False。
 --device_id: 官方OAI3.5对话时请求头参数"Oai-Device-Id", 若不配置则从用户浏览器的请求头中获取。多人共享【建议配置】。
+--debug: 打印发送消息的请求体(前500字符)与收到的第一条响应。
+-i/--isolate: 隔离对话模式(隔离码长度不少于四位)。
+--isolate_master: 管理员隔离码。此隔离码允许管理者查看所有隔离对话。
 ```
 
 
 
 ### 环境变量：
+
+> 20241020：因能力有限，不再支持OAI相关代理，也请无视相关变量/参数，在此表示抱歉
 
 1. `OPENAI_EMAIL`, `OPENAI_PASSWORD`,`OPENAI_MFA_CODE`: OAI账密相关(**不建议**直接设置密码，可仅配置Email然后在终端输入密码)。
 2. `OPENAI_API_PREFIX`: OpenAI 前端的代理地址。
@@ -140,6 +150,9 @@
 29. `PANDORA_THREADS`: server模式的线程数，默认为`8`。
 30. `PANDORA_CLOUD`: Pandora Cloud模式(原参数，不知还可用否?)。
 31. `PANDORA_SERVERLESS`: vercel部署请启用，将`api.json`指向项目根目录的`data`文件夹(请不要将密钥直接填写到文件)
+32. `PANDORA_DEBUG`: 可设置`True`以打印发送消息的请求体(前500字符)与收到的第一条响应
+33. `PANDORA_ISOLATION`: 可设置`True`以启用隔离对话模式(隔离码长度不少于四位)。
+34. `PANDORA_ISOLATION_MASTERCODE`: 管理员隔离码。此隔离码允许管理者查看所有隔离对话。
 
 > 使用Docker仅配置环境变量即可，无视上述`程序参数`。
 >
@@ -247,13 +260,15 @@
 
 > 参数说明：
 >
-> `slug`: 请求时的模型名(请与键值保持一致)
+> `键值`: 可为同模型不同来源而作区分
+>
+> `slug`: 请求时的模型名 ~~(请与键值保持一致)~~
 >
 > `url`: 模型请求的url
 >
-> `auth`: 模型请求的验证头(智谱家的与某模型会自动处理(`slug`需包含关键词比如`glm`)，直接填入你的Key即可)无则不写`auth`这个键，比如Gemini。轮询请参照`gpt-4`模型填写
+> `auth`: 模型请求的验证头(智谱家的与某模型会自动处理(`slug`需包含关键词比如`glm`)，直接填入你的Key即可)无则不写`auth`这个键，比如Gemini。**轮询**请参照`gpt-4`模型填写
 >
-> `proxy`: 指定该模型使用的网络代理(优先级最高)(如果使用Docker且网络模式非host,指向本机时请使用`172.17.0.1`或内网IP)，可设置为`""`意味着该模型不走代理
+> `proxy`: 指定该模型使用的网络代理(**优先级最高**)(如果使用Docker且网络模式非host,指向本机时请使用`172.17/18.0.1`或内网IP)，可设置为`""`意味着该模型不走代理
 >
 > `prompt`: 你的内置Prompt
 >
@@ -315,10 +330,23 @@
 - Docker Hub 运行
 
   ```
-  docker pull ghcr.io/gavingooo/pandora-web:dev
+  docker pull ghcr.io/gavingoo/pandora-web:dev
   ```
 
   ```
+  # 0324使用OAI服务(先将Access Token填入access_token.dat文件)：
+  ## 如果不希望API模型走代理，可在api.json文件中为每个模型配置: "proxy":""
+  docker run -d -p 8008:8008 --restart=unless-stopped --name pandoraweb \
+  -e PANDORA_SERVER=0.0.0.0:8008 \
+  -e PANDORA_SITE_PASSWORD=<Your Site Password> \
+  -e OPENAI_API_PREFIX=https://chat.openai.com \
+  -e OPENAI_DEVICE_ID=<OAI官方前端发送对话的请求头参数"Oai-Device-Id"> \
+  -e PANDORA_PROXY=<你的网络代理地址> \
+  -e PANDORA_HISTORY_COUNT=10 \
+  -e PANDORA_BEST_HISTORY=True \
+  -v $PWD/pandora_web_data:/data \
+  ghcr.io/gavingoo/pandora-web:dev
+  
   # 仅API模式：
   docker run -d -p 8008:8008 --restart=unless-stopped --name pandoraweb \
   -e PANDORA_SERVER=0.0.0.0:8008 \
@@ -327,18 +355,7 @@
   -e PANDORA_BEST_HISTORY=True \
   -e PANDORA_LOCAL_OPTION=True \
   -v $PWD/pandora_web_data:/data \
-  ghcr.io/gavingooo/pandora-web:dev
-  
-  # 0324使用OAI服务(先将Access Token填入access_token.dat文件)：
-  ## 如果不希望API模型走代理，可在api.json文件中为每个模型配置: "proxy":""
-  docker run -d -p 8008:8008 --restart=unless-stopped --name pandoraweb \
-  -e PANDORA_SERVER=0.0.0.0:8008 \
-  -e PANDORA_SITE_PASSWORD=<Your Site Password> \
-  -e OPENAI_API_PREFIX=https://chat.openai.com \
-  -e PANDORA_HISTORY_COUNT=10 \
-  -e PANDORA_BEST_HISTORY=True \
-  -v $PWD/pandora_web_data:/data \
-  ghcr.io/gavingooo/pandora-web:dev
+  ghcr.io/gavingoo/pandora-web:dev
   	
   # 启用OAI服务：
   docker run -d -p 8008:8008 --restart=unless-stopped --name pandoraweb \
@@ -351,7 +368,7 @@
   -e PANDORA_HISTORY_COUNT=10 \
   -e PANDORA_BEST_HISTORY=True \
   -v $PWD/pandora_web_data:/data \
-  ghcr.io/gavingooo/pandora-web:dev
+  ghcr.io/gavingoo/pandora-web:dev
   ```
 
   
@@ -366,12 +383,39 @@
 
   
 
+- Nginx 反向代理配置
+  
+  ```
+    location / {
+            proxy_http_version 	1.1;
+            proxy_pass 		http://IP:Port;
+            proxy_set_header	Connection		"";
+            proxy_set_header   	Host			$http_host;
+            proxy_set_header 	X-Forwarded-Proto 	$scheme;
+            proxy_set_header   	X-Real-IP          	$remote_addr;
+            proxy_set_header   	X-Forwarded-For    	$proxy_add_x_forwarded_for;
+  
+            proxy_buffering off;
+            proxy_cache off;
+            chunked_transfer_encoding on;
+            tcp_nopush on;
+            tcp_nodelay on;
+        		
+            send_timeout 600;
+            proxy_connect_timeout 600;
+            proxy_send_timeout 600;
+            proxy_read_timeout 600;
+            proxy_headers_hash_max_size 51200;
+            proxy_headers_hash_bucket_size 6400;
+    }
+  ```
+
 
 
 ## 其他说明
 
 * 本二改项目是站在原作者[Zhile](https://github.com/wozulong)与其他巨人的肩膀之上，感谢！！
-* 感谢[EmccK](https://github.com/EmccK)佬友对本项目的帮助
+* 感谢[EmccK](https://github.com/EmccK)、Lin Goo佬友对本项目的帮助
 
 * 本人的代码水平太过糟糕，在此表示抱歉
 
@@ -379,18 +423,73 @@
 
 
 
-
-
 ## 更新日志
+
+### 0601 (请务必更新！！)：
+
+- **fix 重大安全漏洞：未登录的情况下依然可以访问API，导致对话接口被转API**
+
+### 0516：
+
+- 支持OAI `GPT-4o`模型
+  - 非仅API模式 或 未指定前端GPT-4的实际请求模型时，请在模型列表中选择第一项：`GPT-4`。
+  - 无论账号是否支持`GPT-4o`模型/被风控暂不可见，都会强行请求。但实际具体是否为GPT-4o回答**视乎于OAI官方**。如果账号本身不支持`GPT-4o`模型(**从来没出现过动态模式**)，则回答必然是3.5。如果次数消耗完后，回答也必然是3.5。
+  - 经测试，若账号**被风控**暂不可见(在官网表现为**只有3.5可选，动态模式消失，模型接口也只有3.5**)，回答依然可以是`GPT-4o`。
+  - 当同时启用OAI与API模式时，若**API模型**刚好存在**完全同名**的`gpt-4o`模型，前端模型列表与对话保存将显示为`gpt-4o-api`，请求对话时会自动替换回`gpt-4o`，无需担心。
+- 补全隔离模式下 OAI对话的删除与标题重命名功能
+  - 之前忘记了，非常抱歉🙏🏼
+- 隔离模式下使用设定的管理员隔离码进入，可查看隐藏对话(标题前带🔒标志)
+- 由于个人能力问题，暂时无法实现文件上传，非常抱歉🙏🏼
+
+### 0507：
+
+- 修复OAI 3.5对话
+- 修复可能导致隔离对话失败的问题
+- 修复仅OAI模式无法启动的问题
+
+### 0505：
+
+- 支持隔离用户对话(Isolation Code)(隔离码长度不少于四位)
+  - 使用`-i/--isolate`参数或设置环境变量`PANDORA_ISOLATION=True`以启用
+- Chat页面替换了更实用的Prompt(逻辑强化、文章复述与分析、翻译、论文润色)
+  - 逻辑强化：Take a deep breath and think step by step...  [来源](https://linux.do/t/topic/68360?u=manager)
+  - 文章复述与分析：利用5W2H分析法对文章进行深入的解读和总结。[来源](https://linux.do/t/topic/68360?u=manager)
+  - 翻译：英译中, 直译再意译。
+  - 论文润色：论文润色写作, 并要求重复率低于10%。[来源](https://linux.do/t/topic/29874/2?u=manager)
+- 模型选择列表的子菜单"Alpha Models"替换为"Other Models"
+
+### 0412：
+
+- 修复使用[aurora项目](https://github.com/aurora-develop/aurora)时对话异常
+- 修复不显示重新生成的对话
+- 修复触发`BEST_HISTORY`时出错
+
+### 0404：
+
+- 修复老潘多拉UI的对话问题
+- 更好的错误日志输出
+- 由于官方3.5又从ws改回sse，因此不再请求`register-websocket`接口
+
+### 0401：
+
+- 新增支持官方API、DALL·E
+- 修复当请求出错后重新请求，错误地触发了新建对话(表现为出现重复标题的对话但无法打开)的问题
+
+### 0328：
+
+- 修复当启用OAI服务时若请求`register-websocket`报错429，由于直接返回了响应(OAI的报错页)导致泄露(代理)IP的**严重安全问题**，请**公网搭建**的佬友务必更新，同时在此致歉 !
+- 修复多轮对话可能出现报错`sqlite3.OperationalError: no such table: conversations_file`并导致异常的BUG
 
 ### 0324：
 
 - 修复对话列表无法加载58条之后的记录
 - 修复OAI3.5对话
   - 需要使用本地网络环境(可设置代理)，将参数`proxy_api`/环境变量`OPENAI_API_PREFIX`配置为`https://chat.openai.com`，把`Access Token`填入/更新到用户配置目录(即`api.json`所在目录)下的`access_token.dat`文件。
+  - **强烈建议**传入请求头参数"Oai-Device-Id"
   - 请务必注意**环境风控**，**仅**建议使用**无价值账号**
 - 支持文件上传(以Base64编码/Url携带(需公网)、支持类型/大小限制)
 - 支持[kimi-free-api](https://github.com/LLM-Red-Team/kimi-free-api)、[glm-free-api](https://github.com/LLM-Red-Team/glm-free-api)、[emohaa-free-api](https://github.com/LLM-Red-Team/emohaa-free-api)项目
 - 前端直接显示接口报错内容
 - 将GPT4叽里呱啦的模型说明改为"Be more powerful"，简洁有力
-- 尝试支持Vercel部署
+- 去掉"Upgrade plan"按钮
+- 尝试支持Vercel部署(还未测试)

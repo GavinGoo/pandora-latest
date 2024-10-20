@@ -11,6 +11,7 @@ werkzeug~=2.2.3
 flask[async]~=2.2.3
 flask-cors~=3.0.10
 flask_session
+cachelib
 waitress~=2.1.2
 loguru~=0.6.0
 pyjwt[crypto]~=2.6.0

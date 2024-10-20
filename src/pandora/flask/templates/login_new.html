@@ -370,7 +370,6 @@
         setTimeout(function() {
             var colormode = document.documentElement.style.colorScheme;
             var passwordElement = document.getElementsByClassName('password');
-            console.log(colormode);
             var lableColor = colormode == 'light' ? '#fff' : '#000';
             var pwColor = colormode == 'light' ? '#000' : '#fff';
             var h2Elements = document.getElementsByTagName('h2');
@@ -385,10 +384,10 @@
                             <input class="input c9c8aa8c8 c148df2a1" name="password" id="password" style="color: `+pwColor+` !important" type="password" required autoComplete="current-password" autoCapitalize="none" spellCheck="false">
                             <div class="c9ce156f2 js-required c9febcb74 ce9e5dc62" style="background-color: `+lableColor+` !important" data-dynamic-label-for="password" aria-hidden="true">Password</div>
                             <button type="button" class="c14249a2a ulp-button-icon c9c27edbd _button-icon" data-action="toggle">
-                                <span aria-hidden="true" class="password-icon-tooltip show-password-tooltip">Show password</span>
-                                <span aria-hidden="true" class="password-icon-tooltip hide-password-tooltip hide">Hide password</span>
-                                <span class="screen-reader-only password-toggle-label" data-label="show-password">Show password</span>
-                                <span class="screen-reader-only password-toggle-label hide" data-label="hide-password">Hide password</span>
+                                <span aria-hidden="true" class="password-icon-tooltip show-password-tooltip">Show Password</span>
+                                <span aria-hidden="true" class="password-icon-tooltip hide-password-tooltip hide">Hide Password</span>
+                                <span class="screen-reader-only password-toggle-label" data-label="show-password">Show Password</span>
+                                <span class="screen-reader-only password-toggle-label hide" data-label="hide-password">Hide Password</span>
                                 <span class="c4a2393be password js-required" aria-hidden="true"></span>
                             </button>
                         </div>
@@ -421,11 +420,13 @@
                     }
                 });
 
-                document.querySelector('.font-medium').addEventListener('click', function(event) {
-                    // console.log("clicked");
-                    // event.preventDefault();
+                function login() {
                     var passwordElement = document.getElementById("password");
                     var password = passwordElement.value;
+                    if (password === '' || password === null) {
+                        // Swal.fire('Error', 'Password is required', 'error');
+                        return;
+                    };
                     fetch('/login', {
                         method: 'POST',
                         headers: {
@@ -437,11 +438,19 @@
                         if (200 === response.status) {
                             window.location.href = window.location.origin
                         } else {
-                            // alert("Invalid Password")
-                            Swal.fire('Error', "Password Error !", 'error')
+                            response.json().then(data => {
+                                Swal.fire('Error', data['error'], 'error');
+                            });
+                            
                         }
-                    }).catch(error=>console.error(error))
+                    }).catch(error=>console.error(error));
+                };
+
+                document.querySelector('form').addEventListener('submit', function(event) {
+                    event.preventDefault();
+                    login();
                 });
+
             }
         }, 50);
     };

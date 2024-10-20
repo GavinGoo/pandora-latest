@@ -1,12 +1,14 @@
 {
     "name": "pandora-web",
+    "version": 2,
     "env": {
         "BRANCH": "dev"
     },
     "builds": [
       {
         "src": "src/pandora/launcher.py",
-        "use": "@vercel/python:3.10.0"
+        "use": "@vercel/python",
+        "config": { "runtime": "python3.9" }
       }
     ],
     "routes": [

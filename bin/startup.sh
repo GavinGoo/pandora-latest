@@ -53,7 +53,7 @@ if [ -n "${PANDORA_GPT4_MODEL}" ]; then
 fi
 
 if [ -n "${PANDORA_GPT35_MODEL}" ]; then
-  PANDORA_ARGS="${PANDORA_ARGS} --gpt35 ${PANDORA_GPT4_MODEL}"
+  PANDORA_ARGS="${PANDORA_ARGS} --gpt35 ${PANDORA_GPT35_MODEL}"
 fi
 
 # History settings
@@ -61,16 +61,16 @@ if [ -n "${PANDORA_HISTORY_COUNT}" ]; then
   PANDORA_ARGS="${PANDORA_ARGS} --history_count ${PANDORA_HISTORY_COUNT}"
 fi
 
-if [ -n "${PANDORA_BEST_HISTORY}" ]; then
+if [ "${PANDORA_BEST_HISTORY}" = "True" ]; then
   PANDORA_ARGS="${PANDORA_ARGS} --best_history"
 fi
 
 # Other options
-if [ -n "${PANDORA_TRUE_DELETE}" ]; then
+if [ "${PANDORA_TRUE_DELETE}" = "True" ]; then
   PANDORA_ARGS="${PANDORA_ARGS} --true_del"
 fi
 
-if [ -n "${PANDORA_LOCAL_OPTION}" ]; then
+if [ "${PANDORA_LOCAL_OPTION}" = "True" ]; then
   PANDORA_ARGS="${PANDORA_ARGS} -l"
 fi
 
@@ -78,15 +78,15 @@ if [ -n "${PANDORA_TIMEOUT}" ]; then
   PANDORA_ARGS="${PANDORA_ARGS} --timeout ${PANDORA_TIMEOUT}"
 fi
 
-if [ -n "${PANDORA_OAI_ONLY}" ]; then
+if [ "${PANDORA_OAI_ONLY}" = "True" ]; then
   PANDORA_ARGS="${PANDORA_ARGS} --oai_only"
 fi
 
-if [ -n "${PANDORA_OLD_LOGIN}" ]; then
+if [ "${PANDORA_OLD_LOGIN}" = "True" ]; then
   PANDORA_ARGS="${PANDORA_ARGS} --old_login"
 fi
 
-if [ -n "${PANDORA_OLD_CHAT}" ]; then
+if [ "${PANDORA_OLD_CHAT}" = "True" ]; then
   PANDORA_ARGS="${PANDORA_ARGS} --old_chat"
 fi
 
@@ -115,7 +115,7 @@ if [ -n "${PANDORA_API}" ]; then
 fi
 
 if [ -n "${PANDORA_LOGIN_LOCAL}" ]; then
-  PANDORA_ARGS="${PANDORA_ARGS} -login_local"
+  PANDORA_ARGS="${PANDORA_ARGS} --login_local"
 fi
 
 if [ -n "${PANDORA_VERBOSE}" ]; then
@@ -125,6 +125,19 @@ fi
 if [ -n "${PANDORA_THREADS}" ]; then
   PANDORA_ARGS="${PANDORA_ARGS} --threads ${PANDORA_THREADS}"
 fi
+
+if [ "${PANDORA_DEBUG}" = "True" ]; then
+  PANDORA_ARGS="${PANDORA_ARGS} --debug"
+fi
+
+if [ "${PANDORA_ISOLATION}" = "True" ]; then
+  PANDORA_ARGS="${PANDORA_ARGS} -i"
+fi
+
+if [ -n "${PANDORA_ISOLATION_MASTERCODE}" ]; then
+  PANDORA_ARGS="${PANDORA_ARGS} --isolate_master ${PANDORA_ISOLATION_MASTERCODE}"
+fi
+
 
 if [ -n "${PANDORA_CLOUD}" ]; then
   PANDORA_COMMAND="pandora-cloud"

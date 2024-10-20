@@ -1,0 +1,142 @@
+{
+    "accounts": {
+        "00000000-0000-0000-0000-000000000001": {
+            "account": {
+                "account_user_role": "account-owner",
+                "account_user_id": "user-000000000000000000000000__00000000-0000-0000-0000-000000000001",
+                "processor": {
+                    "a001": {
+                        "has_customer_object": true
+                    },
+                    "b001": {
+                        "has_transaction_history": false
+                    },
+                    "c001": {
+                        "has_transaction_history": false
+                    }
+                },
+                "account_id": "00000000-0000-0000-0000-000000000001",
+                "organization_id": null,
+                "is_most_recent_expired_subscription_gratis": false,
+                "has_previously_paid_subscription": true,
+                "name": null,
+                "profile_picture_id": null,
+                "profile_picture_url": null,
+                "structure": "personal",
+                "plan_type": "free",
+                "is_deactivated": false,
+                "promo_data": {}
+            },
+            "features": [
+                "debug",
+                "sunshine_available",
+                "system_message2",
+                "d3_controls",
+                "d3_editor",
+                "d3_editor_gpts",
+                "user_latency_tools",
+                "arkose_noauth",
+                "beta_features",
+                "bizmo_settings",
+                "breeze_available",
+                "browsing_available",
+                "chat_preferences_available",
+                "chatgpt_ios_attest",
+                "code_interpreter_available",
+                "conversation_bot_arkose",
+                "invite_referral",
+                "memory_history_enabled",
+                "model_switcher",
+                "new_plugin_oauth_endpoint",
+                "plugins_available",
+                "privacy_policy_nov_2023",
+                "shareable_links",
+                "shared_websocket",
+                "starter_prompts",
+                "targeted_replies",
+                "thumbs_down_only",
+                "user_settings_announcements"
+            ],
+            "entitlement": {
+                "subscription_id": "00000000-0000-0000-0000-000000000001",
+                "has_active_subscription": true,
+                "subscription_plan": "chatgptplusplan",
+                "expires_at": "2083-02-17T13:58:59+00:00",
+                "billing_period": null
+            },
+            "last_active_subscription": {
+                "subscription_id": "00000000-0000-0000-0000-000000000001",
+                "purchase_origin_platform": "chatgpt_web",
+                "will_renew": true
+            },
+            "is_eligible_for_yearly_plus_subscription": false
+        },
+        "default": {
+            "account": {
+                "account_user_role": "account-owner",
+                "account_user_id": "user-000000000000000000000000__00000000-0000-0000-0000-000000000001",
+                "processor": {
+                    "a001": {
+                        "has_customer_object": true
+                    },
+                    "b001": {
+                        "has_transaction_history": false
+                    },
+                    "c001": {
+                        "has_transaction_history": false
+                    }
+                },
+                "account_id": "00000000-0000-0000-0000-000000000001",
+                "organization_id": null,
+                "is_most_recent_expired_subscription_gratis": false,
+                "has_previously_paid_subscription": true,
+                "name": null,
+                "profile_picture_id": null,
+                "profile_picture_url": null,
+                "structure": "personal",
+                "plan_type": "free",
+                "is_deactivated": false,
+                "promo_data": {}
+            },
+            "features": [
+                "arkose_noauth",
+                "beta_features",
+                "bizmo_settings",
+                "breeze_available",
+                "browsing_available",
+                "chat_preferences_available",
+                "chatgpt_ios_attest",
+                "code_interpreter_available",
+                "conversation_bot_arkose",
+                "invite_referral",
+                "memory_history_enabled",
+                "model_switcher",
+                "new_plugin_oauth_endpoint",
+                "plugins_available",
+                "privacy_policy_nov_2023",
+                "shareable_links",
+                "shared_websocket",
+                "starter_prompts",
+                "targeted_replies",
+                "thumbs_down_only",
+                "user_settings_announcements"
+            ],
+            "entitlement": {
+                "subscription_id": "00000000-0000-0000-0000-000000000001",
+                "has_active_subscription": true,
+                "subscription_plan": "chatgptplusplan",
+                "expires_at": "2083-02-17T13:58:59+00:00",
+                "billing_period": null
+            },
+            "last_active_subscription": {
+                "subscription_id": "00000000-0000-0000-0000-000000000001",
+                "purchase_origin_platform": "chatgpt_web",
+                "will_renew": true
+            },
+            "is_eligible_for_yearly_plus_subscription": false
+        }
+    },
+    "account_ordering": [
+        "00000000-0000-0000-0000-000000000001"
+    ]
+}

@@ -50,7 +50,7 @@ def save_access_token(access_token):
         print()
 
 
-def confirm_access_token(token_file=None, silence=False, api=False):
+def confirm_access_token(token_file=None, silence=False, api=False, email=None, password=None, mfa=None):
     app_token_file = os.path.join(USER_CONFIG_DIR, 'access_token.dat')
 
     app_token_file_exists = os.path.isfile(app_token_file)
@@ -76,10 +76,20 @@ def confirm_access_token(token_file=None, silence=False, api=False):
             days_diff = (datetime.datetime.now() - token_file_modified_time).days
             if days_diff >= 8:
                 Console.warn('### The access token file has been used for {} days, we should update access token!\n'.format(days_diff))
-                email = getenv('OPENAI_EMAIL') or Prompt.ask('  Email')
-                password = getenv('OPENAI_PASSWORD') or Prompt.ask('  Password', password=True)
-                # mfa = getenv('OPENAI_MFA_CODE') or Prompt.ask('  MFA Code(Optional if not set)')
-                mfa = getenv('OPENAI_MFA_CODE') or None
+
+                if not email or not password:
+                    if not password and not silence:
+                        password = Prompt.ask('  Password', password=True)
+                    else:
+                        Console.warn('### Invalid email or password. Abandoned update.')
+                        return read_access_token(app_token_file), False
+
+                ## ask Error in docker: Exception occurred in file /usr/local/lib/python3.9/site-packages/rich/console.py at line 2123: EOF when reading a line
+                # email = getenv('OPENAI_EMAIL') or Prompt.ask('  Email')
+                # password = getenv('OPENAI_PASSWORD') or Prompt.ask('  Password', password=True)
+                # # mfa = getenv('OPENAI_MFA_CODE') or Prompt.ask('  MFA Code(Optional if not set)')
+                # mfa = getenv('OPENAI_MFA_CODE') or None
+                    
                 Console.warn('### Do login, please wait...')
                 access_token = Auth0(email, password, getenv('PROXY'), mfa=mfa).auth()
 
@@ -298,6 +308,11 @@ def main():
         action='store_true',
     )
     parser.add_argument(
+        '--classic',
+        help='Use the classic chat page',
+        action='store_true',
+    )
+    parser.add_argument(
         '--file_size',
         help='Limit upload file size. Unit: MB(Integer)',
         required=False,
@@ -332,6 +347,26 @@ def main():
         type=str,
         default=None,
     )
+    parser.add_argument(
+        '--debug',
+        help='Prints the request body(first 500 characters) of the message sent with the first response received.',
+        action='store_true',
+    )
+
+    parser.add_argument(
+        '-i',
+        '--isolate',
+        help='Isolated user conversation(Isolation Mode).',
+        action='store_true',
+    )
+
+    parser.add_argument(
+        '--isolate_master',
+        help='This isolation code allows manager to view all user conversations.',
+        required=False,
+        type=str,
+        default=None,
+    )
     
     args, _ = parser.parse_known_args()
     __show_verbose = args.verbose
@@ -350,8 +385,11 @@ def main():
             # if args.proxy_api == 'https://chat.openai.com' and not args.device_id:
             #     raise Exception('You are using the official OAI service but No args.device_id or env.OPENAI_DEVICE_ID !')
             os.environ['OPENAI_API_PREFIX'] = args.proxy_api
-        elif not args.local or getenv('PANDORA_LOCAL_OPTION'):
+        elif not args.local:
             raise Exception('No args.proxy_api or env.OPENAI_API_PREFIX !')
+        else:
+            if not os.path.exists(USER_CONFIG_DIR + '/api.json'):
+                raise Exception(f'You had enabled local mode, but no "api.json" file found in user config dir({USER_CONFIG_DIR})!')
         
     if not login_url:
         if args.login_url:
@@ -362,8 +400,8 @@ def main():
     if not email:
         if args.email:
             os.environ['OPENAI_EMAIL'] = args.email
-        elif not args.local or getenv('PANDORA_LOCAL_OPTION'):
-            raise Exception('No args.email or env.OPENAI_EMAIL !')
+        # elif not args.local or getenv('PANDORA_LOCAL_OPTION'):
+        #     raise Exception('No args.email or env.OPENAI_EMAIL !')
         
     if not user_config_dir:
         if args.config_dir:
@@ -412,6 +450,9 @@ def main():
     if args.old_chat:
         os.environ['PANDORA_OLD_CHAT'] = 'True'
 
+    if args.classic:
+        os.environ['PANDORA_CLASSIC'] = 'True'
+
     if args.file_size:
         os.environ['PANDORA_FILE_SIZE'] = args.file_size
 
@@ -432,6 +473,18 @@ def main():
 
     if args.device_id:
         os.environ['OPENAI_DEVICE_ID'] = args.device_id
+
+    if args.debug:
+        os.environ['PANDORA_DEBUG'] = 'True'
+
+    if args.isolate:
+        if getenv('PANDORA_SITE_PASSWORD') == 'I_KNOW_THE_RISKS_AND_STILL_NO_SITE_PASSWORD':
+            raise Exception('You have not set the site password, Unable to enable Isolation Mode!')
+        
+        os.environ['PANDORA_ISOLATION'] = 'True'
+
+    if args.isolate_master:
+        os.environ['PANDORA_ISOLATION_MASTERCODE'] = args.isolate_master
 
     
     Console.debug_b(
@@ -483,20 +536,20 @@ def main():
 
     access_tokens = parse_access_tokens(args.tokens_file, args.api) if args.tokens_file else None
 
-    if not access_tokens and not getenv('PANDORA_LOCAL_OPTION'):
-        access_token, need_save = confirm_access_token(args.token_file, args.server, args.api)
+    if not access_tokens and not args.local:
+        access_token, need_save = confirm_access_token(args.token_file, args.server, args.api, args.email, args.password, args.mfa)
         if not access_token:
             # Console.info_b('Please enter your email and password to log in ChatGPT!')
             if not args.login_local:
                 Console.warn('We login via {}'.format(getenv('OPENAI_API_PREFIX')))
 
-            email = getenv('OPENAI_EMAIL')  # or Prompt.ask('  Email')
-            password = getenv('OPENAI_PASSWORD')
-            if password is None:
-                Prompt.ask('  Password', password=True)
-                os.environ['OPENAI_PASSWORD'] = password
+            email = args.email  # or Prompt.ask('  Email')
+            password = args.password
+            # if password is None:
+            #     Prompt.ask('  Password', password=True)
+            #     os.environ['OPENAI_PASSWORD'] = password
             # mfa = getenv('OPENAI_MFA_CODE') or Prompt.ask('  MFA Code(Optional if not set)')
-            mfa = getenv('OPENAI_MFA_CODE')
+            mfa = args.mfa
             if email and password:
                 Console.warn('### Do login, please wait...')
                 access_token = Auth0(email, password, args.proxy, mfa=mfa).auth(args.login_local)
@@ -518,7 +571,7 @@ def main():
 
         chatgpt = TurboGPT(access_tokens, args.proxy)
     else:
-        chatgpt = ChatGPT(access_tokens, args.proxy)
+        chatgpt = ChatGPT(access_tokens, args.proxy, int(args.timeout), args.local, args.oai_only, args.debug, args.isolate)
 
     if args.server or getenv("PANDORA_SERVER"):
         return ChatBotServer(chatgpt, args.verbose).run(args.server or getenv("PANDORA_SERVER"), args.threads or int(getenv("PANDORA_THREADS", 8)))

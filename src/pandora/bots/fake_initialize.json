@@ -1,0 +1,5464 @@
+{
+"feature_gates": {
+"114024": {
+"name": "114024",
+"value": false,
+"rule_id": "default",
+"id_type": "userID",
+"secondary_exposures": [
+{
+"gate": "ETllK4KRAAK7YNfEvpPhLWJOyQ1Xntxho0sacJ2aEG1",
+"gateValue": "false",
+"ruleID": "default"
+},
+{
+"gate": "syqryBKUCvN1NyGudtztBTdTQASf4DXVbIBKnGY6c4s",
+"gateValue": "false",
+"ruleID": "default"
+}
+]
+},
+"15117983": {
+"name": "15117983",
+"value": true,
+"rule_id": "UPSOraXnB3YMv5wpfsFAB:100.00:1",
+"id_type": "userID",
+"secondary_exposures": []
+},
+"29898433": {
+"name": "29898433",
+"value": true,
+"rule_id": "5hlR2AjP7h2nJXOxZHKzKH:100.00:2",
+"id_type": "userID",
+"secondary_exposures": []
+},
+"44045625": {
+"name": "44045625",
+"value": false,
+"rule_id": "default",
+"id_type": "userID",
+"secondary_exposures": []
+},
+"73891701": {
+"name": "73891701",
+"value": true,
+"rule_id": "4M51I9cMzYqCiiDU2N0eXN:100.00:1",
+"id_type": "userID",
+"secondary_exposures": []
+},
+"87687712": {
+"name": "87687712",
+"value": false,
+"rule_id": "default",
+"id_type": "stableID",
+"secondary_exposures": []
+},
+"90459671": {
+"name": "90459671",
+"value": true,
+"rule_id": "mszZZg1lZKRZzUHYSrBjZ",
+"id_type": "userID",
+"secondary_exposures": []
+},
+"148483992": {
+"name": "148483992",
+"value": false,
+"rule_id": "default",
+"id_type": "userID",
+"secondary_exposures": []
+},
+"174366048": {
+"name": "174366048",
+"value": true,
+"rule_id": "bhPM7FsN2H1vnBUrxrg6v:100.00:3",
+"id_type": "userID",
+"secondary_exposures": [
+{
+"gate": "3riXnVvIf2GVv1ahCaczDVYSNwBwDVq5Ygb6RiUiXIZNuF5LY1p726hFwTlnajmF4",
+"gateValue": "true",
+"ruleID": "6VUF6Z1JaUKZF7RS6uSjUu:100.00:6"
+}
+]
+},
+"181161203": {
+"name": "181161203",
+"value": true,
+"rule_id": "6NmIF8U6DauDDclcytkCkc",
+"id_type": "userID",
+"secondary_exposures": []
+},
+"211801712": {
+"name": "211801712",
+"value": false,
+"rule_id": "default",
+"id_type": "stableID",
+"secondary_exposures": []
+},
+"286716193": {
+"name": "286716193",
+"value": false,
+"rule_id": "default",
+"id_type": "userID",
+"secondary_exposures": []
+},
+"339336159": {
+"name": "339336159",
+"value": false,
+"rule_id": "default",
+"id_type": "stableID",
+"secondary_exposures": []
+},
+"364642024": {
+"name": "364642024",
+"value": false,
+"rule_id": "default",
+"id_type": "userID",
+"secondary_exposures": []
+},
+"371972093": {
+"name": "371972093",
+"value": false,
+"rule_id": "default",
+"id_type": "userID",
+"secondary_exposures": []
+},
+"374328013": {
+"name": "374328013",
+"value": false,
+"rule_id": "default",
+"id_type": "userID",
+"secondary_exposures": [
+{
+"gate": "32oERDChgC0TNbTHexysy1lPoFrhE0PqVoWftp5krGyJ2mEQTnyAJtFpcO8fECIaC",
+"gateValue": "false",
+"ruleID": "4nM2ehmgoDQIv69B0zohb6"
+}
+]
+},
+"379581452": {
+"name": "379581452",
+"value": false,
+"rule_id": "default",
+"id_type": "userID",
+"secondary_exposures": [
+{
+"gate": "2b3Hix3BsDWp38YGTWorvAf5nTu9xfFNE0xJhtS4YA2",
+"gateValue": "false",
+"ruleID": "default"
+},
+{
+"gate": "2b3Hix3BsDWp38YGTWorvCZiRzXLAduZ1Jmu8DMNVaB",
+"gateValue": "false",
+"ruleID": "default"
+}
+]
+},
+"389809369": {
+"name": "389809369",
+"value": false,
+"rule_id": "5WK3s5Ax4bJcCZUXG1aCaM:0.00:2",
+"id_type": "stableID",
+"secondary_exposures": []
+},
+"420112848": {
+"name": "420112848",
+"value": true,
+"rule_id": "3MTrcnDLNHNnzh75VJjV52:100.00:11",
+"id_type": "userID",
+"secondary_exposures": []
+},
+"437217916": {
+"name": "437217916",
+"value": false,
+"rule_id": "4HrdklEao1aJ3KeNf2Bbcb",
+"id_type": "userID",
+"secondary_exposures": []
+},
+"437245079": {
+"name": "437245079",
+"value": true,
+"rule_id": "1KKPtXmOjxZamlgM2DzXlg",
+"id_type": "userID",
+"secondary_exposures": []
+},
+"458009956": {
+"name": "458009956",
+"value": true,
+"rule_id": "6LgEwykI8hHnFAQ5EkKTX2:100.00:1",
+"id_type": "userID",
+"secondary_exposures": []
+},
+"462735957": {
+"name": "462735957",
+"value": true,
+"rule_id": "1SCzY8HZjgbrVUviddAgUM:100.00:1",
+"id_type": "WebAnonymousCookieID",
+"secondary_exposures": []
+},
+"543687013": {
+"name": "543687013",
+"value": true,
+"rule_id": "31a8ZixwfunGZwX1gacTqM",
+"id_type": "userID",
+"secondary_exposures": []
+},
+"607723475": {
+"name": "607723475",
+"value": false,
+"rule_id": "2e0cOQmQLdyAWa5HiOqXS9",
+"id_type": "userID",
+"secondary_exposures": []
+},
+"633009675": {
+"name": "633009675",
+"value": false,
+"rule_id": "default",
+"id_type": "userID",
+"secondary_exposures": []
+},
+"653060319": {
+"name": "653060319",
+"value": true,
+"rule_id": "2Yx2JMqTbzDZPRrctOowjZ",
+"id_type": "userID",
+"secondary_exposures": []
+},
+"716475478": {
+"name": "716475478",
+"value": true,
+"rule_id": "48mToGJmOtQ5aRx9MCjOor",
+"id_type": "userID",
+"secondary_exposures": []
+},
+"716722001": {
+"name": "716722001",
+"value": false,
+"rule_id": "default",
+"id_type": "userID",
+"secondary_exposures": [
+{
+"gate": "rnnRuXkrZqfaPUXWOKBgqwHsIrmFzDxX5ZjpQFxzg4h",
+"gateValue": "false",
+"ruleID": "default"
+}
+]
+},
+"736089948": {
+"name": "736089948",
+"value": false,
+"rule_id": "default",
+"id_type": "userID",
+"secondary_exposures": [
+{
+"gate": "voV5K03Yx0akQRXQ1rwU2zGon2riwzmMntV9v0eejOH",
+"gateValue": "false",
+"ruleID": "default"
+}
+]
+},
+"740954505": {
+"name": "740954505",
+"value": true,
+"rule_id": "2Ey97LJY7QymPfJfxULJwr:85.00:5",
+"id_type": "userID",
+"secondary_exposures": [
+{
+"gate": "32oERDChgC0TNbTHexysy1lPoFrhE0PqVoWftp5krGyJ2mEQTnyAJtFpcO8fECIaC",
+"gateValue": "false",
+"ruleID": "4nM2ehmgoDQIv69B0zohb6"
+}
+]
+},
+"804300613": {
+"name": "804300613",
+"value": false,
+"rule_id": "default",
+"id_type": "userID",
+"secondary_exposures": []
+},
+"808722915": {
+"name": "808722915",
+"value": true,
+"rule_id": "1HBUhnAPygdiZeQJYpLeI5:100.00:2",
+"id_type": "userID",
+"secondary_exposures": []
+},
+"859327441": {
+"name": "859327441",
+"value": false,
+"rule_id": "2kLMbBkcSZ8TkzHgzgbyKV",
+"id_type": "stableID",
+"secondary_exposures": []
+},
+"879234332": {
+"name": "879234332",
+"value": true,
+"rule_id": "7LRelDqPuLa2VpkH3N1EWA:100.00:2",
+"id_type": "userID",
+"secondary_exposures": []
+},
+"1026575464": {
+"name": "1026575464",
+"value": true,
+"rule_id": "1f4cSeenpcmWQ9eMKKQhF5",
+"id_type": "stableID",
+"secondary_exposures": []
+},
+"1028682714": {
+"name": "1028682714",
+"value": false,
+"rule_id": "default",
+"id_type": "stableID",
+"secondary_exposures": []
+},
+"1053833376": {
+"name": "1053833376",
+"value": false,
+"rule_id": "default",
+"id_type": "userID",
+"secondary_exposures": []
+},
+"1070272635": {
+"name": "1070272635",
+"value": false,
+"rule_id": "default",
+"id_type": "userID",
+"secondary_exposures": []
+},
+"1103845153": {
+"name": "1103845153",
+"value": false,
+"rule_id": "default",
+"id_type": "WebAnonymousCookieID",
+"secondary_exposures": []
+},
+"1198030896": {
+"name": "1198030896",
+"value": true,
+"rule_id": "2aaGr86KHS6GUSs6I9F2cV",
+"id_type": "stableID",
+"secondary_exposures": []
+},
+"1291584794": {
+"name": "1291584794",
+"value": false,
+"rule_id": "default",
+"id_type": "userID",
+"secondary_exposures": []
+},
+"1318146997": {
+"name": "1318146997",
+"value": true,
+"rule_id": "2AclmEgqaQBVFbxz37XKzy:100.00:5",
+"id_type": "userID",
+"secondary_exposures": []
+},
+"1334159177": {
+"name": "1334159177",
+"value": false,
+"rule_id": "default",
+"id_type": "userID",
+"secondary_exposures": []
+},
+"1371760254": {
+"name": "1371760254",
+"value": false,
+"rule_id": "default",
+"id_type": "userID",
+"secondary_exposures": []
+},
+"1410082514": {
+"name": "1410082514",
+"value": false,
+"rule_id": "default",
+"id_type": "userID",
+"secondary_exposures": []
+},
+"1426009137": {
+"name": "1426009137",
+"value": false,
+"rule_id": "default",
+"id_type": "userID",
+"secondary_exposures": []
+},
+"1428536080": {
+"name": "1428536080",
+"value": false,
+"rule_id": "default",
+"id_type": "userID",
+"secondary_exposures": []
+},
+"1487207580": {
+"name": "1487207580",
+"value": false,
+"rule_id": "default",
+"id_type": "userID",
+"secondary_exposures": []
+},
+"1542198993": {
+"name": "1542198993",
+"value": false,
+"rule_id": "default",
+"id_type": "userID",
+"secondary_exposures": []
+},
+"1568195116": {
+"name": "1568195116",
+"value": true,
+"rule_id": "JdKVjgdT8jKgvxjSeuyjO:100.00:4",
+"id_type": "userID",
+"secondary_exposures": []
+},
+"1611573287": {
+"name": "1611573287",
+"value": true,
+"rule_id": "159rwM3sBnviE9XWH24azn:100.00:2",
+"id_type": "userID",
+"secondary_exposures": []
+},
+"1654633603": {
+"name": "1654633603",
+"value": false,
+"rule_id": "disabled",
+"id_type": "userID",
+"secondary_exposures": []
+},
+"1654633614": {
+"name": "1654633614",
+"value": false,
+"rule_id": "disabled",
+"id_type": "userID",
+"secondary_exposures": []
+},
+"1684776951": {
+"name": "1684776951",
+"value": false,
+"rule_id": "default",
+"id_type": "userID",
+"secondary_exposures": [
+{
+"gate": "ETllK4KRAAK7YNfEvpPhLWJOyQ1Xntxho0sacJ2aEG1",
+"gateValue": "false",
+"ruleID": "default"
+}
+]
+},
+"1703773460": {
+"name": "1703773460",
+"value": false,
+"rule_id": "63qNN5LSdeNXfSPo2Mwuv2:0.00:2",
+"id_type": "userID",
+"secondary_exposures": []
+},
+"1757136378": {
+"name": "1757136378",
+"value": true,
+"rule_id": "59cfQ3YoWGYhcJw7UhMq82",
+"id_type": "stableID",
+"secondary_exposures": []
+},
+"1789593108": {
+"name": "1789593108",
+"value": false,
+"rule_id": "default",
+"id_type": "WebAnonymousCookieID",
+"secondary_exposures": []
+},
+"1812869450": {
+"name": "1812869450",
+"value": true,
+"rule_id": "2hFBeKjE6Nki7jnwazlKz4",
+"id_type": "userID",
+"secondary_exposures": []
+},
+"1824394739": {
+"name": "1824394739",
+"value": true,
+"rule_id": "2YXWoZEbroNJ4AFXqOJJpk:100.00:4",
+"id_type": "userID",
+"secondary_exposures": []
+},
+"1825130190": {
+"name": "1825130190",
+"value": true,
+"rule_id": "Nef2uMceNUF9U3ZYwSbpD",
+"id_type": "userID",
+"secondary_exposures": []
+},
+"1828361965": {
+"name": "1828361965",
+"value": false,
+"rule_id": "default",
+"id_type": "stableID",
+"secondary_exposures": []
+},
+"1855896025": {
+"name": "1855896025",
+"value": false,
+"rule_id": "default",
+"id_type": "userID",
+"secondary_exposures": []
+},
+"1883608273": {
+"name": "1883608273",
+"value": false,
+"rule_id": "default",
+"id_type": "stableID",
+"secondary_exposures": []
+},
+"1890080727": {
+"name": "1890080727",
+"value": false,
+"rule_id": "default",
+"id_type": "userID",
+"secondary_exposures": []
+},
+"1923022511": {
+"name": "1923022511",
+"value": true,
+"rule_id": "6VUF6Z1JaUKZF7RS6uSjUu:100.00:6",
+"id_type": "userID",
+"secondary_exposures": []
+},
+"1938289220": {
+"name": "1938289220",
+"value": true,
+"rule_id": "1vWEhLfJ39edDu8ZjE19dl:50.00:4",
+"id_type": "userID",
+"secondary_exposures": []
+},
+"2000832907": {
+"name": "2000832907",
+"value": true,
+"rule_id": "FBWrLrXcQEKqKto021dAo",
+"id_type": "userID",
+"secondary_exposures": []
+},
+"2033872549": {
+"name": "2033872549",
+"value": true,
+"rule_id": "7dScmUya0EES68LlbZdHj8:100.00:2",
+"id_type": "userID",
+"secondary_exposures": [
+{
+"gate": "6DomPtqa9cQmXMjn8BO5jUmGEFndktD82UdiWnyrIG1BDBH7XefdF1bwkyXmAtXFx",
+"gateValue": "true",
+"ruleID": "2xaqplu5BrRVQ8HbsZSreX"
+}
+]
+},
+"2091463435": {
+"name": "2091463435",
+"value": true,
+"rule_id": "5t78GUS68KOn3bHZd8z7ii:100.00:1",
+"id_type": "account_id",
+"secondary_exposures": []
+},
+"2183784321": {
+"name": "2183784321",
+"value": true,
+"rule_id": "7stvavArTuHK8XvexxjCiu",
+"id_type": "userID",
+"secondary_exposures": []
+},
+"2189017016": {
+"name": "2189017016",
+"value": false,
+"rule_id": "default",
+"id_type": "userID",
+"secondary_exposures": []
+},
+"2189772492": {
+"name": "2189772492",
+"value": true,
+"rule_id": "4rn53I8UXMcgA0u2B9Itsn:100.00:1",
+"id_type": "userID",
+"secondary_exposures": []
+},
+"2216175490": {
+"name": "2216175490",
+"value": false,
+"rule_id": "default",
+"id_type": "WebAnonymousCookieID",
+"secondary_exposures": []
+},
+"2256850471": {
+"name": "2256850471",
+"value": true,
+"rule_id": "IqxordbUxF1Fkg4gfExiY:100.00:1",
+"id_type": "userID",
+"secondary_exposures": [
+{
+"gate": "VAsOxzHSVTiOwokmJTwFbkxFByKBVPs3cu8fnpOif8S",
+"gateValue": "true",
+"ruleID": "Nef2uMceNUF9U3ZYwSbpD"
+}
+]
+},
+"2342431234": {
+"name": "2342431234",
+"value": true,
+"rule_id": "25J2dgOe9RnIpFTbEqysh3:100.00:2",
+"id_type": "userID",
+"secondary_exposures": []
+},
+"2437036977": {
+"name": "2437036977",
+"value": true,
+"rule_id": "38o5zFhERan1neyhganhS3:100.00:6",
+"id_type": "userID",
+"secondary_exposures": []
+},
+"2449630478": {
+"name": "2449630478",
+"value": false,
+"rule_id": "default",
+"id_type": "userID",
+"secondary_exposures": []
+},
+"2451420520": {
+"name": "2451420520",
+"value": false,
+"rule_id": "default",
+"id_type": "userID",
+"secondary_exposures": []
+},
+"2492340648": {
+"name": "2492340648",
+"value": false,
+"rule_id": "7vWEOrlZ07LCdewUnumW3C:0.00:9",
+"id_type": "stableID",
+"secondary_exposures": []
+},
+"2494375100": {
+"name": "2494375100",
+"value": false,
+"rule_id": "default",
+"id_type": "workspace_id",
+"secondary_exposures": []
+},
+"2546838099": {
+"name": "2546838099",
+"value": false,
+"rule_id": "default",
+"id_type": "userID",
+"secondary_exposures": [
+{
+"gate": "ETllK4KRAAK7YNfEvpPhLWJOyQ1Xntxho0sacJ2aEG1",
+"gateValue": "false",
+"ruleID": "default"
+}
+]
+},
+"2562876640": {
+"name": "2562876640",
+"value": true,
+"rule_id": "326czTZeZ0RX0ypR0c5Bb6:100.00:15",
+"id_type": "userID",
+"secondary_exposures": []
+},
+"2646819027": {
+"name": "2646819027",
+"value": true,
+"rule_id": "5NTCO6tijyU54KCCJfwTfv",
+"id_type": "userID",
+"secondary_exposures": [
+{
+"gate": "uTgyTVn8CI6y3NR1ffBO5H38BRkO6s9gl6ZTIMzAMO7",
+"gateValue": "true",
+"ruleID": "4rn53I8UXMcgA0u2B9Itsn:100.00:1"
+}
+]
+},
+"2736122315": {
+"name": "2736122315",
+"value": false,
+"rule_id": "default",
+"id_type": "userID",
+"secondary_exposures": []
+},
+"2742826311": {
+"name": "2742826311",
+"value": false,
+"rule_id": "default",
+"id_type": "userID",
+"secondary_exposures": []
+},
+"2756095923": {
+"name": "2756095923",
+"value": false,
+"rule_id": "6jPp6nW1wQVJbfY0uwQgmv",
+"id_type": "userID",
+"secondary_exposures": []
+},
+"2800357010": {
+"name": "2800357010",
+"value": false,
+"rule_id": "default",
+"id_type": "userID",
+"secondary_exposures": []
+},
+"2830958549": {
+"name": "2830958549",
+"value": true,
+"rule_id": "2ZLwnaevLZPVXhSiCv1Y4v:100.00:4",
+"id_type": "userID",
+"secondary_exposures": []
+},
+"2881332567": {
+"name": "2881332567",
+"value": false,
+"rule_id": "default",
+"id_type": "userID",
+"secondary_exposures": []
+},
+"2893406386": {
+"name": "2893406386",
+"value": false,
+"rule_id": "IcL6t94PvR9K4xO7ONevN:3.00:2",
+"id_type": "userID",
+"secondary_exposures": []
+},
+"2893926039": {
+"name": "2893926039",
+"value": true,
+"rule_id": "1XOa3iabw20dgZn5lg5HTh",
+"id_type": "stableID",
+"secondary_exposures": []
+},
+"2940166566": {
+"name": "2940166566",
+"value": false,
+"rule_id": "default",
+"id_type": "userID",
+"secondary_exposures": []
+},
+"2983740446": {
+"name": "2983740446",
+"value": false,
+"rule_id": "2Ed6csZdUjn2Sum1uNNxbu:0.00:1",
+"id_type": "userID",
+"secondary_exposures": []
+},
+"3047641741": {
+"name": "3047641741",
+"value": false,
+"rule_id": "default",
+"id_type": "userID",
+"secondary_exposures": []
+},
+"3054422710": {
+"name": "3054422710",
+"value": true,
+"rule_id": "5aslzHNVtBxYBY4thmn66a",
+"id_type": "userID",
+"secondary_exposures": []
+},
+"3060586957": {
+"name": "3060586957",
+"value": true,
+"rule_id": "1UTG3o9yKWQjDvhcNL1pSX",
+"id_type": "stableID",
+"secondary_exposures": []
+},
+"3105686627": {
+"name": "3105686627",
+"value": true,
+"rule_id": "55sBFWxCaIccErQtPiSUr8:100.00:27",
+"id_type": "userID",
+"secondary_exposures": []
+},
+"3134329717": {
+"name": "3134329717",
+"value": false,
+"rule_id": "2UWRV6bObClvvj8jLkP7kJ",
+"id_type": "userID",
+"secondary_exposures": []
+},
+"3199899666": {
+"name": "3199899666",
+"value": false,
+"rule_id": "default",
+"id_type": "userID",
+"secondary_exposures": [
+{
+"gate": "7guDEekuMu5Samg8tuMbApZDF8o3z10UnPbUpYcFg2BbvF6Q55fpKsBiv51yTDH6n",
+"gateValue": "false",
+"ruleID": "5KvTiw548r4tjqy7oHEcAL"
+}
+]
+},
+"3201789081": {
+"name": "3201789081",
+"value": false,
+"rule_id": "default",
+"id_type": "userID",
+"secondary_exposures": []
+},
+"3213153699": {
+"name": "3213153699",
+"value": false,
+"rule_id": "3USpFsMlk6HXHTWdfBQM4p",
+"id_type": "userID",
+"secondary_exposures": []
+},
+"3254335143": {
+"name": "3254335143",
+"value": false,
+"rule_id": "default",
+"id_type": "userID",
+"secondary_exposures": []
+},
+"3298726333": {
+"name": "3298726333",
+"value": true,
+"rule_id": "4FWyYnlp1hzWqlqV2r6Ehr:100.00:1",
+"id_type": "userID",
+"secondary_exposures": []
+},
+"3320547351": {
+"name": "3320547351",
+"value": false,
+"rule_id": "default",
+"id_type": "userID",
+"secondary_exposures": []
+},
+"3376455464": {
+"name": "3376455464",
+"value": false,
+"rule_id": "default",
+"id_type": "userID",
+"secondary_exposures": []
+},
+"3455796462": {
+"name": "3455796462",
+"value": true,
+"rule_id": "YbNn9kuhmMn3DdnzEDc6G",
+"id_type": "stableID",
+"secondary_exposures": []
+},
+"3547988149": {
+"name": "3547988149",
+"value": false,
+"rule_id": "disabled",
+"id_type": "userID",
+"secondary_exposures": []
+},
+"3643162575": {
+"name": "3643162575",
+"value": true,
+"rule_id": "56j9Tu0CGzcoiVbnTxuR7O",
+"id_type": "userID",
+"secondary_exposures": []
+},
+"3645668434": {
+"name": "3645668434",
+"value": true,
+"rule_id": "1CWwhBKuOiRAC9V8HRBJRU",
+"id_type": "userID",
+"secondary_exposures": [
+{
+"gate": "MxVymqxkp7KJekjFv4SlEANQB455OuBZZXcJH7lfEvT",
+"gateValue": "true",
+"ruleID": "disabled"
+}
+]
+},
+"3680626616": {
+"name": "3680626616",
+"value": false,
+"rule_id": "default",
+"id_type": "userID",
+"secondary_exposures": [
+{
+"gate": "JMgnwYjiCqzWK14bOtYe0nDKRdNERUnrrHPg4r8F6ta",
+"gateValue": "false",
+"ruleID": "default"
+}
+]
+},
+"3680956616": {
+"name": "3680956616",
+"value": false,
+"rule_id": "default",
+"id_type": "userID",
+"secondary_exposures": []
+},
+"3700195277": {
+"name": "3700195277",
+"value": false,
+"rule_id": "default",
+"id_type": "userID",
+"secondary_exposures": []
+},
+"3701090095": {
+"name": "3701090095",
+"value": false,
+"rule_id": "default",
+"id_type": "userID",
+"secondary_exposures": []
+},
+"3838495619": {
+"name": "3838495619",
+"value": false,
+"rule_id": "default",
+"id_type": "userID",
+"secondary_exposures": []
+},
+"3863445312": {
+"name": "3863445312",
+"value": true,
+"rule_id": "disabled",
+"id_type": "userID",
+"secondary_exposures": []
+},
+"3895767298": {
+"name": "3895767298",
+"value": false,
+"rule_id": "6SV3itrjCiM4oHJJRxvNrF:0.00:5",
+"id_type": "userID",
+"secondary_exposures": []
+},
+"3922145230": {
+"name": "3922145230",
+"value": false,
+"rule_id": "14DZA2LumaPqAdCo52CrUB",
+"id_type": "stableID",
+"secondary_exposures": []
+},
+"3922476776": {
+"name": "3922476776",
+"value": false,
+"rule_id": "PFYAe0Nut4olKWnZ4Hnig:0.00:2",
+"id_type": "userID",
+"secondary_exposures": []
+},
+"3941367332": {
+"name": "3941367332",
+"value": true,
+"rule_id": "3tesvDaP0kRy0JAXNdSJJn:100.00:3",
+"id_type": "userID",
+"secondary_exposures": [
+{
+"gate": "5NstQwnAHpD6ZCeRH5iC9JRZxuBcTNjGWxk8wRU5eMJgjtLYNP95EJRIhdJZtMt7D",
+"gateValue": "true",
+"ruleID": "48mToGJmOtQ5aRx9MCjOor"
+}
+]
+},
+"3954884439": {
+"name": "3954884439",
+"value": true,
+"rule_id": "5rqjCf7T9KpJtLnaE73Kum:100.00:4",
+"id_type": "userID",
+"secondary_exposures": []
+},
+"3970579433": {
+"name": "3970579433",
+"value": true,
+"rule_id": "EDTV1HaeHdTOgeO7L7s6s",
+"id_type": "userID",
+"secondary_exposures": []
+},
+"3978920525": {
+"name": "3978920525",
+"value": false,
+"rule_id": "default",
+"id_type": "userID",
+"secondary_exposures": []
+},
+"3999712942": {
+"name": "3999712942",
+"value": true,
+"rule_id": "3tcEyACMDCatpAcpodrJfN",
+"id_type": "userID",
+"secondary_exposures": []
+},
+"4006408854": {
+"name": "4006408854",
+"value": false,
+"rule_id": "default",
+"id_type": "userID",
+"secondary_exposures": []
+},
+"4037675415": {
+"name": "4037675415",
+"value": false,
+"rule_id": "default",
+"id_type": "userID",
+"secondary_exposures": []
+},
+"4137442097": {
+"name": "4137442097",
+"value": false,
+"rule_id": "default",
+"id_type": "userID",
+"secondary_exposures": []
+},
+"4182851027": {
+"name": "4182851027",
+"value": false,
+"rule_id": "default",
+"id_type": "userID",
+"secondary_exposures": []
+},
+"4203174056": {
+"name": "4203174056",
+"value": false,
+"rule_id": "default",
+"id_type": "userID",
+"secondary_exposures": []
+},
+"4226692983": {
+"name": "4226692983",
+"value": false,
+"rule_id": "6sEu8Yfrr1nU7ZkO6xypJw",
+"id_type": "userID",
+"secondary_exposures": []
+},
+"4242486290": {
+"name": "4242486290",
+"value": true,
+"rule_id": "3V8UhxmPzvjP9VtHWr27N6",
+"id_type": "userID",
+"secondary_exposures": []
+},
+"4245811603": {
+"name": "4245811603",
+"value": false,
+"rule_id": "default",
+"id_type": "WebAnonymousCookieID",
+"secondary_exposures": []
+},
+"4259829568": {
+"name": "4259829568",
+"value": false,
+"rule_id": "7p7W2FtzO8WLFyYUNmH2hU",
+"id_type": "userID",
+"secondary_exposures": [
+{
+"gate": "3EGjoMjlU0UKQxaioeIhgxHGu2SOvTus8OTfrkAI4Qv",
+"gateValue": "false",
+"ruleID": "3D9iegzV3En6WRh3eB6Jol"
+}
+]
+},
+"4271413241": {
+"name": "4271413241",
+"value": false,
+"rule_id": "3D9iegzV3En6WRh3eB6Jol",
+"id_type": "userID",
+"secondary_exposures": []
+},
+"4277113861": {
+"name": "4277113861",
+"value": false,
+"rule_id": "default",
+"id_type": "userID",
+"secondary_exposures": []
+},
+"4286028144": {
+"name": "4286028144",
+"value": false,
+"rule_id": "47jip5VxjlHXpvSFrjaR4E:0.00:4",
+"id_type": "userID",
+"secondary_exposures": []
+}
+},
+"dynamic_configs": {
+"75342665": {
+"name": "75342665",
+"value": {
+"is_anon_chat_enabled": true,
+"anon_composer_display_variant": "default",
+"anon-is-spanish-translation-enabled": true,
+"should_show_anon_login_header_on_desktop": false,
+"is_anon_chat_enabled_for_new_users_only": false,
+"is_try_it_first_on_login_page_enabled": false,
+"is_no_auth_welcome_modal_enabled": false,
+"no_auth_soft_rate_limit": 10,
+"no_auth_hard_rate_limit": 1200,
+"should_show_no_auth_signup_banner": true,
+"is_no_auth_welcome_back_modal_enabled": true,
+"is_no_auth_soft_rate_limit_modal_enabled": true,
+"is_no_auth_gpt4o_modal_enabled": false,
+"is_login_primary_button": true,
+"is_desktop_primary_auth_button_on_right": false,
+"is_primary_btn_blue": false
+},
+"rule_id": "abandoned",
+"group": "abandoned",
+"is_device_based": false,
+"id_type": "WebAnonymousCookieID",
+"is_experiment_active": false,
+"is_user_in_experiment": false,
+"is_in_layer": true,
+"explicit_parameters": [
+"is_anon_chat_enabled"
+],
+"secondary_exposures": [
+{
+"gate": "1MYcsxeNaY9CfBP0KcxNWK1rpf05mfizLToIzwWdTxKNJhTa7DxSnPMOGf0ImQwRD",
+"gateValue": "false",
+"ruleID": "disabled"
+},
+{
+"gate": "2YJN3jch7WmCCA8cl0Ta5AFVwW3QWI6CFvBUw2895pQCrGiqBBVAyPuUtgzOlGzDS",
+"gateValue": "false",
+"ruleID": "disabled"
+}
+]
+},
+"75342698": {
+"name": "75342698",
+"value": {
+"is_anon_chat_enabled": true,
+"anon_composer_display_variant": "default",
+"anon-is-spanish-translation-enabled": true,
+"should_show_anon_login_header_on_desktop": false,
+"is_anon_chat_enabled_for_new_users_only": false,
+"is_try_it_first_on_login_page_enabled": false,
+"is_no_auth_welcome_modal_enabled": false,
+"no_auth_soft_rate_limit": 10,
+"no_auth_hard_rate_limit": 1200,
+"should_show_no_auth_signup_banner": true,
+"is_no_auth_welcome_back_modal_enabled": true,
+"is_no_auth_soft_rate_limit_modal_enabled": true,
+"is_no_auth_gpt4o_modal_enabled": false,
+"is_login_primary_button": true,
+"is_desktop_primary_auth_button_on_right": false,
+"is_primary_btn_blue": false
+},
+"rule_id": "abandoned",
+"group": "abandoned",
+"is_device_based": false,
+"id_type": "WebAnonymousCookieID",
+"is_experiment_active": false,
+"is_user_in_experiment": false,
+"is_in_layer": true,
+"explicit_parameters": [
+"is_anon_chat_enabled"
+],
+"secondary_exposures": [
+{
+"gate": "1MYcsxeNaY9CfBP0KcxNWK1rpf05mfizLToIzwWdTxKNJhTa7DxSnPMOGf0ImQwRD",
+"gateValue": "false",
+"ruleID": "disabled"
+},
+{
+"gate": "2YJN3jch7WmCCA8cl0Ta5AFVwW3QWI6CFvBUw2895pQCrGiqBBVAyPuUtgzOlGzDS",
+"gateValue": "false",
+"ruleID": "disabled"
+}
+]
+},
+"101132775": {
+"name": "101132775",
+"value": {
+"show_new_ui": true
+},
+"rule_id": "launchedGroup",
+"group": "launchedGroup",
+"group_name": "Test",
+"is_device_based": false,
+"id_type": "userID",
+"is_experiment_active": false,
+"is_user_in_experiment": false,
+"secondary_exposures": []
+},
+"149784183": {
+"name": "149784183",
+"value": {
+"is_anon_chat_enabled": true,
+"anon_composer_display_variant": "default",
+"anon-is-spanish-translation-enabled": true,
+"should_show_anon_login_header_on_desktop": false,
+"is_anon_chat_enabled_for_new_users_only": false,
+"is_try_it_first_on_login_page_enabled": false,
+"is_no_auth_welcome_modal_enabled": false,
+"no_auth_soft_rate_limit": 10,
+"no_auth_hard_rate_limit": 1200,
+"should_show_no_auth_signup_banner": true,
+"is_no_auth_welcome_back_modal_enabled": true,
+"is_no_auth_soft_rate_limit_modal_enabled": true,
+"is_no_auth_gpt4o_modal_enabled": false,
+"is_login_primary_button": true,
+"is_desktop_primary_auth_button_on_right": false,
+"is_primary_btn_blue": false
+},
+"rule_id": "launchedGroup",
+"group": "launchedGroup",
+"group_name": "Test",
+"is_device_based": false,
+"id_type": "WebAnonymousCookieID",
+"is_experiment_active": false,
+"is_user_in_experiment": false,
+"is_in_layer": true,
+"explicit_parameters": [
+"is_login_primary_button"
+],
+"secondary_exposures": [
+{
+"gate": "1MYcsxeNaY9CfBP0KcxNWK1rpf05mfizLToIzwWdTxKNJhTa7DxSnPMOGf0ImQwRD",
+"gateValue": "false",
+"ruleID": "disabled"
+},
+{
+"gate": "2YJN3jch7WmCCA8cl0Ta5AFVwW3QWI6CFvBUw2895pQCrGiqBBVAyPuUtgzOlGzDS",
+"gateValue": "false",
+"ruleID": "disabled"
+}
+]
+},
+"186644516": {
+"name": "186644516",
+"value": {
+"is_team_enabled": true,
+"is_yearly_plus_subscription_enabled": false,
+"is_split_between_personal_and_business_enabled": true,
+"is_modal_fullscreen": true,
+"is_v2_toggle_labels_enabled": false,
+"is_bw": false,
+"is_produce_colors": false,
+"is_produce_color_scheme": false,
+"is_mobile_web_toggle_enabled": false,
+"is_enterprise_enabled": false
+},
+"rule_id": "abandoned",
+"group": "abandoned",
+"is_device_based": false,
+"id_type": "userID",
+"is_experiment_active": false,
+"is_user_in_experiment": false,
+"is_in_layer": true,
+"explicit_parameters": [
+"is_team_enabled"
+],
+"secondary_exposures": [
+{
+"gate": "4Exg6vhN6upFNPEi27HmXqnFOxBGdDULbh1Ig7MWPYWR8Rh9O9HO7dFTuKf1pvP3Y",
+"gateValue": "false",
+"ruleID": "disabled"
+}
+]
+},
+"445876862": {
+"name": "445876862",
+"value": {
+"is_anon_chat_enabled": true,
+"anon_composer_display_variant": "default",
+"anon-is-spanish-translation-enabled": true,
+"should_show_anon_login_header_on_desktop": false,
+"is_anon_chat_enabled_for_new_users_only": false,
+"is_try_it_first_on_login_page_enabled": false,
+"is_no_auth_welcome_modal_enabled": false,
+"no_auth_soft_rate_limit": 10,
+"no_auth_hard_rate_limit": 1200,
+"should_show_no_auth_signup_banner": true,
+"is_no_auth_welcome_back_modal_enabled": true,
+"is_no_auth_soft_rate_limit_modal_enabled": true,
+"is_no_auth_gpt4o_modal_enabled": false,
+"is_login_primary_button": true,
+"is_desktop_primary_auth_button_on_right": false,
+"is_primary_btn_blue": false
+},
+"rule_id": "abandoned",
+"group": "abandoned",
+"is_device_based": false,
+"id_type": "WebAnonymousCookieID",
+"is_experiment_active": false,
+"is_user_in_experiment": false,
+"is_in_layer": true,
+"explicit_parameters": [
+"is_anon_chat_enabled",
+"is_no_auth_welcome_modal_enabled",
+"no_auth_soft_rate_limit",
+"no_auth_hard_rate_limit",
+"should_show_no_auth_signup_banner"
+],
+"secondary_exposures": [
+{
+"gate": "1MYcsxeNaY9CfBP0KcxNWK1rpf05mfizLToIzwWdTxKNJhTa7DxSnPMOGf0ImQwRD",
+"gateValue": "false",
+"ruleID": "disabled"
+},
+{
+"gate": "2YJN3jch7WmCCA8cl0Ta5AFVwW3QWI6CFvBUw2895pQCrGiqBBVAyPuUtgzOlGzDS",
+"gateValue": "false",
+"ruleID": "disabled"
+}
+]
+},
+"457207600": {
+"name": "457207600",
+"value": {
+"is_anon_chat_enabled": true,
+"anon_composer_display_variant": "default",
+"anon-is-spanish-translation-enabled": true,
+"should_show_anon_login_header_on_desktop": false,
+"is_anon_chat_enabled_for_new_users_only": false,
+"is_try_it_first_on_login_page_enabled": false,
+"is_no_auth_welcome_modal_enabled": false,
+"no_auth_soft_rate_limit": 10,
+"no_auth_hard_rate_limit": 1200,
+"should_show_no_auth_signup_banner": true,
+"is_no_auth_welcome_back_modal_enabled": true,
+"is_no_auth_soft_rate_limit_modal_enabled": true,
+"is_no_auth_gpt4o_modal_enabled": false,
+"is_login_primary_button": true,
+"is_desktop_primary_auth_button_on_right": false,
+"is_primary_btn_blue": false
+},
+"rule_id": "prestart",
+"group": "prestart",
+"is_device_based": false,
+"id_type": "WebAnonymousCookieID",
+"is_experiment_active": false,
+"is_user_in_experiment": false,
+"is_in_layer": true,
+"explicit_parameters": [
+"is_primary_btn_blue"
+],
+"secondary_exposures": [
+{
+"gate": "1MYcsxeNaY9CfBP0KcxNWK1rpf05mfizLToIzwWdTxKNJhTa7DxSnPMOGf0ImQwRD",
+"gateValue": "false",
+"ruleID": "disabled"
+},
+{
+"gate": "2YJN3jch7WmCCA8cl0Ta5AFVwW3QWI6CFvBUw2895pQCrGiqBBVAyPuUtgzOlGzDS",
+"gateValue": "false",
+"ruleID": "disabled"
+}
+]
+},
+"588593016": {
+"name": "588593016",
+"value": {
+"popup": true
+},
+"rule_id": "5gqygeuotwPeb0N1BWot3Q",
+"group": "5gqygeuotwPeb0N1BWot3Q",
+"is_device_based": false,
+"id_type": "userID",
+"secondary_exposures": []
+},
+"598205782": {
+"name": "598205782",
+"value": {
+"is_anon_chat_enabled": true,
+"anon_composer_display_variant": "default",
+"anon-is-spanish-translation-enabled": true,
+"should_show_anon_login_header_on_desktop": false,
+"is_anon_chat_enabled_for_new_users_only": false,
+"is_try_it_first_on_login_page_enabled": false,
+"is_no_auth_welcome_modal_enabled": false,
+"no_auth_soft_rate_limit": 10,
+"no_auth_hard_rate_limit": 1200,
+"should_show_no_auth_signup_banner": true,
+"is_no_auth_welcome_back_modal_enabled": true,
+"is_no_auth_soft_rate_limit_modal_enabled": true,
+"is_no_auth_gpt4o_modal_enabled": false,
+"is_login_primary_button": true,
+"is_desktop_primary_auth_button_on_right": false,
+"is_primary_btn_blue": false
+},
+"rule_id": "targetingGate",
+"group": "targetingGate",
+"is_device_based": false,
+"id_type": "WebAnonymousCookieID",
+"is_experiment_active": false,
+"is_user_in_experiment": false,
+"is_in_layer": true,
+"explicit_parameters": [
+"is_no_auth_gpt4o_modal_enabled"
+],
+"secondary_exposures": [
+{
+"gate": "2YJN3jch7WmCCA8cl0Ta5AvF3oDePA7YTkR48XwxN50V0Ph7D9vjAl4SZufhbvwbQ",
+"gateValue": "false",
+"ruleID": "default"
+},
+{
+"gate": "1MYcsxeNaY9CfBP0KcxNWK1rpf05mfizLToIzwWdTxKNJhTa7DxSnPMOGf0ImQwRD",
+"gateValue": "false",
+"ruleID": "disabled"
+},
+{
+"gate": "2YJN3jch7WmCCA8cl0Ta5AFVwW3QWI6CFvBUw2895pQCrGiqBBVAyPuUtgzOlGzDS",
+"gateValue": "false",
+"ruleID": "disabled"
+}
+]
+},
+"676760469": {
+"name": "676760469",
+"value": {
+"enable_hardcoded_vision_prompts": false,
+"enable_hardcoded_file_document_prompts": false,
+"enable_hardcoded_data_vis_prompts": false,
+"enable_hardcoded_browse_prompts": false,
+"enable_new_ranking": false,
+"is_two_line": false,
+"enable_new_homepage": false,
+"enable_autocomplete": false,
+"gen_autocomplete_prompt": "",
+"autocomplete_mode": "HARDCODED",
+"starter_prompt_ranking_algorithm": "v1",
+"autocomplete_min_char": 4,
+"autocomplete_max_char": 32
+},
+"rule_id": "abandoned",
+"group": "abandoned",
+"is_device_based": false,
+"id_type": "userID",
+"is_experiment_active": false,
+"is_user_in_experiment": false,
+"is_in_layer": true,
+"explicit_parameters": [
+"enable_new_ranking",
+"enable_hardcoded_vision_prompts",
+"enable_hardcoded_file_document_prompts",
+"enable_hardcoded_data_vis_prompts",
+"enable_hardcoded_browse_prompts"
+],
+"secondary_exposures": []
+},
+"683595302": {
+"name": "683595302",
+"value": {
+"is_nextjs_accounts_check_enabled": false,
+"is_nextjs_bootstrap_enabled": false
+},
+"rule_id": "abandoned",
+"group": "abandoned",
+"is_device_based": true,
+"id_type": "stableID",
+"is_experiment_active": false,
+"is_user_in_experiment": false,
+"is_in_layer": true,
+"explicit_parameters": [
+"is_nextjs_accounts_check_enabled"
+],
+"secondary_exposures": []
+},
+"739871931": {
+"name": "739871931",
+"value": {
+"domains": [
+"lyft.com",
+"agifeels.com",
+"oaisb.info",
+"joezhou.online",
+"test.columbia.edu",
+"hbsstg.org",
+"chatgptsb.wharton.upenn.edu",
+"bonnevie.io",
+"sony.com",
+"mediamolecule.com",
+"firesprite.com",
+"am.sony.com",
+"neonkoi.com",
+"nixxes.com",
+"eu.sony.com",
+"jp.sony.com",
+"ap.sony.com",
+"insomniacgames.com",
+"guerrilla-games.com",
+"naughtydog.com",
+"housemarque.com",
+"bluepointgames.com",
+"havenstudios.com",
+"suckerpunch.com",
+"audiokinetic.com",
+"upenn.edu",
+"gladstone-openai.com",
+"auth.demo.pap-openai.com",
+"tinuiti.com",
+"hmc.harvard.edu",
+"blinkhealth.com",
+"lanl.gov",
+"cdr-advisor.com",
+"cdrsarl.com",
+"cdrgmbh.com",
+"cdr-sas.com",
+"cdrllp.com",
+"cdr-inc.com",
+"cdrasiallc.com",
+"centaurus-labs.xyz",
+"vizientinc.com",
+"provista.com",
+"apexus.com",
+"aptitude.com",
+"benlabs.com",
+"bengroup.com",
+"tubebuddy.com",
+"northmedia.dk",
+"ofirjob.dk",
+"minetilbud.dk",
+"fk.dk",
+"portswigger.net",
+"bessemer.com",
+"spirent.com",
+"jetblue.com",
+"axon.com",
+"msci.com",
+"usrenewablesolutions.com",
+"ew-inc.com",
+"visionary-es.com",
+"walterswholesale.com",
+"monarchelectric.com",
+"ladedanlar.com",
+"usesi.com",
+"hzelectric.com",
+"standardelectric.com",
+"danlarlighting.com",
+"yaleelectricsupply.com",
+"mauriceelectric.com",
+"mauricellc.com",
+"yalelightingconcepts.com",
+"ladesupply.com",
+"springhealth.com",
+"loopearplugs.com",
+"asmodee.com",
+"asmodeena.com",
+"asmodee.co.uk",
+"bitdefender.com",
+"fluidra.com",
+"siic.co.kr",
+"cafe24corp.com",
+"bbva.com",
+"dev.bbva.com",
+"factor.law",
+"lhv.ee",
+"ramp.com",
+"sbli.com",
+"globe.com.ph",
+"brevanhoward.com",
+"claconnect.com",
+"arcadia.io",
+"fullscript.com",
+"legendary.com",
+"fortitude-re.com",
+"fortitude-pcs.com",
+"fortitude-las.com",
+"nycfc.com",
+"montevideocitytorque.com",
+"palermofc.com",
+"cityfootball.com",
+"mancity.com",
+"estac.fr",
+"melbournecityfc.com.au",
+"lommelsk.be",
+"roomstogo.com",
+"hmrichards.com",
+"seids.com",
+"furniture.com",
+"roomstogo.pr",
+"montecitosmfg.com",
+"roomstogoasia.com",
+"tennet.eu",
+"becht.com",
+"vercel.com",
+"doitbest.com",
+"sibros.tech",
+"tri.global",
+"cytel.com",
+"docksideplatforms.com",
+"walleyecapital.com",
+"walleyetrading.net",
+"kustomer.com",
+"behavox.com",
+"exiger.com",
+"ha.com",
+"color.com",
+"incyte.com",
+"toasttab.com",
+"cmtelematics.com",
+"iseatz.com",
+"fbbrands.com",
+"twocircles.com",
+"valtech.com",
+"zoro.com",
+"jlg.com",
+"jerrdan.com",
+"oshkoshcorp.com",
+"imt.com",
+"kewauneefabrications.com",
+"oshkoshvocational.com",
+"mcneilusco.com",
+"defense.oshkoshcorp.com",
+"frontlinecomm.com",
+"prattmiller.com",
+"piercemfg.com",
+"greystar.com",
+"innosight.com",
+"mna.co",
+"trialspark.com",
+"formation.bio",
+"res.us",
+"exp.uk.com",
+"exprealty.net",
+"zoocasa.com",
+"expworldholdings.com",
+"uber.com",
+"ext.uber.com",
+"universalorlando.com",
+"udx.com",
+"uniparks.com",
+"hexaware.com",
+"zendesk.com",
+"endava.com",
+"qorvo.com",
+"riotgames.com",
+"burnsmcd.com",
+"identity.zalando.de",
+"zalando.it",
+"zalando.es",
+"zalando.ie",
+"zalando.be",
+"zalando.ch",
+"zalando.nl",
+"zalando.fi",
+"zalando.se",
+"zalando.dk",
+"zalando.fr",
+"zalando.pl",
+"zalando.com",
+"zalando.de",
+"modernatx.com",
+"joinmodernhealth.com",
+"instride.com",
+"3eco.com",
+"grailbio.com",
+"penguinrandomhouse.de",
+"penguinrandomhouse.com",
+"applovin.com",
+"tigerglobal.com",
+"capco.com",
+"pipedrive.com",
+"decisionhr.com",
+"bankersfinancialcorp.com",
+"bankersinsurance.com",
+"bankerssurety.com",
+"maverickbuilders.com",
+"centricity.com",
+"motivepartners.com",
+"theihs.org",
+"ihs.gmu.edu",
+"inmarsatgov.com",
+"czbiohub.org",
+"ryam.com",
+"menard-inc.com",
+"netenrich.com",
+"earnin.com",
+"leapwork.com",
+"avalara.com",
+"llts.com",
+"languageline.co.uk",
+"languageline.com",
+"thrivecap.com",
+"jbaconsulting.ie",
+"jbpacific.com.au",
+"jbaconsulting.ro",
+"jba-bentley.co.uk",
+"jbatrust.org",
+"jbaconsulting.com",
+"jbagroup.co.uk",
+"jbarisk.com",
+"eqtpartners.com",
+"eqtfunds.com",
+"eqtventures.com",
+"eqtexeter.com",
+"gainsight.com",
+"stemcell.com",
+"lovefrom.com",
+"broadheadco.com",
+"businessolver.com",
+"insuremytrip.com",
+"oncallinternational.com",
+"worldtrips.com",
+"proag.com",
+"avemco.com",
+"tmhcc.com",
+"hbk.com",
+"kindredgroup.com",
+"brcap.com",
+"glassboxdigital.com",
+"klarna.com",
+"stryker.com",
+"angloamerican.com",
+"kellyservices.com",
+"kellyocg.com",
+"bonnevie.kaufer.org",
+"picsart.com",
+"veteransunited.com",
+"tacton.com",
+"chsinc.com",
+"stena.com",
+"stenabulk.com",
+"envac.se",
+"stenaline.com",
+"miopartners.com",
+"grammarly.com",
+"goja.com",
+"crowe.com",
+"khoros.com",
+"provi.com",
+"grabtaxi.com",
+"within.co",
+"brkfst.io",
+"conagra.com",
+"ft.com",
+"gamesglobal.com",
+"nexamp.com",
+"te.com",
+"shutterstock.com",
+"ipdanalytics.com",
+"swissre.com",
+"sitetracker.com",
+"digitalvirgo.com",
+"wysemeter.com",
+"benevity.com",
+"mlp.com",
+"onxmaps.com",
+"abrigo.com",
+"aoins.com",
+"bridge.partners",
+"nrgmr.com",
+"nationalresearchgroup.com",
+"igaming.com",
+"nexern.com",
+"conzap.com",
+"rocketmortgage.com",
+"coredigital.com",
+"rocketcompanies.com",
+"amrock.com",
+"rockethomes.com",
+"virtahealth.com",
+"tetratech.com",
+"doyensec.com",
+"kiewit.com",
+"resmed.fr",
+"resmed.com.au",
+"resmed.com.sg",
+"resmed.co.uk",
+"resmed.de",
+"resmed.com",
+"sypartners.com",
+"ckw.ch",
+"joinpromise.com",
+"thriveglobal.com",
+"hearstmediact.com",
+"fdbhealth.com",
+"quest.nl",
+"quotenet.nl",
+"hearstmediaservices.com",
+"jan-magazine.nl",
+"hearst.nl",
+"hearst.com",
+"scni.com",
+"localedge.com",
+"hchb.com",
+"timesunion.com",
+"newstimes.com",
+"devolutions.net",
+"mysweep.com",
+"ferratum.fi",
+"ferratumbusiness.se",
+"multitudebank.com",
+"multitude.com",
+"ferratum.com",
+"capitalbox.com",
+"cmcmarkets.com",
+"bitpanda.com",
+"uchida.co.jp",
+"mightynetworks.com",
+"regentmarkets.com",
+"test1.mantech.com",
+"zdf.de",
+"flowserve.com",
+"usertesting.com",
+"leger360.com",
+"american-securities.com",
+"asbirchgrove.com",
+"mail.toyotaconnected.co.jp",
+"fengtay.com",
+"mechanical-orchard.com",
+"crossriver.com",
+"kinaxis.com",
+"id.me",
+"spartan.com",
+"cima.ca",
+"integritynext.com",
+"norionbank.se",
+"challengerschool.com",
+"optiver.us",
+"optiver.com.au",
+"optiver.com",
+"optiver.uk",
+"naturalint.com",
+"cappsool.com",
+"bimpression.com",
+"rtl.de",
+"investcloud.com",
+"wsfinancialgroup.com",
+"gerberlife.com",
+"westernsouthernlife.com",
+"touchstonefunds.com",
+"wsbrokerageservices.com",
+"fwcapital.com",
+"wslife.com",
+"westernsouthern.com",
+"columbuslife.com",
+"eaglerealtygroup.com",
+"lafayettelife.com",
+"wsfgrp.com",
+"fortwashington.com",
+"genesys.com",
+"mgid.com",
+"prevail.io",
+"twofour.co.uk",
+"liftedentertainment.com",
+"itv.com",
+"neo4j.com",
+"neotechnology.com",
+"neo4j.org",
+"adp.com",
+"debevoise.com",
+"mantech.com",
+"thefire.org",
+"merckgroup.com",
+"blanchard.com",
+"softbank.co.jp",
+"arcadiascience.com",
+"samsara.com",
+"gcmlp.com",
+"ardoq.com",
+"mercuryfinancial.com",
+"madrigalpharma.com",
+"ntalife.com",
+"madisonlife.com",
+"horacemann.com",
+"pa.gov",
+"occstrategy.com",
+"consensys.io",
+"consensys.net",
+"purestorage.com",
+"strix.no",
+"monstermail.no",
+"storyglass.co.uk",
+"wildstar.tv",
+"luxvide.it",
+"nkdtv.com",
+"fremantle.com",
+"nncogannett.com",
+"vcstar.com",
+"tucson.com",
+"arizonarepublic.com",
+"reviewed.com",
+"venturesendurance.com",
+"usatventures.com",
+"gannettnj.com",
+"dispatch.com",
+"cincinna.gannett.com",
+"localiq.au",
+"registermedia.com",
+"indystar.com",
+"reachlocal.com",
+"detroitnews.com",
+"freepress.com",
+"tennessean.com",
+"northjersey.com",
+"designiq.com",
+"usatoday.com",
+"localiq.com",
+"michigan.com",
+"actionprinting.com",
+"capecodonline.com",
+"couriertimes.com",
+"naplesnews.com",
+"gvillesun.com",
+"appleton.gannett.com",
+"lubbockonline.com",
+"patriotledger.com",
+"reno.gannett.com",
+"herald-mail.com",
+"montgome.gannett.com",
+"greenbay.gannett.com",
+"fortmyer.gannett.com",
+"ccc.gannett.com",
+"yorkdispatch.com",
+"gastongazette.com",
+"ydr.com",
+"timesnews.com",
+"rrstar.com",
+"wordstream.com",
+"azcentral.com",
+"palmspri.gannett.com",
+"heraldt.com",
+"desertsun.com",
+"republicmedia.com",
+"courier-journal.com",
+"sj-r.com",
+"cantonrep.com",
+"coloradoan.com",
+"nashvill.gannett.com",
+"salem.gannett.com",
+"jackson.gannett.com",
+"registerguard.com",
+"lsj.com",
+"rocheste.gannett.com",
+"pensacol.gannett.com",
+"tribunepublishing.com",
+"courierpress.com",
+"thebeaconjournal.com",
+"wilmingt.gannett.com",
+"hutchnews.com",
+"pjstar.com",
+"heraldnews.com",
+"springfi.gannett.com",
+"caller.com",
+"lohud.com",
+"timesdeltamediagroup.com",
+"tcpalm.com",
+"telegram.com",
+"th-record.com",
+"jrn.com",
+"gannett.com",
+"newsquest.co.uk",
+"mdc-berlin.de",
+"relias.com",
+"coolblue.de",
+"coolblue.nl",
+"coolblue.be",
+"agbo.com",
+"capital.com",
+"tgtdf.com",
+"mtygroup.com",
+"fanduel.com",
+"guitarcenter.com",
+"gcpro.com",
+"musiciansfriend.com",
+"musicarts.com",
+"oncap.com",
+"onex.com",
+"shopflamingo.com",
+"lumedeodorant.com",
+"harrys.com",
+"burda.com",
+"valiton.com",
+"ufa.de",
+"partner.chanzuckerberg.com",
+"contractor.chanzuckerberg.com",
+"chanzuckerberg.com",
+"travelers.com",
+"little-octopus.com",
+"ssrf.icu",
+"prologis.com",
+"prologis.co.jp",
+"supercell.com",
+"elliottmgmt.com",
+"lacework.net",
+"bentallgreenoak.com",
+"bgo.com",
+"pcinternational.com",
+"betfanatics.com",
+"midlandsb.com",
+"marathonoil.com",
+"secure-energy.com",
+"reckitt.com",
+"king.com",
+"forgerock.com",
+"pingidentity.com",
+"consumer.org",
+"wirelesscar.com",
+"lhvbank.com",
+"upstart.com",
+"itaubba.com",
+"itau-unibanco.com.br",
+"beeline.kz",
+"sundt.com",
+"smartcontract.com",
+"opensignal.com",
+"ext.chime.com",
+"chime.com",
+"coverwhale.com",
+"customink.com",
+"printfection.com",
+"swag.com",
+"mediait.ch",
+"bury.com",
+"ontivity.com",
+"nubank.com.br",
+"eversource.com",
+"canva.com",
+"a16z.biz",
+"zoetis.com",
+"patientpoint.com",
+"uthtmc.onmicrosoft.com",
+"bitvavo.com",
+"accenture.com",
+"thunderbird.net",
+"mozillafoundation.org",
+"mozilla.vc",
+"mozilla.ai",
+"mozilla.com",
+"nydig.com",
+"anton-paar.com",
+"lattice.com",
+"genmab.com",
+"goodleap.com",
+"plesner.com",
+"isquaredcapital.com",
+"hibob.io",
+"doubletakeuniverse.com",
+"take2.de",
+"hb-studios.com",
+"2k.com",
+"help.take2games.com",
+"2-kgame.com",
+"catdaddy.com",
+"superworldsoccer.com",
+"civempires.com",
+"take2international.com",
+"2kczech.com",
+"2kmarin.com",
+"take2games.com",
+"cloudchamberstudios.com",
+"2kboston.com",
+"circolocorecords.com",
+"libertycitypolice.com",
+"xcomlegends.com",
+"civilizationempires.com",
+"2klosangeles.com",
+"take2interactive.com.au",
+"privatedivision.com",
+"rockstargames.com",
+"ghoststorygames.com",
+"interceptgames.com",
+"rockstartoronto.com",
+"rockstarlincoln.com",
+"rockstarnewengland.com",
+"squad-games.com",
+"rockstarlondon.com",
+"gouranga.com",
+"epsilonprogram.com",
+"rockstarleeds.com",
+"rockstarnorth.com",
+"campfiregames.com",
+"take2asia.com",
+"dynamixyz.com",
+"zynga.com",
+"naturalmotion.co.uk",
+"zynga.org",
+"bossalien.com",
+"maccer.net",
+"rockstarindia.com",
+"olliolliworld.live",
+"rockstarsandiego.com",
+"urbanlionden.com",
+"2kchina.com",
+"vcentertainment.com",
+"nba2k.com",
+"take2support.com",
+"iridiumstarfish.com",
+"hangar13games.com",
+"vckorea.com",
+"contact.local.t010.net",
+"mafiagame.com",
+"take2europe.com",
+"taketwo.fr",
+"t2arch.team",
+"kerbalspaceprogram.com",
+"rockstarsd.com",
+"take2benelux.com",
+"rockstar.com",
+"rockstarvancouver.com",
+"rockstardundee.com",
+"chims.net",
+"mercatus.org",
+"mercatus.gmu.edu",
+"d1capital.com",
+"gmv.com",
+"moneylion.com",
+"datadoghq.com",
+"strongdm.com",
+"nationwidechildrens.org",
+"magnetar.com",
+"itradenetwork.com",
+"coherent.com",
+"valvoline.com",
+"valvolineglobal.com",
+"quarterhill.com",
+"evercore.com",
+"tradeweb.com",
+"dealerweb.com",
+"riverty.com",
+"embrace.family",
+"territory.group",
+"bertelsmann.de",
+"embrace.agency",
+"confluent.io",
+"classy.org",
+"gofundme.com",
+"insightpartners.com",
+"betterup.co",
+"evolutionroad.com",
+"apothecom.com",
+"stemhealthcare.com",
+"inizio.com",
+"researchpartnership.com",
+"putassoc.com",
+"inizio.health",
+"medistrava.com",
+"vynamic.com",
+"ashfieldmedcomms.com",
+"ashfieldhealthcare.com",
+"inizioevoke.com",
+"nucleusglobal.com",
+"aofl.com",
+"creditkarma.com",
+"intuit.com",
+"yahooinc.com",
+"fminet.com",
+"fmicorp.com",
+"carnelian365.onmicrosoft.com",
+"sygnia.co",
+"jt-consultant.com",
+"jumpcap.com",
+"twrpros.com",
+"jumptrading.com",
+"latam.com",
+"senatedev.us",
+"member20.senatedev.us",
+"saa.senatedev.us",
+"qualitel.org",
+"qualitelformation.fr",
+"qios.fr",
+"cerqual.fr",
+"imc.com",
+"mirakl.com",
+"adia.ae",
+"crossoverhealth.com",
+"sans.org",
+"giac.org",
+"solita.de",
+"solita.ee",
+"solita.se",
+"solita365.onmicrosoft.com",
+"solita.fi",
+"profitoptics.com",
+"edelman.com",
+"djeholdings.com",
+"edelmansmithfield.com",
+"lenovo.com",
+"progleasing.com",
+"hudsonbaycapital.com",
+"purecanadiangaming.com",
+"savills.us",
+"logistikunicorp.com",
+"sugarcrm.com",
+"superbid.net",
+"dandara.com",
+"gatesfoundation.org",
+"gatesmri.org",
+"gatesagone.org",
+"one.app",
+"intersystems.com",
+"empower.com",
+"siriusxm.ca",
+"adswizz.com",
+"siriusxm.com",
+"pandora.com",
+"kohls.com",
+"cppib.com",
+"spiraledge.com",
+"ouraring.com",
+"digitalbridge.com",
+"infrabridge.com",
+"parkdean-resorts.com",
+"curemd.com",
+"crowdstrike.com",
+"albemarle.com",
+"assent.com",
+"assentcompliance.com",
+"authentic8.com",
+"fullbloom.org",
+"empoweru.education",
+"sesischools.com",
+"theauburnschool.org",
+"catapultlearning.com",
+"littleleaves.org",
+"baincapital.com",
+"softbank.com",
+"planful.com",
+"generatecapital.com",
+"manus.plus",
+"aspiresoftware.com",
+"valpay.com",
+"valsource.ai",
+"inatech.com",
+"telematel.com",
+"asteris.biz",
+"valsoftcorp.com",
+"upwork.com",
+"cloud.upwork.com",
+"p.idmqat.monash.edu",
+"ai.idmqat.monash.edu",
+"rakuten.com",
+"bcl.xyz",
+"fox.com",
+"tubi.tv",
+"foxsports.net",
+"lexusoflasvegas.com",
+"friedkin.com",
+"gsfsgroup.com",
+"usalsolutions.com",
+"usal.com",
+"copilotcptl.com",
+"friedkinintl.com",
+"gstoyota.com",
+"metrolexus.com",
+"acceleratedsolutionsgroup.com",
+"westsidelexus.com",
+"gsadmins.com",
+"arkoselabs.com",
+"deltacommunitycu.com",
+"stonex.com",
+"visiquate.com",
+"rialtocapital.com",
+"bitsighttech.com",
+"bitsight.com",
+"psoplaneta.com",
+"opensesame.com",
+"arttic-innovation.de",
+"ffiqs.com",
+"ttopstart.com",
+"egen.green",
+"arttic.eu",
+"nehem.nl",
+"pno.group",
+"inventivenl.nl",
+"ciaotech.com",
+"innovationengineering.eu",
+"pnoconsultants.com",
+"pnochemistry.com",
+"fareharbor.com",
+"resonetics.com",
+"paretohealth.com",
+"tarte.com",
+"adeia.com",
+"patreon.com",
+"khanacademy.org",
+"qube-rt.com",
+"nerdwallet.com",
+"dacgroup.com",
+"convergensee.com",
+"launchdarkly.com",
+"teneo.com",
+"bridgepoint.eu",
+"westfieldgrp.com",
+"ridgelineapps.com",
+"athene.bm",
+"athene.com",
+"varoenergy.com",
+"carlyle.com",
+"tower-research.com",
+"latourtrading.com",
+"hq.intercom.com",
+"intercom.consulting",
+"intercom.io",
+"ppfa.org",
+"taboola.com",
+"sfgmembers.com",
+"oxqart.com",
+"gresearch.com",
+"rtl.com",
+"weareera.com",
+"h2greensteel.com",
+"wayve.ai",
+"o9solutions.com",
+"daikin.co.jp",
+"directsupply.com",
+"directs.com",
+"tels.net",
+"dssi.net",
+"okcupid.com",
+"eure.jp",
+"eu.match.com",
+"hinge.co",
+"matchmediagroup.com",
+"meetic-corp.com",
+"affinityapps.com",
+"theleagueapp.co",
+"pof.com",
+"gotinder.com",
+"hpcnt.com",
+"match.com",
+"schroders.com",
+"cazenovecapital.com",
+"generatebiomedicines.com",
+"inmar.com",
+"a.ki",
+"dotfoods.com",
+"pentagroup.co",
+"evernorth.com",
+"customersbank.com",
+"mercuria.com",
+"ti.gumgum.com",
+"ic.gumgum.com",
+"gumgum.com",
+"playgroundxyz.com",
+"ic.playgroundxyz.com",
+"ti.playgroundxyz.com",
+"justpremium.com",
+"slalom.com",
+"capulaglobal.com",
+"docker.com",
+"linda.nl",
+"emesa.nl",
+"lindafoundation.nl",
+"talpanetwork.com",
+"radio10.nl",
+"ext.talpanetwork.com",
+"lek.com",
+"remote.com",
+"assurant.com",
+"benchling.com",
+"incentersolutions.com",
+"far.com",
+"fareverse.com",
+"aag.com",
+"financeofamerica.com",
+"vanta.com",
+"sympa.com",
+"skydio.com",
+"sky.uk",
+"sky.ie",
+"skytv.it",
+"sky.de",
+"skygroup.com",
+"sky.at",
+"sky.ch",
+"next-insurance.com",
+"kr.synaptics.com",
+"jp.synaptics.com",
+"cn.synaptics.com",
+"tw.synaptics.com",
+"synaptics.com",
+"upside.com",
+"getupside.com",
+"baringa.com",
+"p.monash.edu",
+"ai.monash.edu",
+"poshmark.com",
+"a16z.com",
+"lightricks.com",
+"macpaw.com",
+"unchainedlabs.com",
+"aguafria.org",
+"eid.utexas.edu",
+"wonderbrands.com",
+"fgfbrands.com",
+"paynearme.com",
+"scopely.com",
+"rxnxt.com",
+"healthination.com",
+"scriptcycle.com",
+"goodrx.com",
+"vitacarerx.com",
+"thesciongroup.com",
+"mpi.com.tw",
+"us.kpmg.com",
+"kpmg.com",
+"godaddy.com",
+"sg.estee.com",
+"bg.estee.com",
+"toofaced.com",
+"estee.ca",
+"th.estee.com",
+"de.estee.com",
+"br.estee.com",
+"estee-lauder.co.uk",
+"clinique.co.uk",
+"elceurope.com",
+"ch.estee.com",
+"cn.estee.com",
+"clinique.com",
+"maccosmetics.com",
+"jomalone.com",
+"cremedelamer.com",
+"tomfordbeauty.com",
+"hk.estee.com",
+"aveda.com",
+"balmainbeauty.com",
+"in.estee.com",
+"estee.com",
+"origins.com",
+"westpharma.com",
+"paf.com",
+"betterhelp.com",
+"psgequity.com",
+"psgequity.co.uk",
+"zenbusiness.com",
+"guildeducation.com",
+"guild.com",
+"cmtam.com",
+"pantherainvestment.com",
+"cmt.digital",
+"ponderaholdings.com",
+"schibsted.com",
+"schibsted.no",
+"e24.no",
+"bt.no",
+"aftenposten.no",
+"finn.no",
+"lendo.no",
+"snoap.no",
+"aftenbladet.no",
+"helthjem.no",
+"storby.ap.no",
+"mittanbud.no",
+"vg.no",
+"schibsted.pl",
+"atpco.net",
+"apollo.com",
+"apollo-advisors.com",
+"toolsforhumanity.com",
+"atwell-group.com",
+"holidayextras.com",
+"parkit.cloud",
+"foundersfund.com",
+"amgen.com",
+"plaid.com",
+"markarch.com",
+"one-star.jp",
+"recursion.com",
+"10xgenomics.com",
+"sutrobio.com",
+"smithrx.com",
+"deloitte.com",
+"economistgroup.com",
+"ivp.com",
+"gobrightside.com",
+"nlsnow.com",
+"johannesleonardo.com",
+"kurafton.com",
+"krafton365.com",
+"bluehole.net",
+"celigo.com",
+"uml.edu",
+"yjnss.onmicrosoft.com",
+"axpo.com",
+"avalerehealth.com",
+"lumindigital.com",
+"frontiersin.org",
+"rossvideo.com",
+"nepgroup.com",
+"lumentum.com",
+"helloprima.com",
+"comparethemarket.com",
+"nbcuni.com",
+"robinhood.com",
+"bestseller.com",
+"valiantys.com",
+"columbia.edu",
+"rapidsos.com",
+"waku-2.com",
+"r.recruit.co.jp",
+"betterment.com",
+"autoform.com",
+"snf.com",
+"purolator.com",
+"gousto.co.uk",
+"cihi.ca",
+"plslogistics.com",
+"suzy.com",
+"accel.com",
+"ideayabio.com",
+"analysisgroup.com",
+"calendly.com",
+"aprimo.com",
+"nedap.com",
+"bydeluxe.com",
+"crgl-thirdparty.com",
+"cargill.com",
+"harvey.ai",
+"stormgeo.com",
+"healthfirst.org",
+"id.you.world",
+"avantorsciences.com",
+"postnl.nl",
+"veritionfund.com",
+"wolt.com",
+"external.wolt.com",
+"sgep.com",
+"sig.com",
+"chatters.ca",
+"ox.ac.uk",
+"hingehealth.com",
+"deptagency.com",
+"studiodumbar.com",
+"hellomonday.com",
+"basicagency.com",
+"dogstudio.be",
+"studiodumbar.nl",
+"factor-a.com",
+"twobulls.com",
+"roberthalf.net",
+"roberthalf.fr",
+"roberthalf.co.nz",
+"roberthalf.co.uk",
+"roberthalf.be",
+"roberthalf.de",
+"roberthalf.com.au",
+"roberthalf.com.br",
+"roberthalf.jp",
+"roberthalf.com",
+"tricolore.co.uk",
+"pharo.com",
+"berkshiregrey.com",
+"solinkcorp.com",
+"b6tp.com",
+"monday.com",
+"sentinelone.com",
+"newyorklife.com",
+"test-edu.com",
+"cvcgroup.co.uk",
+"medivetgroup.com",
+"medivet.co.uk",
+"goempyrean.com",
+"proqr.com",
+"hudson-trading.com",
+"grading-assistant.com",
+"newporthealthcare.com",
+"vitaminwell.com",
+"barebells.at",
+"nocco.se",
+"barebells.de",
+"vitaminwell.se",
+"barebells.dk",
+"vitaminwell.dk",
+"gaba.fr",
+"gaba.ch",
+"filorga.com",
+"tomsofmaine.com",
+"hello-products.com",
+"gaba.com",
+"cpskinhealth.com",
+"colpal.com",
+"hillspet.com",
+"gaba.be",
+"cpgaba.com",
+"gaba-bv.nl",
+"eltamd.com",
+"pcaskin.com",
+"gaba-dent.de",
+"pt.enersys.com",
+"za.enersys.com",
+"ru.enersys.com",
+"dk.enersys.com",
+"ua.enersys.com",
+"es.enersys.com",
+"enersys.co.in",
+"ma.enersys.com",
+"ae.enersys.com",
+"ch.enersys.com",
+"enersys.com.cn",
+"enersys.sg",
+"lu.enersys.com",
+"cz.enersys.com",
+"enersys.com.my",
+"nl.enersys.com",
+"sk.enersys.com",
+"enersys.com.ph",
+"fi.enersys.com",
+"enersys.com.au",
+"kz.enersys.com",
+"at.enersys.com",
+"tn.enersys.com",
+"se.enersys.com",
+"it.enersys.com",
+"no.enersys.com",
+"bg.enersys.com",
+"hu.enersys.com",
+"tr.enersys.com",
+"de.enersys.com",
+"fr.enersys.com",
+"enersys.com.sg",
+"pe.enersys.com",
+"ar.enersys.com",
+"cl.enersys.com",
+"pl.enersys.com",
+"uk.enersys.com",
+"br.enersys.com",
+"enersys.com",
+"deshawresearch.com",
+"neogov.net",
+"tamko.com",
+"gfnet.com",
+"liontree.com",
+"classmethod.jp",
+"remitly.com",
+"liftoff.io",
+"lexipol.com",
+"promega.com",
+"usonainstitute.org",
+"experian.com",
+"hartreepartners.com",
+"workos.com",
+"integralads.com",
+"essentiahealth.org",
+"safe.com",
+"pape-dawson.com",
+"stephenssupport.com",
+"stephenseurope.com",
+"stephens.com",
+"wayfair.com",
+"citi.com",
+"fabuwood.com",
+"beigene.com",
+"aldrichadvisors.com",
+"wealthadvisors.com",
+"wearetma.agency",
+"tbwaworld.com",
+"ccnglobal.com",
+"omnicomgroup.com",
+"alcone.com",
+"tbwachiat.com",
+"fleishmaneurope.com",
+"teamoprg.com",
+"ketchum.com",
+"criticalmass.com",
+"fleishman.com",
+"omcpmg.com",
+"tbwa.com",
+"dasglobal.com",
+"themarketingarm.com",
+"concentrix.com",
+"signaturehealthcarellc.com",
+"premierworkforcesolutionsllc.com",
+"silverangels.com",
+"shccs.com",
+"target.com",
+"quizlet.com",
+"hbs.edu",
+"mba2025.hbs.edu",
+"mba2023.hbs.edu",
+"mba2024.hbs.edu",
+"amp207.hbs.edu",
+"mba2026.hbs.edu",
+"umd.edu",
+"asu.edu",
+"osk.de",
+"pillsburylaw.com",
+"bloomberg.net",
+"big-cypress.com",
+"wondersofwildlife.org",
+"big-cedar.com",
+"basspro.com",
+"cabelas.ca",
+"cabelas.com.hk",
+"cabelas.com",
+"dogwoodcanyon.org",
+"nissanunited.com",
+"plcf.co.uk",
+"premierleague.com",
+"pgaac.com",
+"harvardtest.com",
+"c6bank.com",
+"synthesia.io",
+"omnicommediagroup.com",
+"credera.com",
+"omnicomhealthgroup.com",
+"lesfurets.com",
+"firaxis.com",
+"rabinmartin.com",
+"ddbhealth.de",
+"planningshopintl.com",
+"gsdm.com",
+"scienceandpurpose.com",
+"archbow.com",
+"thirtyfirstunion.com",
+"tii.ae",
+"almapbbdo.com.br",
+"bbdoknows.com",
+"sapien.co.nz",
+"bbdoasia.com",
+"omctransact.com",
+"cdmlondon.com",
+"ohg-ap.com",
+"amvbbdo.com",
+"fuseint.com",
+"cable.comcast.com",
+"comcast.com",
+"utile.org",
+"saldodipje.nl",
+"maslansky.com",
+"trueglobalintelligence.com",
+"ketchumplus.com",
+"ketchum.de",
+"gmmb.com",
+"porternovelli.com",
+"ddcpublicaffairs.com",
+"voxglobal.com",
+"hellommc.com",
+"porternovelli.mx",
+"omnicomprgroup.com",
+"adelphivalues.com",
+"entreehealth.com",
+"tbwaworldhealth.com",
+"proximity.co.nz",
+"flare.com.co",
+"snow-companies.com",
+"sscgmedia.com",
+"harrisonandstar.com",
+"propeller-com.com",
+"excerptamedica.com",
+"perceptive.co.nz",
+"colensobbdo.co.nz",
+"bbdomexico.com",
+"wildtypehealth.com",
+"energybbdo.com",
+"mmgct.com",
+"hcg-int.com",
+"speak4.co",
+"resolutiondigital.com.au",
+"bbdo.cn",
+"annalect.com",
+"hearts-science.com",
+"resolutionmedia.com",
+"phdmedia.com",
+"bynd.consulting",
+"flywheeldigital.com",
+"ddbremedy.co.uk",
+"zadv.com",
+"iptiq.com",
+"kazeuromobile.kz",
+"tbwaraad.com",
+"mothertongue.com",
+"auditoire.com",
+"opplus.bbva.com",
+"bbvacreative.com",
+"dnli.com",
+"peakinsights.com",
+"mooreinformationgroup.com",
+"fusion3001.com",
+"msi-inc.com",
+"bbdo.co.kr",
+"cn.ddb.com",
+"bbdoguerrero.com",
+"bbdo.com.tw",
+"interone.cn",
+"bbdoindonesia.com",
+"energybbdo.cn",
+"bbdojapan.com",
+"impactproximity.com",
+"bbdo.co.th",
+"fp1strategies.com",
+"altruist.com",
+"skyradio.nl",
+"joecasson.com",
+"matrixcare.com",
+"rollercoaster.tv",
+"maxpost.tv",
+"bigcommerce.com",
+"multistory.tv",
+"12yard.com",
+"sonarsource.com",
+"ddb.com",
+"tpncommerce.com",
+"omg.com",
+"bbdo.com",
+"sparksandhoney.com",
+"omd.com",
+"cube-ai.io",
+"legerdgtl.com",
+"gspsf.com",
+"levo.com.au",
+"adylic.com",
+"biolumina.com",
+"omnicomhealth.com",
+"tbwaworldhealth.london",
+"ddbhealth.com",
+"impactbbdo.ae",
+"adelphigroup.com",
+"patientsandpurpose.com",
+"mindtric.com",
+"football-dataco.com",
+"medical-ci.co.jp",
+"clemenger.co.nz",
+"fhhighroad.com",
+"rpsgroup.com.au",
+"cosentini.com",
+"terantbwa.com.mx",
+"integer.com",
+"gmrmarketing.com",
+"mediaartslab.com",
+"jptbwa.com",
+"dotdotdash.io",
+"bbdo.ie",
+"180amsterdam.com",
+"tbwa.it",
+"egplusww.com",
+"lewlaratbwa.com.br",
+"tbwa.nl",
+"digitalartsnetwork.com",
+"kernagency.com",
+"rapp.com",
+"trackomc.com",
+"proximity.fr",
+"180global.com",
+"tbwa-x.com",
+"tbwa.ch",
+"tbwa.fi",
+"idtbwa.com.br",
+"tbwa.be",
+"heimattbwa.de",
+"pluspr.com",
+"designory.com",
+"rps.tetratech.com",
+"hoarelea.com",
+"ardaman.com",
+"cedarcom.hk",
+"ecoaus.com.au",
+"ndy.com",
+"rpsconsulting.com",
+"madethis.com.au",
+"gracosway.com.au",
+"cglrs.com.au",
+"chepnetwork.com",
+"tracylocke.com",
+"haygarth.us",
+"proximity.com.co",
+"valuatehealth.com",
+"trcsystemsllc.com",
+"gf.sygnia.co",
+"bbvaam.com",
+"clemenger.com.au",
+"haygarth.co.uk",
+"sanchobbdo.com",
+"blueorchard.com",
+"symphonytalent.com",
+"bloomberg.com",
+"daggerwinggroup.com",
+"wffmail.com",
+"weioffice.com",
+"magenta.at",
+"bcgdev01.com",
+"loto-quebec.com",
+"uth.tmc.edu",
+"appsflyer.com",
+"dhalp.com",
+"forty1.inizio.com",
+"emota.inizio.com",
+"getfreed.ai",
+"altimetrik.com",
+"pcna.com",
+"tech-nter.com",
+"aswo.com",
+"almaad.com",
+"bigholding.com.co",
+"gutenberg-agency.pl",
+"adamandeveddb.com",
+"ddbmudragroup.com",
+"ddb.fr",
+"ddb.pl",
+"ddb.it",
+"22feettribalww.com",
+"ddb.cz",
+"ddblatinapr.com",
+"sprinklr.com",
+"dm9.com.br",
+"africa.com.br",
+"ddb-europe.com",
+"grupoddb.co",
+"tracylocke.com.co",
+"tribalworldwide.com",
+"cpm-int.com",
+"boisestate.edu",
+"northernlight.com",
+"unomaha.edu",
+"userede.com.br",
+"casino.qc.ca",
+"mailer.com.br",
+"leedsworld.com",
+"itau-unibanco.com",
+"eim-advisors.com",
+"elliottadvisors.co.uk",
+"eihcsarl.com"
+],
+"disabled_domains": [
+"carta-external.com",
+"discordapp.com",
+"email.com",
+"yahoo.co.jp",
+"icloud.com",
+"qq.com",
+"proton.me",
+"npsprism.com",
+"libero.it",
+"zillowgroup.com",
+"hubspot.com",
+"advisor.bcg.com",
+"wp.pl",
+"163.com",
+"gmx.net",
+"outlook.it",
+"gmail.com",
+"op.pl",
+"free.fr",
+"citadelsecurities.com",
+"spellbook.legal",
+"researchsquare.com",
+"quillbot.com",
+"protonmail.com",
+"yahoo.com.au",
+"rallynow.io",
+"abv.bg",
+"inverto.com",
+"hotmail.it",
+"shirleyy.onmicrosoft.com",
+"yahoo.com",
+"duck.com",
+"springer.com",
+"carta.com",
+"bcg-inverto.com",
+"hotmail.fr",
+"bcg.com",
+"koddi.com",
+"bluewin.ch",
+"c-openai.com",
+"wanadoo.fr",
+"coursehero.com",
+"descript.com",
+"hotmail.de",
+"bk.ru",
+"naver.com",
+"doordash.com",
+"comcast.net",
+"auth0.com",
+"msn.com",
+"btinternet.com",
+"team.asana.com",
+"justeattakeaway.com",
+"hotmail.com",
+"fragomen.com",
+"ebay.com",
+"outlook.fr",
+"att.net",
+"springernature.com",
+"yahoo.ca",
+"yahoo.co.uk",
+"telenet.be",
+"affirm.com",
+"getbuilt.com",
+"bigpond.com",
+"googlemail.com",
+"learneo.com",
+"okta.com",
+"alumnos.udg.mx",
+"external.t-mobile.at",
+"docomo.ne.jp",
+"yahoo.com.br",
+"sbcglobal.net",
+"outlook.de",
+"freenet.de",
+"bmwgroup.com",
+"live.fr",
+"outlook.com",
+"escola.pr.gov.br",
+"bcgbrighthouse.com",
+"web.de",
+"interia.pl",
+"bain.com",
+"live.com",
+"ext.doordash.com",
+"t-online.de",
+"squareup.com",
+"bosch.com",
+"casetext.com",
+"yahoo.co.in",
+"pmg.com",
+"hotmail.co.uk",
+"citadel.com",
+"yahoo.fr",
+"ukr.net",
+"orange.fr",
+"rocketmail.com",
+"openai.com",
+"mail.openai.com",
+"live.co.uk",
+"ifood.com.br",
+"mac.com",
+"i.softbank.jp",
+"zoom.us",
+"sierra.ai",
+"bainadvisor.com",
+"yahoo.it",
+"outlook.es",
+"asana.com",
+"o2.pl",
+"pwc.com",
+"atlassian.com",
+"live.de",
+"momentum.com",
+"rvohealth.com",
+"bcgplatinion.com",
+"yahoo.de",
+"rapid7.com",
+"ymail.com",
+"cartacapitalmarkets.com",
+"loom.com",
+"mail.ru",
+"outlook.jp",
+"bmw.de",
+"instacart.com",
+"usa.com",
+"hotmail.es",
+"dropbox.com",
+"moveworks.ai",
+"litcharts.com",
+"test2.joezhou.online",
+"yandex.ru",
+"gmx.at",
+"twilio.com",
+"laposte.net",
+"bcgfed.com",
+"hanmail.net",
+"seznam.cz",
+"shopify.com",
+"mail.com",
+"jacobs.com",
+"esharesinc.com",
+"live.nl",
+"gmx.de",
+"aol.com",
+"moe-dl.edu.my",
+"us.pwc.com",
+"bcgdv.com",
+"gmx.ch",
+"yahoo.com.tw",
+"bridgespan.org",
+"ezweb.ne.jp",
+"growtherapy.com",
+"me.com",
+"thumbtack.com",
+"chegg.com",
+"yahoo.es",
+"moodys.com",
+"admin.ox.ac.uk",
+"ashmus.ox.ac.uk",
+"balliol.ox.ac.uk",
+"bdi.ox.ac.uk",
+"bnc.ox.ac.uk",
+"bodleian.ox.ac.uk",
+"bsg.ox.ac.uk",
+"classics.ox.ac.uk",
+"cmd.ox.ac.uk",
+"conted.ox.ac.uk",
+"ctl.ox.ac.uk",
+"demography.ox.ac.uk",
+"dtc.ox.ac.uk",
+"education.ox.ac.uk",
+"eng.ox.ac.uk",
+"exeter.ox.ac.uk",
+"focus.ox.ac.uk",
+"glam.ox.ac.uk",
+"humanities.ox.ac.uk",
+"it.ox.ac.uk",
+"kellogg.ox.ac.uk",
+"linacre.ox.ac.uk",
+"lmh.ox.ac.uk",
+"mod-langs.ox.ac.uk",
+"mpls.ox.ac.uk",
+"ndcn.ox.ac.uk",
+"ndm.ox.ac.uk",
+"ndph.ox.ac.uk",
+"oriel.ox.ac.uk",
+"ouce.ox.ac.uk",
+"oxfordmartin.ox.ac.uk",
+"phc.ox.ac.uk",
+"physics.ox.ac.uk",
+"psy.ox.ac.uk",
+"psych.ox.ac.uk",
+"said.oxford.edu",
+"sbs.ox.ac.uk",
+"sociology.ox.ac.uk",
+"spc.ox.ac.uk",
+"stats.ox.ac.uk",
+"trinity.ox.ac.uk",
+"tss.ox.ac.uk",
+"well.ox.ac.uk",
+"wrh.ox.ac.uk"
+],
+"use_blocklist": true
+},
+"rule_id": "default",
+"group": "default",
+"is_device_based": false,
+"id_type": "userID",
+"secondary_exposures": []
+},
+"855925714": {
+"name": "855925714",
+"value": {
+"should_simplify_modal": false,
+"is_simplified_sharing_modal_enabled": false,
+"is_social_share_options_enabled": false,
+"is_update_shared_links_enabled": false,
+"is_discoverability_toggle_enabled": false,
+"show_copylink_state_if_no_updates": false
+},
+"rule_id": "abandoned",
+"group": "abandoned",
+"is_device_based": false,
+"id_type": "userID",
+"is_experiment_active": false,
+"is_user_in_experiment": false,
+"is_in_layer": true,
+"explicit_parameters": [
+"is_simplified_sharing_modal_enabled",
+"is_social_share_options_enabled",
+"is_update_shared_links_enabled",
+"is_discoverability_toggle_enabled"
+],
+"secondary_exposures": []
+},
+"889327355": {
+"name": "889327355",
+"value": {
+"is-enabled": true,
+"use-rtl-layout": false
+},
+"rule_id": "launchedGroup",
+"group": "launchedGroup",
+"group_name": "Test",
+"is_device_based": false,
+"id_type": "WebAnonymousCookieID",
+"is_experiment_active": false,
+"is_user_in_experiment": false,
+"is_in_layer": true,
+"explicit_parameters": [
+"is-enabled"
+],
+"secondary_exposures": []
+},
+"944459048": {
+"name": "944459048",
+"value": {
+"is_team_enabled": true,
+"is_yearly_plus_subscription_enabled": false,
+"is_split_between_personal_and_business_enabled": true,
+"is_modal_fullscreen": true,
+"is_v2_toggle_labels_enabled": false,
+"is_bw": false,
+"is_produce_colors": false,
+"is_produce_color_scheme": false,
+"is_mobile_web_toggle_enabled": false,
+"is_enterprise_enabled": false
+},
+"rule_id": "layerAssignment",
+"group": "layerAssignment",
+"is_device_based": false,
+"id_type": "userID",
+"is_experiment_active": true,
+"is_user_in_experiment": false,
+"is_in_layer": true,
+"explicit_parameters": [
+"is_produce_color_scheme"
+],
+"secondary_exposures": [
+{
+"gate": "4Exg6vhN6upFNPEi27HmXqnFOxBGdDULbh1Ig7MWPYWR8Rh9O9HO7dFTuKf1pvP3Y",
+"gateValue": "false",
+"ruleID": "disabled"
+}
+]
+},
+"1001765573": {
+"name": "1001765573",
+"value": {},
+"rule_id": "default",
+"group": "default",
+"is_device_based": false,
+"id_type": "userID",
+"secondary_exposures": []
+},
+"1057255111": {
+"name": "1057255111",
+"value": {
+"NO_CHAIR_ACCESS": true
+},
+"rule_id": "default",
+"group": "default",
+"is_device_based": false,
+"id_type": "userID",
+"secondary_exposures": []
+},
+"1072371496": {
+"name": "1072371496",
+"value": {
+"is_anon_chat_enabled": true,
+"anon_composer_display_variant": "default",
+"anon-is-spanish-translation-enabled": true,
+"should_show_anon_login_header_on_desktop": false,
+"is_anon_chat_enabled_for_new_users_only": false,
+"is_try_it_first_on_login_page_enabled": false,
+"is_no_auth_welcome_modal_enabled": false,
+"no_auth_soft_rate_limit": 10,
+"no_auth_hard_rate_limit": 1200,
+"should_show_no_auth_signup_banner": true,
+"is_no_auth_welcome_back_modal_enabled": true,
+"is_no_auth_soft_rate_limit_modal_enabled": true,
+"is_no_auth_gpt4o_modal_enabled": false,
+"is_login_primary_button": true,
+"is_desktop_primary_auth_button_on_right": false,
+"is_primary_btn_blue": false
+},
+"rule_id": "abandoned",
+"group": "abandoned",
+"is_device_based": false,
+"id_type": "WebAnonymousCookieID",
+"is_experiment_active": false,
+"is_user_in_experiment": false,
+"is_in_layer": true,
+"explicit_parameters": [
+"is_desktop_primary_auth_button_on_right"
+],
+"secondary_exposures": [
+{
+"gate": "1MYcsxeNaY9CfBP0KcxNWK1rpf05mfizLToIzwWdTxKNJhTa7DxSnPMOGf0ImQwRD",
+"gateValue": "false",
+"ruleID": "disabled"
+},
+{
+"gate": "2YJN3jch7WmCCA8cl0Ta5AFVwW3QWI6CFvBUw2895pQCrGiqBBVAyPuUtgzOlGzDS",
+"gateValue": "false",
+"ruleID": "disabled"
+}
+]
+},
+"1237904433": {
+"name": "1237904433",
+"value": {
+"is-enabled": true,
+"use-rtl-layout": false
+},
+"rule_id": "launchedGroup",
+"group": "launchedGroup",
+"group_name": "Test",
+"is_device_based": false,
+"id_type": "WebAnonymousCookieID",
+"is_experiment_active": false,
+"is_user_in_experiment": false,
+"is_in_layer": true,
+"explicit_parameters": [
+"is-enabled"
+],
+"secondary_exposures": []
+},
+"1277879515": {
+"name": "1277879515",
+"value": {
+"show_ui": true
+},
+"rule_id": "launchedGroup",
+"group": "launchedGroup",
+"group_name": "Test",
+"is_device_based": false,
+"id_type": "userID",
+"is_experiment_active": false,
+"is_user_in_experiment": false,
+"secondary_exposures": [
+{
+"gate": "3EGjoMjlU0UKQxaioeIhgCyMP5aGTLOXF6kIBPP9ili",
+"gateValue": "false",
+"ruleID": "default"
+}
+]
+},
+"1312738797": {
+"name": "1312738797",
+"value": {
+"is_anon_chat_enabled": true,
+"anon_composer_display_variant": "default",
+"anon-is-spanish-translation-enabled": true,
+"should_show_anon_login_header_on_desktop": false,
+"is_anon_chat_enabled_for_new_users_only": false,
+"is_try_it_first_on_login_page_enabled": false,
+"is_no_auth_welcome_modal_enabled": false,
+"no_auth_soft_rate_limit": 10,
+"no_auth_hard_rate_limit": 1200,
+"should_show_no_auth_signup_banner": true,
+"is_no_auth_welcome_back_modal_enabled": true,
+"is_no_auth_soft_rate_limit_modal_enabled": true,
+"is_no_auth_gpt4o_modal_enabled": false,
+"is_login_primary_button": true,
+"is_desktop_primary_auth_button_on_right": false,
+"is_primary_btn_blue": false
+},
+"rule_id": "launchedGroup",
+"group": "launchedGroup",
+"group_name": "Test",
+"is_device_based": false,
+"id_type": "WebAnonymousCookieID",
+"is_experiment_active": false,
+"is_user_in_experiment": false,
+"is_in_layer": true,
+"explicit_parameters": [
+"anon-is-spanish-translation-enabled"
+],
+"secondary_exposures": [
+{
+"gate": "1MYcsxeNaY9CfBP0KcxNWK1rpf05mfizLToIzwWdTxKNJhTa7DxSnPMOGf0ImQwRD",
+"gateValue": "false",
+"ruleID": "disabled"
+},
+{
+"gate": "2YJN3jch7WmCCA8cl0Ta5AFVwW3QWI6CFvBUw2895pQCrGiqBBVAyPuUtgzOlGzDS",
+"gateValue": "false",
+"ruleID": "disabled"
+}
+]
+},
+"1320801051": {
+"name": "1320801051",
+"value": {
+"hide_new_at_workspace_section": false,
+"hide_section_new_at_workspace": false,
+"gpt_discovery_experiment_enabled": false
+},
+"rule_id": "prestart",
+"group": "prestart",
+"is_device_based": false,
+"id_type": "userID",
+"is_experiment_active": false,
+"is_user_in_experiment": false,
+"is_in_layer": true,
+"explicit_parameters": [
+"gpt_discovery_experiment_enabled"
+],
+"secondary_exposures": []
+},
+"1426679726": {
+"name": "1426679726",
+"value": {
+"is-enabled": true,
+"use-rtl-layout": false
+},
+"rule_id": "prestart",
+"group": "prestart",
+"is_device_based": false,
+"id_type": "WebAnonymousCookieID",
+"is_experiment_active": false,
+"is_user_in_experiment": false,
+"is_in_layer": true,
+"explicit_parameters": [
+"use-rtl-layout"
+],
+"secondary_exposures": []
+},
+"1476759596": {
+"name": "1476759596",
+"value": {},
+"rule_id": "layerAssignment",
+"group": "layerAssignment",
+"is_device_based": false,
+"id_type": "userID",
+"is_experiment_active": true,
+"is_user_in_experiment": false,
+"secondary_exposures": []
+},
+"1547924522": {
+"name": "1547924522",
+"value": {
+"show_ui": true,
+"enabled": true
+},
+"rule_id": "launchedGroup",
+"group": "launchedGroup",
+"group_name": "Test",
+"is_device_based": false,
+"id_type": "userID",
+"is_experiment_active": false,
+"is_user_in_experiment": false,
+"secondary_exposures": [
+{
+"gate": "ql2waopRwwuuuEe3i9jyo5iCLhqej0kHt73GYdvxXI6",
+"gateValue": "true",
+"ruleID": "7stvavArTuHK8XvexxjCiu"
+}
+]
+},
+"1592724364": {
+"name": "1592724364",
+"value": {},
+"rule_id": "prestart",
+"group": "prestart",
+"is_device_based": false,
+"id_type": "userID",
+"is_experiment_active": false,
+"is_user_in_experiment": false,
+"secondary_exposures": []
+},
+"1637006427": {
+"name": "1637006427",
+"value": {
+"defaultEnabled": true
+},
+"rule_id": "default",
+"group": "default",
+"is_device_based": false,
+"id_type": "userID",
+"secondary_exposures": []
+},
+"1700289978": {
+"name": "1700289978",
+"value": {
+"is_enabled": true
+},
+"rule_id": "launchedGroup",
+"group": "launchedGroup",
+"group_name": "Test",
+"is_device_based": false,
+"id_type": "userID",
+"is_experiment_active": false,
+"is_user_in_experiment": false,
+"secondary_exposures": [
+{
+"gate": "5xAoFfCh4e3Rd6oiGGFbwS9WjlxxwlDopdjtcFtdPdVwG6GZcDBAYNH0gbCT3FO9E",
+"gateValue": "true",
+"ruleID": "1HBUhnAPygdiZeQJYpLeI5:100.00:2"
+}
+]
+},
+"1705094514": {
+"name": "1705094514",
+"value": {
+"is_team_enabled": true,
+"is_yearly_plus_subscription_enabled": false,
+"is_split_between_personal_and_business_enabled": true,
+"is_modal_fullscreen": true,
+"is_v2_toggle_labels_enabled": false,
+"is_bw": false,
+"is_produce_colors": false,
+"is_produce_color_scheme": false,
+"is_mobile_web_toggle_enabled": false,
+"is_enterprise_enabled": false
+},
+"rule_id": "prestart",
+"group": "prestart",
+"is_device_based": false,
+"id_type": "userID",
+"is_experiment_active": false,
+"is_user_in_experiment": false,
+"is_in_layer": true,
+"explicit_parameters": [
+"is_mobile_web_toggle_enabled"
+],
+"secondary_exposures": [
+{
+"gate": "4Exg6vhN6upFNPEi27HmXqnFOxBGdDULbh1Ig7MWPYWR8Rh9O9HO7dFTuKf1pvP3Y",
+"gateValue": "false",
+"ruleID": "disabled"
+}
+]
+},
+"1722608525": {
+"name": "1722608525",
+"value": {},
+"rule_id": "prestart",
+"group": "prestart",
+"is_device_based": false,
+"id_type": "userID",
+"is_experiment_active": false,
+"is_user_in_experiment": false,
+"secondary_exposures": []
+},
+"1826752008": {
+"name": "1826752008",
+"value": {
+"enable_hardcoded_vision_prompts": false,
+"enable_hardcoded_file_document_prompts": false,
+"enable_hardcoded_data_vis_prompts": false,
+"enable_hardcoded_browse_prompts": false,
+"enable_new_ranking": false,
+"is_two_line": false,
+"enable_new_homepage": false,
+"enable_autocomplete": false,
+"gen_autocomplete_prompt": "",
+"autocomplete_mode": "HARDCODED",
+"starter_prompt_ranking_algorithm": "v1",
+"autocomplete_min_char": 4,
+"autocomplete_max_char": 32
+},
+"rule_id": "abandoned",
+"group": "abandoned",
+"is_device_based": false,
+"id_type": "userID",
+"is_experiment_active": false,
+"is_user_in_experiment": false,
+"is_in_layer": true,
+"explicit_parameters": [
+"enable_new_ranking",
+"enable_hardcoded_vision_prompts",
+"enable_hardcoded_file_document_prompts",
+"enable_hardcoded_data_vis_prompts",
+"enable_hardcoded_browse_prompts",
+"starter_prompt_ranking_algorithm"
+],
+"secondary_exposures": []
+},
+"1826752009": {
+"name": "1826752009",
+"value": {
+"enable_hardcoded_vision_prompts": false,
+"enable_hardcoded_file_document_prompts": false,
+"enable_hardcoded_data_vis_prompts": false,
+"enable_hardcoded_browse_prompts": false,
+"enable_new_ranking": false,
+"is_two_line": false,
+"enable_new_homepage": false,
+"enable_autocomplete": false,
+"gen_autocomplete_prompt": "",
+"autocomplete_mode": "HARDCODED",
+"starter_prompt_ranking_algorithm": "v1",
+"autocomplete_min_char": 4,
+"autocomplete_max_char": 32
+},
+"rule_id": "abandoned",
+"group": "abandoned",
+"is_device_based": false,
+"id_type": "userID",
+"is_experiment_active": false,
+"is_user_in_experiment": false,
+"is_in_layer": true,
+"explicit_parameters": [
+"enable_hardcoded_vision_prompts",
+"enable_hardcoded_file_document_prompts",
+"enable_hardcoded_data_vis_prompts",
+"enable_hardcoded_browse_prompts",
+"starter_prompt_ranking_algorithm"
+],
+"secondary_exposures": []
+},
+"1826752010": {
+"name": "1826752010",
+"value": {
+"enable_hardcoded_vision_prompts": false,
+"enable_hardcoded_file_document_prompts": false,
+"enable_hardcoded_data_vis_prompts": false,
+"enable_hardcoded_browse_prompts": false,
+"enable_new_ranking": false,
+"is_two_line": false,
+"enable_new_homepage": false,
+"enable_autocomplete": false,
+"gen_autocomplete_prompt": "",
+"autocomplete_mode": "HARDCODED",
+"starter_prompt_ranking_algorithm": "v1",
+"autocomplete_min_char": 4,
+"autocomplete_max_char": 32
+},
+"rule_id": "layerAssignment",
+"group": "layerAssignment",
+"is_device_based": false,
+"id_type": "userID",
+"is_experiment_active": true,
+"is_user_in_experiment": false,
+"is_in_layer": true,
+"explicit_parameters": [
+"enable_hardcoded_vision_prompts",
+"enable_hardcoded_file_document_prompts",
+"enable_hardcoded_data_vis_prompts",
+"enable_hardcoded_browse_prompts",
+"starter_prompt_ranking_algorithm"
+],
+"secondary_exposures": []
+},
+"1873047021": {
+"name": "1873047021",
+"value": {
+"search_scoring_dyconfig_name": "chatgpt_enterprise_gpt_search_test_group_1"
+},
+"rule_id": "19DiYHYHunu5U4PIYDytDH",
+"group": "19DiYHYHunu5U4PIYDytDH",
+"group_name": "Workspace Boost",
+"is_device_based": false,
+"id_type": "userID",
+"is_experiment_active": true,
+"is_user_in_experiment": true,
+"is_in_layer": true,
+"explicit_parameters": [
+"search_scoring_dyconfig_name"
+],
+"secondary_exposures": [
+{
+"gate": "3DgIJv0TDU0qwcixVGa6b5uylQ3X5M1swWgio62xNPa",
+"gateValue": "true",
+"ruleID": "3V8UhxmPzvjP9VtHWr27N6"
+}
+]
+},
+"1887692490": {
+"name": "1887692490",
+"value": {
+"is_anon_chat_enabled": true,
+"anon_composer_display_variant": "default",
+"anon-is-spanish-translation-enabled": true,
+"should_show_anon_login_header_on_desktop": false,
+"is_anon_chat_enabled_for_new_users_only": false,
+"is_try_it_first_on_login_page_enabled": false,
+"is_no_auth_welcome_modal_enabled": false,
+"no_auth_soft_rate_limit": 10,
+"no_auth_hard_rate_limit": 1200,
+"should_show_no_auth_signup_banner": true,
+"is_no_auth_welcome_back_modal_enabled": true,
+"is_no_auth_soft_rate_limit_modal_enabled": true,
+"is_no_auth_gpt4o_modal_enabled": false,
+"is_login_primary_button": true,
+"is_desktop_primary_auth_button_on_right": false,
+"is_primary_btn_blue": false
+},
+"rule_id": "abandoned",
+"group": "abandoned",
+"is_device_based": false,
+"id_type": "WebAnonymousCookieID",
+"is_experiment_active": false,
+"is_user_in_experiment": false,
+"is_in_layer": true,
+"explicit_parameters": [
+"is_anon_chat_enabled",
+"is_try_it_first_on_login_page_enabled"
+],
+"secondary_exposures": [
+{
+"gate": "1MYcsxeNaY9CfBP0KcxNWK1rpf05mfizLToIzwWdTxKNJhTa7DxSnPMOGf0ImQwRD",
+"gateValue": "false",
+"ruleID": "disabled"
+},
+{
+"gate": "2YJN3jch7WmCCA8cl0Ta5AFVwW3QWI6CFvBUw2895pQCrGiqBBVAyPuUtgzOlGzDS",
+"gateValue": "false",
+"ruleID": "disabled"
+}
+]
+},
+"1908072088": {
+"name": "1908072088",
+"value": {
+"blocking_modal": true,
+"single_button_variant": true,
+"dropdown_tooltip": false,
+"conversation_model_switcher_badge": false
+},
+"rule_id": "default",
+"group": "default",
+"is_device_based": false,
+"id_type": "userID",
+"secondary_exposures": []
+},
+"1967546325": {
+"name": "1967546325",
+"value": {
+"gdrivePicker": true,
+"o365Picker": true,
+"gdriveLink": false,
+"o365Link": false,
+"o365PersonalLink": true,
+"o365BusinessLink": true,
+"gdrivePercentage": 100,
+"o365Percentage": 100,
+"loadTestPercentage": 0,
+"showWorkspaceSettings": true
+},
+"rule_id": "2bcszlc7CFHdfdCdq7jXNb:100.00:5",
+"group": "2bcszlc7CFHdfdCdq7jXNb:100.00:5",
+"is_device_based": false,
+"id_type": "workspace_id",
+"secondary_exposures": []
+},
+"1977905538": {
+"name": "1977905538",
+"value": {
+"forwardToAuthApi": false,
+"directToGoogle": false,
+"directToApple": false,
+"directToMsft": false
+},
+"rule_id": "default",
+"group": "default",
+"is_device_based": true,
+"id_type": "stableID",
+"secondary_exposures": []
+},
+"2068644600": {
+"name": "2068644600",
+"value": {
+"use_email_otp": false,
+"show_phone_number_signup": false,
+"remove_edit_in_signup": false,
+"remove_edit_in_login": false
+},
+"rule_id": "prestart",
+"group": "prestart",
+"is_device_based": true,
+"id_type": "stableID",
+"is_experiment_active": false,
+"is_user_in_experiment": false,
+"is_in_layer": true,
+"explicit_parameters": [],
+"secondary_exposures": []
+},
+"2121003545": {
+"name": "2121003545",
+"value": {},
+"rule_id": "default",
+"group": "default",
+"is_device_based": false,
+"id_type": "userID",
+"secondary_exposures": []
+},
+"2144828235": {
+"name": "2144828235",
+"value": {},
+"rule_id": "layerAssignment",
+"group": "layerAssignment",
+"is_device_based": false,
+"id_type": "userID",
+"is_experiment_active": true,
+"is_user_in_experiment": false,
+"secondary_exposures": []
+},
+"2149395632": {
+"name": "2149395632",
+"value": {
+"show_citations_with_title": true
+},
+"rule_id": "launchedGroup",
+"group": "launchedGroup",
+"group_name": "Test",
+"is_device_based": false,
+"id_type": "userID",
+"is_experiment_active": false,
+"is_user_in_experiment": false,
+"is_in_layer": true,
+"explicit_parameters": [
+"show_citations_with_title"
+],
+"secondary_exposures": []
+},
+"2176179500": {
+"name": "2176179500",
+"value": {
+"should_enable_zh_tw": false
+},
+"rule_id": "abandoned",
+"group": "abandoned",
+"is_device_based": false,
+"id_type": "userID",
+"is_experiment_active": false,
+"is_user_in_experiment": false,
+"is_in_layer": true,
+"explicit_parameters": [
+"should_enable_zh_tw"
+],
+"secondary_exposures": []
+},
+"2297342424": {
+"name": "2297342424",
+"value": {
+"is_anon_chat_enabled": true,
+"anon_composer_display_variant": "default",
+"anon-is-spanish-translation-enabled": true,
+"should_show_anon_login_header_on_desktop": false,
+"is_anon_chat_enabled_for_new_users_only": false,
+"is_try_it_first_on_login_page_enabled": false,
+"is_no_auth_welcome_modal_enabled": false,
+"no_auth_soft_rate_limit": 10,
+"no_auth_hard_rate_limit": 1200,
+"should_show_no_auth_signup_banner": true,
+"is_no_auth_welcome_back_modal_enabled": true,
+"is_no_auth_soft_rate_limit_modal_enabled": true,
+"is_no_auth_gpt4o_modal_enabled": false,
+"is_login_primary_button": true,
+"is_desktop_primary_auth_button_on_right": false,
+"is_primary_btn_blue": false
+},
+"rule_id": "abandoned",
+"group": "abandoned",
+"is_device_based": false,
+"id_type": "WebAnonymousCookieID",
+"is_experiment_active": false,
+"is_user_in_experiment": false,
+"is_in_layer": true,
+"explicit_parameters": [
+"is_login_primary_button",
+"is_desktop_primary_auth_button_on_right"
+],
+"secondary_exposures": [
+{
+"gate": "1MYcsxeNaY9CfBP0KcxNWK1rpf05mfizLToIzwWdTxKNJhTa7DxSnPMOGf0ImQwRD",
+"gateValue": "false",
+"ruleID": "disabled"
+},
+{
+"gate": "2YJN3jch7WmCCA8cl0Ta5AFVwW3QWI6CFvBUw2895pQCrGiqBBVAyPuUtgzOlGzDS",
+"gateValue": "false",
+"ruleID": "disabled"
+}
+]
+},
+"2346290881": {
+"name": "2346290881",
+"value": {
+"has_sidekick_access": true,
+"show_nux_banner": true
+},
+"rule_id": "4NoJQoCScwW5JMhVNjH4jM:override",
+"group": "4NoJQoCScwW5JMhVNjH4jM:override",
+"group_name": "Has Access Sees Banner",
+"is_device_based": false,
+"id_type": "userID",
+"is_experiment_active": true,
+"is_user_in_experiment": false,
+"is_in_layer": true,
+"explicit_parameters": [
+"has_sidekick_access",
+"show_nux_banner"
+],
+"secondary_exposures": [
+{
+"gate": "vVKbJ9za767vVaUHbk6KQToXT3GqyKA5ZZNPuslVlacq3JH9PNpvpDujpyMpzOfo",
+"gateValue": "true",
+"ruleID": "1vWEhLfJ39edDu8ZjE19dl:50.00:4"
+}
+]
+},
+"2370410632": {
+"name": "2370410632",
+"value": {
+"is_anon_chat_enabled": true,
+"anon_composer_display_variant": "default",
+"anon-is-spanish-translation-enabled": true,
+"should_show_anon_login_header_on_desktop": false,
+"is_anon_chat_enabled_for_new_users_only": false,
+"is_try_it_first_on_login_page_enabled": false,
+"is_no_auth_welcome_modal_enabled": false,
+"no_auth_soft_rate_limit": 10,
+"no_auth_hard_rate_limit": 1200,
+"should_show_no_auth_signup_banner": true,
+"is_no_auth_welcome_back_modal_enabled": true,
+"is_no_auth_soft_rate_limit_modal_enabled": true,
+"is_no_auth_gpt4o_modal_enabled": false,
+"is_login_primary_button": true,
+"is_desktop_primary_auth_button_on_right": false,
+"is_primary_btn_blue": false
+},
+"rule_id": "abandoned",
+"group": "abandoned",
+"is_device_based": false,
+"id_type": "WebAnonymousCookieID",
+"is_experiment_active": false,
+"is_user_in_experiment": false,
+"is_in_layer": true,
+"explicit_parameters": [
+"is_anon_chat_enabled"
+],
+"secondary_exposures": [
+{
+"gate": "1MYcsxeNaY9CfBP0KcxNWK1rpf05mfizLToIzwWdTxKNJhTa7DxSnPMOGf0ImQwRD",
+"gateValue": "false",
+"ruleID": "disabled"
+},
+{
+"gate": "2YJN3jch7WmCCA8cl0Ta5AFVwW3QWI6CFvBUw2895pQCrGiqBBVAyPuUtgzOlGzDS",
+"gateValue": "false",
+"ruleID": "disabled"
+}
+]
+},
+"2370410634": {
+"name": "2370410634",
+"value": {
+"is_anon_chat_enabled": true,
+"anon_composer_display_variant": "default",
+"anon-is-spanish-translation-enabled": true,
+"should_show_anon_login_header_on_desktop": false,
+"is_anon_chat_enabled_for_new_users_only": false,
+"is_try_it_first_on_login_page_enabled": false,
+"is_no_auth_welcome_modal_enabled": false,
+"no_auth_soft_rate_limit": 10,
+"no_auth_hard_rate_limit": 1200,
+"should_show_no_auth_signup_banner": true,
+"is_no_auth_welcome_back_modal_enabled": true,
+"is_no_auth_soft_rate_limit_modal_enabled": true,
+"is_no_auth_gpt4o_modal_enabled": false,
+"is_login_primary_button": true,
+"is_desktop_primary_auth_button_on_right": false,
+"is_primary_btn_blue": false
+},
+"rule_id": "abandoned",
+"group": "abandoned",
+"is_device_based": false,
+"id_type": "WebAnonymousCookieID",
+"is_experiment_active": false,
+"is_user_in_experiment": false,
+"is_in_layer": true,
+"explicit_parameters": [
+"is_anon_chat_enabled"
+],
+"secondary_exposures": [
+{
+"gate": "1MYcsxeNaY9CfBP0KcxNWK1rpf05mfizLToIzwWdTxKNJhTa7DxSnPMOGf0ImQwRD",
+"gateValue": "false",
+"ruleID": "disabled"
+},
+{
+"gate": "2YJN3jch7WmCCA8cl0Ta5AFVwW3QWI6CFvBUw2895pQCrGiqBBVAyPuUtgzOlGzDS",
+"gateValue": "false",
+"ruleID": "disabled"
+}
+]
+},
+"2530795349": {
+"name": "2530795349",
+"value": {
+"optimize_initial_modals": true,
+"defer_memory_modal": true,
+"enable_v2_cleanup": true
+},
+"rule_id": "layerAssignment",
+"group": "layerAssignment",
+"is_device_based": false,
+"id_type": "userID",
+"is_experiment_active": true,
+"is_user_in_experiment": false,
+"is_in_layer": true,
+"explicit_parameters": [
+"enable_v2_cleanup"
+],
+"secondary_exposures": []
+},
+"2567214617": {
+"name": "2567214617",
+"value": {
+"enable_hardcoded_vision_prompts": false,
+"enable_hardcoded_file_document_prompts": false,
+"enable_hardcoded_data_vis_prompts": false,
+"enable_hardcoded_browse_prompts": false,
+"enable_new_ranking": false,
+"is_two_line": false,
+"enable_new_homepage": false,
+"enable_autocomplete": false,
+"gen_autocomplete_prompt": "",
+"autocomplete_mode": "HARDCODED",
+"starter_prompt_ranking_algorithm": "v1",
+"autocomplete_min_char": 4,
+"autocomplete_max_char": 32
+},
+"rule_id": "prestart",
+"group": "prestart",
+"is_device_based": false,
+"id_type": "userID",
+"is_experiment_active": false,
+"is_user_in_experiment": false,
+"is_in_layer": true,
+"explicit_parameters": [
+"enable_new_homepage",
+"starter_prompt_ranking_algorithm"
+],
+"secondary_exposures": []
+},
+"2576123431": {
+"name": "2576123431",
+"value": {
+"is_anon_chat_enabled": true,
+"anon_composer_display_variant": "default",
+"anon-is-spanish-translation-enabled": true,
+"should_show_anon_login_header_on_desktop": false,
+"is_anon_chat_enabled_for_new_users_only": false,
+"is_try_it_first_on_login_page_enabled": false,
+"is_no_auth_welcome_modal_enabled": false,
+"no_auth_soft_rate_limit": 10,
+"no_auth_hard_rate_limit": 1200,
+"should_show_no_auth_signup_banner": true,
+"is_no_auth_welcome_back_modal_enabled": true,
+"is_no_auth_soft_rate_limit_modal_enabled": true,
+"is_no_auth_gpt4o_modal_enabled": false,
+"is_login_primary_button": true,
+"is_desktop_primary_auth_button_on_right": false,
+"is_primary_btn_blue": false
+},
+"rule_id": "abandoned",
+"group": "abandoned",
+"is_device_based": false,
+"id_type": "WebAnonymousCookieID",
+"is_experiment_active": false,
+"is_user_in_experiment": false,
+"is_in_layer": true,
+"explicit_parameters": [
+"is_anon_chat_enabled",
+"is_anon_chat_enabled_for_new_users_only"
+],
+"secondary_exposures": [
+{
+"gate": "1MYcsxeNaY9CfBP0KcxNWK1rpf05mfizLToIzwWdTxKNJhTa7DxSnPMOGf0ImQwRD",
+"gateValue": "false",
+"ruleID": "disabled"
+},
+{
+"gate": "2YJN3jch7WmCCA8cl0Ta5AFVwW3QWI6CFvBUw2895pQCrGiqBBVAyPuUtgzOlGzDS",
+"gateValue": "false",
+"ruleID": "disabled"
+}
+]
+},
+"2635734272": {
+"name": "2635734272",
+"value": {
+"should_simplify_modal": false,
+"is_simplified_sharing_modal_enabled": false,
+"is_social_share_options_enabled": false,
+"is_update_shared_links_enabled": false,
+"is_discoverability_toggle_enabled": false,
+"show_copylink_state_if_no_updates": false
+},
+"rule_id": "abandoned",
+"group": "abandoned",
+"is_device_based": false,
+"id_type": "userID",
+"is_experiment_active": false,
+"is_user_in_experiment": false,
+"is_in_layer": true,
+"explicit_parameters": [
+"is_simplified_sharing_modal_enabled",
+"is_social_share_options_enabled",
+"is_update_shared_links_enabled",
+"is_discoverability_toggle_enabled"
+],
+"secondary_exposures": []
+},
+"2745767556": {
+"name": "2745767556",
+"value": {
+"is_team_enabled": true,
+"is_yearly_plus_subscription_enabled": false,
+"is_split_between_personal_and_business_enabled": true,
+"is_modal_fullscreen": true,
+"is_v2_toggle_labels_enabled": false,
+"is_bw": false,
+"is_produce_colors": false,
+"is_produce_color_scheme": false,
+"is_mobile_web_toggle_enabled": false,
+"is_enterprise_enabled": false
+},
+"rule_id": "abandoned",
+"group": "abandoned",
+"is_device_based": false,
+"id_type": "userID",
+"is_experiment_active": false,
+"is_user_in_experiment": false,
+"is_in_layer": true,
+"explicit_parameters": [
+"is_split_between_personal_and_business_enabled"
+],
+"secondary_exposures": [
+{
+"gate": "4Exg6vhN6upFNPEi27HmXqnFOxBGdDULbh1Ig7MWPYWR8Rh9O9HO7dFTuKf1pvP3Y",
+"gateValue": "false",
+"ruleID": "disabled"
+}
+]
+},
+"2745768482": {
+"name": "2745768482",
+"value": {
+"is_team_enabled": true,
+"is_yearly_plus_subscription_enabled": false,
+"is_split_between_personal_and_business_enabled": true,
+"is_modal_fullscreen": true,
+"is_v2_toggle_labels_enabled": false,
+"is_bw": false,
+"is_produce_colors": false,
+"is_produce_color_scheme": false,
+"is_mobile_web_toggle_enabled": false,
+"is_enterprise_enabled": false
+},
+"rule_id": "abandoned",
+"group": "abandoned",
+"is_device_based": false,
+"id_type": "userID",
+"is_experiment_active": false,
+"is_user_in_experiment": false,
+"is_in_layer": true,
+"explicit_parameters": [
+"is_split_between_personal_and_business_enabled",
+"is_modal_fullscreen"
+],
+"secondary_exposures": [
+{
+"gate": "4Exg6vhN6upFNPEi27HmXqnFOxBGdDULbh1Ig7MWPYWR8Rh9O9HO7dFTuKf1pvP3Y",
+"gateValue": "false",
+"ruleID": "disabled"
+}
+]
+},
+"2745768485": {
+"name": "2745768485",
+"value": {
+"is_team_enabled": true,
+"is_yearly_plus_subscription_enabled": false,
+"is_split_between_personal_and_business_enabled": true,
+"is_modal_fullscreen": true,
+"is_v2_toggle_labels_enabled": false,
+"is_bw": false,
+"is_produce_colors": false,
+"is_produce_color_scheme": false,
+"is_mobile_web_toggle_enabled": false,
+"is_enterprise_enabled": false
+},
+"rule_id": "abandoned",
+"group": "abandoned",
+"is_device_based": false,
+"id_type": "userID",
+"is_experiment_active": false,
+"is_user_in_experiment": false,
+"is_in_layer": true,
+"explicit_parameters": [
+"is_split_between_personal_and_business_enabled",
+"is_modal_fullscreen"
+],
+"secondary_exposures": [
+{
+"gate": "4Exg6vhN6upFNPEi27HmXqnFOxBGdDULbh1Ig7MWPYWR8Rh9O9HO7dFTuKf1pvP3Y",
+"gateValue": "false",
+"ruleID": "disabled"
+}
+]
+},
+"2745768542": {
+"name": "2745768542",
+"value": {
+"is_team_enabled": true,
+"is_yearly_plus_subscription_enabled": false,
+"is_split_between_personal_and_business_enabled": true,
+"is_modal_fullscreen": true,
+"is_v2_toggle_labels_enabled": false,
+"is_bw": false,
+"is_produce_colors": false,
+"is_produce_color_scheme": false,
+"is_mobile_web_toggle_enabled": false,
+"is_enterprise_enabled": false
+},
+"rule_id": "launchedGroup",
+"group": "launchedGroup",
+"group_name": "Fullscreen with Split",
+"is_device_based": false,
+"id_type": "userID",
+"is_experiment_active": false,
+"is_user_in_experiment": false,
+"is_in_layer": true,
+"explicit_parameters": [
+"is_split_between_personal_and_business_enabled",
+"is_modal_fullscreen"
+],
+"secondary_exposures": [
+{
+"gate": "4Exg6vhN6upFNPEi27HmXqnFOxBGdDULbh1Ig7MWPYWR8Rh9O9HO7dFTuKf1pvP3Y",
+"gateValue": "false",
+"ruleID": "disabled"
+}
+]
+},
+"2745770409": {
+"name": "2745770409",
+"value": {
+"is_team_enabled": true,
+"is_yearly_plus_subscription_enabled": false,
+"is_split_between_personal_and_business_enabled": true,
+"is_modal_fullscreen": true,
+"is_v2_toggle_labels_enabled": false,
+"is_bw": false,
+"is_produce_colors": false,
+"is_produce_color_scheme": false,
+"is_mobile_web_toggle_enabled": false,
+"is_enterprise_enabled": false
+},
+"rule_id": "layerAssignment",
+"group": "layerAssignment",
+"is_device_based": false,
+"id_type": "userID",
+"is_experiment_active": true,
+"is_user_in_experiment": false,
+"is_in_layer": true,
+"explicit_parameters": [
+"is_split_between_personal_and_business_enabled",
+"is_modal_fullscreen"
+],
+"secondary_exposures": [
+{
+"gate": "4Exg6vhN6upFNPEi27HmXqnFOxBGdDULbh1Ig7MWPYWR8Rh9O9HO7dFTuKf1pvP3Y",
+"gateValue": "false",
+"ruleID": "disabled"
+}
+]
+},
+"2778287746": {
+"name": "2778287746",
+"value": {
+"is_team_enabled": true,
+"is_yearly_plus_subscription_enabled": false,
+"is_split_between_personal_and_business_enabled": true,
+"is_modal_fullscreen": true,
+"is_v2_toggle_labels_enabled": false,
+"is_bw": false,
+"is_produce_colors": false,
+"is_produce_color_scheme": false,
+"is_mobile_web_toggle_enabled": false,
+"is_enterprise_enabled": false
+},
+"rule_id": "prestart",
+"group": "prestart",
+"is_device_based": false,
+"id_type": "userID",
+"is_experiment_active": false,
+"is_user_in_experiment": false,
+"is_in_layer": true,
+"explicit_parameters": [
+"is_enterprise_enabled"
+],
+"secondary_exposures": [
+{
+"gate": "4Exg6vhN6upFNPEi27HmXqnFOxBGdDULbh1Ig7MWPYWR8Rh9O9HO7dFTuKf1pvP3Y",
+"gateValue": "false",
+"ruleID": "disabled"
+}
+]
+},
+"2811617088": {
+"name": "2811617088",
+"value": {
+"is_anon_chat_enabled": true,
+"anon_composer_display_variant": "default",
+"anon-is-spanish-translation-enabled": true,
+"should_show_anon_login_header_on_desktop": false,
+"is_anon_chat_enabled_for_new_users_only": false,
+"is_try_it_first_on_login_page_enabled": false,
+"is_no_auth_welcome_modal_enabled": false,
+"no_auth_soft_rate_limit": 10,
+"no_auth_hard_rate_limit": 1200,
+"should_show_no_auth_signup_banner": true,
+"is_no_auth_welcome_back_modal_enabled": true,
+"is_no_auth_soft_rate_limit_modal_enabled": true,
+"is_no_auth_gpt4o_modal_enabled": false,
+"is_login_primary_button": true,
+"is_desktop_primary_auth_button_on_right": false,
+"is_primary_btn_blue": false
+},
+"rule_id": "abandoned",
+"group": "abandoned",
+"is_device_based": false,
+"id_type": "WebAnonymousCookieID",
+"is_experiment_active": false,
+"is_user_in_experiment": false,
+"is_in_layer": true,
+"explicit_parameters": [
+"is_anon_chat_enabled",
+"is_no_auth_welcome_modal_enabled",
+"no_auth_soft_rate_limit",
+"no_auth_hard_rate_limit",
+"should_show_no_auth_signup_banner"
+],
+"secondary_exposures": [
+{
+"gate": "1MYcsxeNaY9CfBP0KcxNWK1rpf05mfizLToIzwWdTxKNJhTa7DxSnPMOGf0ImQwRD",
+"gateValue": "false",
+"ruleID": "disabled"
+},
+{
+"gate": "2YJN3jch7WmCCA8cl0Ta5AFVwW3QWI6CFvBUw2895pQCrGiqBBVAyPuUtgzOlGzDS",
+"gateValue": "false",
+"ruleID": "disabled"
+}
+]
+},
+"2891383514": {
+"name": "2891383514",
+"value": {
+"is_anon_chat_enabled": true,
+"anon_composer_display_variant": "default",
+"anon-is-spanish-translation-enabled": true,
+"should_show_anon_login_header_on_desktop": false,
+"is_anon_chat_enabled_for_new_users_only": false,
+"is_try_it_first_on_login_page_enabled": false,
+"is_no_auth_welcome_modal_enabled": false,
+"no_auth_soft_rate_limit": 10,
+"no_auth_hard_rate_limit": 1200,
+"should_show_no_auth_signup_banner": true,
+"is_no_auth_welcome_back_modal_enabled": true,
+"is_no_auth_soft_rate_limit_modal_enabled": true,
+"is_no_auth_gpt4o_modal_enabled": false,
+"is_login_primary_button": true,
+"is_desktop_primary_auth_button_on_right": false,
+"is_primary_btn_blue": false
+},
+"rule_id": "launchedGroup",
+"group": "launchedGroup",
+"group_name": "Test",
+"is_device_based": false,
+"id_type": "WebAnonymousCookieID",
+"is_experiment_active": false,
+"is_user_in_experiment": false,
+"is_in_layer": true,
+"explicit_parameters": [
+"no_auth_soft_rate_limit",
+"is_no_auth_soft_rate_limit_modal_enabled"
+],
+"secondary_exposures": [
+{
+"gate": "1MYcsxeNaY9CfBP0KcxNWK1rpf05mfizLToIzwWdTxKNJhTa7DxSnPMOGf0ImQwRD",
+"gateValue": "false",
+"ruleID": "disabled"
+},
+{
+"gate": "2YJN3jch7WmCCA8cl0Ta5AFVwW3QWI6CFvBUw2895pQCrGiqBBVAyPuUtgzOlGzDS",
+"gateValue": "false",
+"ruleID": "disabled"
+}
+]
+},
+"2891383548": {
+"name": "2891383548",
+"value": {
+"is_anon_chat_enabled": true,
+"anon_composer_display_variant": "default",
+"anon-is-spanish-translation-enabled": true,
+"should_show_anon_login_header_on_desktop": false,
+"is_anon_chat_enabled_for_new_users_only": false,
+"is_try_it_first_on_login_page_enabled": false,
+"is_no_auth_welcome_modal_enabled": false,
+"no_auth_soft_rate_limit": 10,
+"no_auth_hard_rate_limit": 1200,
+"should_show_no_auth_signup_banner": true,
+"is_no_auth_welcome_back_modal_enabled": true,
+"is_no_auth_soft_rate_limit_modal_enabled": true,
+"is_no_auth_gpt4o_modal_enabled": false,
+"is_login_primary_button": true,
+"is_desktop_primary_auth_button_on_right": false,
+"is_primary_btn_blue": false
+},
+"rule_id": "launchedGroup",
+"group": "launchedGroup",
+"group_name": "Test",
+"is_device_based": false,
+"id_type": "WebAnonymousCookieID",
+"is_experiment_active": false,
+"is_user_in_experiment": false,
+"is_in_layer": true,
+"explicit_parameters": [
+"no_auth_soft_rate_limit",
+"is_no_auth_soft_rate_limit_modal_enabled"
+],
+"secondary_exposures": [
+{
+"gate": "1MYcsxeNaY9CfBP0KcxNWK1rpf05mfizLToIzwWdTxKNJhTa7DxSnPMOGf0ImQwRD",
+"gateValue": "false",
+"ruleID": "disabled"
+},
+{
+"gate": "2YJN3jch7WmCCA8cl0Ta5AFVwW3QWI6CFvBUw2895pQCrGiqBBVAyPuUtgzOlGzDS",
+"gateValue": "false",
+"ruleID": "disabled"
+}
+]
+},
+"2892794518": {
+"name": "2892794518",
+"value": {},
+"rule_id": "prestart",
+"group": "prestart",
+"is_device_based": false,
+"id_type": "userID",
+"is_experiment_active": false,
+"is_user_in_experiment": false,
+"secondary_exposures": []
+},
+"2919366999": {
+"name": "2919366999",
+"value": {
+"should_simplify_modal": false,
+"is_simplified_sharing_modal_enabled": false,
+"is_social_share_options_enabled": false,
+"is_update_shared_links_enabled": false,
+"is_discoverability_toggle_enabled": false,
+"show_copylink_state_if_no_updates": true
+},
+"rule_id": "3fdACNmSdaY0SPpdEdJNZI:override",
+"group": "3fdACNmSdaY0SPpdEdJNZI:override",
+"group_name": "Test",
+"is_device_based": false,
+"id_type": "userID",
+"is_experiment_active": false,
+"is_user_in_experiment": false,
+"is_in_layer": true,
+"explicit_parameters": [
+"show_copylink_state_if_no_updates"
+],
+"secondary_exposures": [
+{
+"gate": "5NstQwnAHpD6ZCeRH5iC9JRZxuBcTNjGWxk8wRU5eMJgjtLYNP95EJRIhdJZtMt7D",
+"gateValue": "true",
+"ruleID": "48mToGJmOtQ5aRx9MCjOor"
+}
+]
+},
+"2980740905": {
+"name": "2980740905",
+"value": {
+"is_team_enabled": true,
+"is_yearly_plus_subscription_enabled": false,
+"is_split_between_personal_and_business_enabled": true,
+"is_modal_fullscreen": true,
+"is_v2_toggle_labels_enabled": false,
+"is_bw": false,
+"is_produce_colors": false,
+"is_produce_color_scheme": false,
+"is_mobile_web_toggle_enabled": false,
+"is_enterprise_enabled": false
+},
+"rule_id": "abandoned",
+"group": "abandoned",
+"is_device_based": false,
+"id_type": "userID",
+"is_experiment_active": false,
+"is_user_in_experiment": false,
+"is_in_layer": true,
+"explicit_parameters": [
+"is_yearly_plus_subscription_enabled"
+],
+"secondary_exposures": [
+{
+"gate": "4Exg6vhN6upFNPEi27HmXqnFOxBGdDULbh1Ig7MWPYWR8Rh9O9HO7dFTuKf1pvP3Y",
+"gateValue": "false",
+"ruleID": "disabled"
+}
+]
+},
+"3022018663": {
+"name": "3022018663",
+"value": {
+"is_team_enabled": true,
+"is_yearly_plus_subscription_enabled": false,
+"is_split_between_personal_and_business_enabled": true,
+"is_modal_fullscreen": true,
+"is_v2_toggle_labels_enabled": false,
+"is_bw": false,
+"is_produce_colors": false,
+"is_produce_color_scheme": false,
+"is_mobile_web_toggle_enabled": false,
+"is_enterprise_enabled": false
+},
+"rule_id": "abandoned",
+"group": "abandoned",
+"is_device_based": false,
+"id_type": "userID",
+"is_experiment_active": false,
+"is_user_in_experiment": false,
+"is_in_layer": true,
+"explicit_parameters": [
+"is_team_enabled"
+],
+"secondary_exposures": [
+{
+"gate": "4Exg6vhN6upFNPEi27HmXqnFOxBGdDULbh1Ig7MWPYWR8Rh9O9HO7dFTuKf1pvP3Y",
+"gateValue": "false",
+"ruleID": "disabled"
+}
+]
+},
+"3074105577": {
+"name": "3074105577",
+"value": {
+"use_email_otp": false,
+"show_phone_number_signup": false,
+"remove_edit_in_signup": false,
+"remove_edit_in_login": false
+},
+"rule_id": "5NrPQon0v2EV4xbYrIkBtN",
+"group": "5NrPQon0v2EV4xbYrIkBtN",
+"group_name": "Control",
+"is_device_based": true,
+"id_type": "stableID",
+"is_experiment_active": true,
+"is_user_in_experiment": true,
+"is_in_layer": true,
+"explicit_parameters": [
+"remove_edit_in_signup",
+"remove_edit_in_login"
+],
+"secondary_exposures": []
+},
+"3148769572": {
+"name": "3148769572",
+"value": {
+"enable_hardcoded_vision_prompts": false,
+"enable_hardcoded_file_document_prompts": false,
+"enable_hardcoded_data_vis_prompts": false,
+"enable_hardcoded_browse_prompts": false,
+"enable_new_ranking": false,
+"is_two_line": false,
+"enable_new_homepage": false,
+"enable_autocomplete": false,
+"gen_autocomplete_prompt": "",
+"autocomplete_mode": "HARDCODED",
+"starter_prompt_ranking_algorithm": "v1",
+"autocomplete_min_char": 4,
+"autocomplete_max_char": 32
+},
+"rule_id": "prestart",
+"group": "prestart",
+"is_device_based": false,
+"id_type": "userID",
+"is_experiment_active": false,
+"is_user_in_experiment": false,
+"is_in_layer": true,
+"explicit_parameters": [
+"enable_new_homepage",
+"starter_prompt_ranking_algorithm",
+"autocomplete_mode",
+"autocomplete_min_char",
+"autocomplete_max_char",
+"gen_autocomplete_prompt"
+],
+"secondary_exposures": []
+},
+"3168246095": {
+"name": "3168246095",
+"value": {
+"gizmo_ids": []
+},
+"rule_id": "default",
+"group": "default",
+"is_device_based": false,
+"id_type": "userID",
+"secondary_exposures": []
+},
+"3230069703": {
+"name": "3230069703",
+"value": {
+"expirySeconds": 15
+},
+"rule_id": "default",
+"group": "default",
+"is_device_based": false,
+"id_type": "userID",
+"secondary_exposures": []
+},
+"3337889731": {
+"name": "3337889731",
+"value": {
+"use_email_otp": false,
+"show_phone_number_signup": false,
+"remove_edit_in_signup": false,
+"remove_edit_in_login": false
+},
+"rule_id": "launchedGroup",
+"group": "launchedGroup",
+"group_name": "Control",
+"is_device_based": true,
+"id_type": "stableID",
+"is_experiment_active": false,
+"is_user_in_experiment": false,
+"is_in_layer": true,
+"explicit_parameters": [
+"use_email_otp"
+],
+"secondary_exposures": []
+},
+"3340924940": {
+"name": "3340924940",
+"value": {
+"is_anon_chat_enabled": true,
+"anon_composer_display_variant": "default",
+"anon-is-spanish-translation-enabled": true,
+"should_show_anon_login_header_on_desktop": false,
+"is_anon_chat_enabled_for_new_users_only": false,
+"is_try_it_first_on_login_page_enabled": false,
+"is_no_auth_welcome_modal_enabled": false,
+"no_auth_soft_rate_limit": 10,
+"no_auth_hard_rate_limit": 1200,
+"should_show_no_auth_signup_banner": true,
+"is_no_auth_welcome_back_modal_enabled": true,
+"is_no_auth_soft_rate_limit_modal_enabled": true,
+"is_no_auth_gpt4o_modal_enabled": false,
+"is_login_primary_button": true,
+"is_desktop_primary_auth_button_on_right": false,
+"is_primary_btn_blue": false
+},
+"rule_id": "abandoned",
+"group": "abandoned",
+"is_device_based": false,
+"id_type": "WebAnonymousCookieID",
+"is_experiment_active": false,
+"is_user_in_experiment": false,
+"is_in_layer": true,
+"explicit_parameters": [
+"is_anon_chat_enabled",
+"should_show_anon_login_header_on_desktop"
+],
+"secondary_exposures": [
+{
+"gate": "1MYcsxeNaY9CfBP0KcxNWK1rpf05mfizLToIzwWdTxKNJhTa7DxSnPMOGf0ImQwRD",
+"gateValue": "false",
+"ruleID": "disabled"
+},
+{
+"gate": "2YJN3jch7WmCCA8cl0Ta5AFVwW3QWI6CFvBUw2895pQCrGiqBBVAyPuUtgzOlGzDS",
+"gateValue": "false",
+"ruleID": "disabled"
+}
+]
+},
+"3341004631": {
+"name": "3341004631",
+"value": {
+"is_active": true
+},
+"rule_id": "launchedGroup",
+"group": "launchedGroup",
+"group_name": "Test",
+"is_device_based": false,
+"id_type": "userID",
+"is_experiment_active": false,
+"is_user_in_experiment": false,
+"secondary_exposures": []
+},
+"3371824144": {
+"name": "3371824144",
+"value": {
+"should-enable-chair": false
+},
+"rule_id": "2nYZAc40m7EiKjFtjelSUl",
+"group": "2nYZAc40m7EiKjFtjelSUl",
+"group_name": "Control",
+"is_device_based": true,
+"id_type": "stableID",
+"is_experiment_active": true,
+"is_user_in_experiment": true,
+"is_in_layer": true,
+"explicit_parameters": [
+"should-enable-chair"
+],
+"secondary_exposures": []
+},
+"3414158273": {
+"name": "3414158273",
+"value": {
+"is_anon_chat_enabled": true,
+"anon_composer_display_variant": "default",
+"anon-is-spanish-translation-enabled": true,
+"should_show_anon_login_header_on_desktop": false,
+"is_anon_chat_enabled_for_new_users_only": false,
+"is_try_it_first_on_login_page_enabled": false,
+"is_no_auth_welcome_modal_enabled": false,
+"no_auth_soft_rate_limit": 10,
+"no_auth_hard_rate_limit": 1200,
+"should_show_no_auth_signup_banner": true,
+"is_no_auth_welcome_back_modal_enabled": true,
+"is_no_auth_soft_rate_limit_modal_enabled": true,
+"is_no_auth_gpt4o_modal_enabled": false,
+"is_login_primary_button": true,
+"is_desktop_primary_auth_button_on_right": false,
+"is_primary_btn_blue": false
+},
+"rule_id": "launchedGroup",
+"group": "launchedGroup",
+"group_name": "Welcome Back Modal",
+"is_device_based": false,
+"id_type": "WebAnonymousCookieID",
+"is_experiment_active": false,
+"is_user_in_experiment": false,
+"is_in_layer": true,
+"explicit_parameters": [
+"is_try_it_first_on_login_page_enabled",
+"is_no_auth_welcome_back_modal_enabled"
+],
+"secondary_exposures": [
+{
+"gate": "1MYcsxeNaY9CfBP0KcxNWK1rpf05mfizLToIzwWdTxKNJhTa7DxSnPMOGf0ImQwRD",
+"gateValue": "false",
+"ruleID": "disabled"
+},
+{
+"gate": "2YJN3jch7WmCCA8cl0Ta5AFVwW3QWI6CFvBUw2895pQCrGiqBBVAyPuUtgzOlGzDS",
+"gateValue": "false",
+"ruleID": "disabled"
+}
+]
+},
+"3414159263": {
+"name": "3414159263",
+"value": {
+"is_anon_chat_enabled": true,
+"anon_composer_display_variant": "default",
+"anon-is-spanish-translation-enabled": true,
+"should_show_anon_login_header_on_desktop": false,
+"is_anon_chat_enabled_for_new_users_only": false,
+"is_try_it_first_on_login_page_enabled": false,
+"is_no_auth_welcome_modal_enabled": false,
+"no_auth_soft_rate_limit": 10,
+"no_auth_hard_rate_limit": 1200,
+"should_show_no_auth_signup_banner": true,
+"is_no_auth_welcome_back_modal_enabled": true,
+"is_no_auth_soft_rate_limit_modal_enabled": true,
+"is_no_auth_gpt4o_modal_enabled": false,
+"is_login_primary_button": true,
+"is_desktop_primary_auth_button_on_right": false,
+"is_primary_btn_blue": false
+},
+"rule_id": "layerAssignment",
+"group": "layerAssignment",
+"is_device_based": false,
+"id_type": "WebAnonymousCookieID",
+"is_experiment_active": true,
+"is_user_in_experiment": false,
+"is_in_layer": true,
+"explicit_parameters": [
+"is_no_auth_welcome_back_modal_enabled"
+],
+"secondary_exposures": [
+{
+"gate": "1MYcsxeNaY9CfBP0KcxNWK1rpf05mfizLToIzwWdTxKNJhTa7DxSnPMOGf0ImQwRD",
+"gateValue": "false",
+"ruleID": "disabled"
+},
+{
+"gate": "2YJN3jch7WmCCA8cl0Ta5AFVwW3QWI6CFvBUw2895pQCrGiqBBVAyPuUtgzOlGzDS",
+"gateValue": "false",
+"ruleID": "disabled"
+}
+]
+},
+"3591528489": {
+"name": "3591528489",
+"value": {
+"is_anon_chat_enabled": true,
+"anon_composer_display_variant": "default",
+"anon-is-spanish-translation-enabled": true,
+"should_show_anon_login_header_on_desktop": false,
+"is_anon_chat_enabled_for_new_users_only": false,
+"is_try_it_first_on_login_page_enabled": false,
+"is_no_auth_welcome_modal_enabled": false,
+"no_auth_soft_rate_limit": 10,
+"no_auth_hard_rate_limit": 1200,
+"should_show_no_auth_signup_banner": true,
+"is_no_auth_welcome_back_modal_enabled": true,
+"is_no_auth_soft_rate_limit_modal_enabled": true,
+"is_no_auth_gpt4o_modal_enabled": false,
+"is_login_primary_button": true,
+"is_desktop_primary_auth_button_on_right": false,
+"is_primary_btn_blue": false
+},
+"rule_id": "layerAssignment",
+"group": "layerAssignment",
+"is_device_based": false,
+"id_type": "WebAnonymousCookieID",
+"is_experiment_active": true,
+"is_user_in_experiment": false,
+"is_in_layer": true,
+"explicit_parameters": [
+"is_login_primary_button"
+],
+"secondary_exposures": [
+{
+"gate": "1MYcsxeNaY9CfBP0KcxNWK1rpf05mfizLToIzwWdTxKNJhTa7DxSnPMOGf0ImQwRD",
+"gateValue": "false",
+"ruleID": "disabled"
+},
+{
+"gate": "2YJN3jch7WmCCA8cl0Ta5AFVwW3QWI6CFvBUw2895pQCrGiqBBVAyPuUtgzOlGzDS",
+"gateValue": "false",
+"ruleID": "disabled"
+}
+]
+},
+"3600059992": {
+"name": "3600059992",
+"value": {
+"use_email_otp": false,
+"show_phone_number_signup": false,
+"remove_edit_in_signup": false,
+"remove_edit_in_login": false
+},
+"rule_id": "abandoned",
+"group": "abandoned",
+"is_device_based": true,
+"id_type": "stableID",
+"is_experiment_active": false,
+"is_user_in_experiment": false,
+"is_in_layer": true,
+"explicit_parameters": [
+"use_email_otp"
+],
+"secondary_exposures": []
+},
+"3638516642": {
+"name": "3638516642",
+"value": {
+"forwardToAuthApi": false,
+"directToGoogle": false,
+"directToApple": false,
+"directToMsft": false
+},
+"rule_id": "default",
+"group": "default",
+"is_device_based": true,
+"id_type": "stableID",
+"secondary_exposures": []
+},
+"3656846979": {
+"name": "3656846979",
+"value": {},
+"rule_id": "prestart",
+"group": "prestart",
+"is_device_based": false,
+"id_type": "userID",
+"is_experiment_active": false,
+"is_user_in_experiment": false,
+"secondary_exposures": []
+},
+"3701102259": {
+"name": "3701102259",
+"value": {
+"enable_hardcoded_vision_prompts": false,
+"enable_hardcoded_file_document_prompts": false,
+"enable_hardcoded_data_vis_prompts": false,
+"enable_hardcoded_browse_prompts": false,
+"enable_new_ranking": false,
+"is_two_line": true,
+"enable_new_homepage": false,
+"enable_autocomplete": false,
+"gen_autocomplete_prompt": "",
+"autocomplete_mode": "HARDCODED",
+"starter_prompt_ranking_algorithm": "v1",
+"autocomplete_min_char": 4,
+"autocomplete_max_char": 32
+},
+"rule_id": "5LnvikG8ltQiycZD2bBCBt",
+"group": "5LnvikG8ltQiycZD2bBCBt",
+"group_name": "Test",
+"is_device_based": false,
+"id_type": "userID",
+"is_experiment_active": true,
+"is_user_in_experiment": true,
+"is_in_layer": true,
+"explicit_parameters": [
+"is_two_line"
+],
+"secondary_exposures": [
+{
+"gate": "R2VrmDonlPQfdQWn1EzRqa9c45DruLhxna8W9BJhlgIElBxudyugd6ORLbZJOztURlCw88iRcmg70PvCBuMpL2",
+"gateValue": "true",
+"ruleID": "33g2a39i6ERewLPmzgNinx"
+}
+]
+},
+"3758098899": {
+"name": "3758098899",
+"value": {
+"is_team_enabled": true,
+"is_yearly_plus_subscription_enabled": false,
+"is_split_between_personal_and_business_enabled": true,
+"is_modal_fullscreen": true,
+"is_v2_toggle_labels_enabled": false,
+"is_bw": false,
+"is_produce_colors": false,
+"is_produce_color_scheme": false,
+"is_mobile_web_toggle_enabled": false,
+"is_enterprise_enabled": false
+},
+"rule_id": "abandoned",
+"group": "abandoned",
+"is_device_based": false,
+"id_type": "userID",
+"is_experiment_active": false,
+"is_user_in_experiment": false,
+"is_in_layer": true,
+"explicit_parameters": [
+"is_team_enabled"
+],
+"secondary_exposures": [
+{
+"gate": "4Exg6vhN6upFNPEi27HmXqnFOxBGdDULbh1Ig7MWPYWR8Rh9O9HO7dFTuKf1pvP3Y",
+"gateValue": "false",
+"ruleID": "disabled"
+}
+]
+},
+"3972089454": {
+"name": "3972089454",
+"value": {
+"search_scoring_dyconfig_name": "gizmo_search_score_config"
+},
+"rule_id": "abandoned",
+"group": "abandoned",
+"is_device_based": false,
+"id_type": "userID",
+"is_experiment_active": false,
+"is_user_in_experiment": false,
+"is_in_layer": true,
+"explicit_parameters": [
+"search_scoring_dyconfig_name"
+],
+"secondary_exposures": []
+},
+"4146182738": {
+"name": "4146182738",
+"value": {},
+"rule_id": "layerAssignment",
+"group": "layerAssignment",
+"is_device_based": false,
+"id_type": "userID",
+"is_experiment_active": true,
+"is_user_in_experiment": false,
+"secondary_exposures": []
+},
+"4204547666": {
+"name": "4204547666",
+"value": {
+"is-enabled": true,
+"use-rtl-layout": false
+},
+"rule_id": "Nzc6Xnht6tIVmb48Ejg1T:override",
+"group": "Nzc6Xnht6tIVmb48Ejg1T:override",
+"group_name": "Test",
+"is_device_based": false,
+"id_type": "WebAnonymousCookieID",
+"is_experiment_active": false,
+"is_user_in_experiment": false,
+"is_in_layer": true,
+"explicit_parameters": [
+"is-enabled"
+],
+"secondary_exposures": [
+{
+"gate": "b0qVilrqmyu3JmpNzUrLwstNKkgPJraGbVrzNuIumfd",
+"gateValue": "false",
+"ruleID": "14DZA2LumaPqAdCo52CrUB"
+},
+{
+"gate": "b0qVilrqmyu3JmpNzUrLwptY0jFVAi6yBpw0jkGAvcs",
+"gateValue": "true",
+"ruleID": "66covjaoZoe9pQR4I68jOB"
+}
+]
+},
+"4224604306": {
+"name": "4224604306",
+"value": {
+"is_nextjs_accounts_check_enabled": false,
+"is_nextjs_bootstrap_enabled": false
+},
+"rule_id": "abandoned",
+"group": "abandoned",
+"is_device_based": true,
+"id_type": "stableID",
+"is_experiment_active": false,
+"is_user_in_experiment": false,
+"is_in_layer": true,
+"explicit_parameters": [
+"is_nextjs_bootstrap_enabled"
+],
+"secondary_exposures": []
+},
+"4252260557": {
+"name": "4252260557",
+"value": {
+"is_team_enabled": true,
+"is_yearly_plus_subscription_enabled": false,
+"is_split_between_personal_and_business_enabled": true,
+"is_modal_fullscreen": true,
+"is_v2_toggle_labels_enabled": false,
+"is_bw": false,
+"is_produce_colors": false,
+"is_produce_color_scheme": false,
+"is_mobile_web_toggle_enabled": false,
+"is_enterprise_enabled": false
+},
+"rule_id": "abandoned",
+"group": "abandoned",
+"is_device_based": false,
+"id_type": "userID",
+"is_experiment_active": false,
+"is_user_in_experiment": false,
+"is_in_layer": true,
+"explicit_parameters": [
+"is_v2_toggle_labels_enabled"
+],
+"secondary_exposures": [
+{
+"gate": "4Exg6vhN6upFNPEi27HmXqnFOxBGdDULbh1Ig7MWPYWR8Rh9O9HO7dFTuKf1pvP3Y",
+"gateValue": "false",
+"ruleID": "disabled"
+}
+]
+},
+"4252260612": {
+"name": "4252260612",
+"value": {
+"is_team_enabled": true,
+"is_yearly_plus_subscription_enabled": false,
+"is_split_between_personal_and_business_enabled": true,
+"is_modal_fullscreen": true,
+"is_v2_toggle_labels_enabled": false,
+"is_bw": false,
+"is_produce_colors": false,
+"is_produce_color_scheme": false,
+"is_mobile_web_toggle_enabled": false,
+"is_enterprise_enabled": false
+},
+"rule_id": "67IhnB42X3KGgHCY4u9Xlk",
+"group": "67IhnB42X3KGgHCY4u9Xlk",
+"group_name": "Control",
+"is_device_based": false,
+"id_type": "userID",
+"is_experiment_active": true,
+"is_user_in_experiment": true,
+"is_in_layer": true,
+"explicit_parameters": [
+"is_v2_toggle_labels_enabled"
+],
+"secondary_exposures": [
+{
+"gate": "4Exg6vhN6upFNPEi27HmXqnFOxBGdDULbh1Ig7MWPYWR8Rh9O9HO7dFTuKf1pvP3Y",
+"gateValue": "false",
+"ruleID": "disabled"
+}
+]
+},
+"4268016031": {
+"name": "4268016031",
+"value": {
+"optimize_initial_modals": true,
+"defer_memory_modal": true,
+"enable_v2_cleanup": true
+},
+"rule_id": "launchedGroup",
+"group": "launchedGroup",
+"group_name": "Initial Blocking Modals and Memory Modal",
+"is_device_based": false,
+"id_type": "userID",
+"is_experiment_active": false,
+"is_user_in_experiment": false,
+"is_in_layer": true,
+"explicit_parameters": [
+"optimize_initial_modals",
+"defer_memory_modal"
+],
+"secondary_exposures": []
+}
+},
+"layer_configs": {
+"229662723": {
+"name": "229662723",
+"value": {
+"should-enable-chair": false
+},
+"rule_id": "2nYZAc40m7EiKjFtjelSUl",
+"group": "2nYZAc40m7EiKjFtjelSUl",
+"group_name": "Control",
+"allocated_experiment_name": "3371824144",
+"is_device_based": true,
+"is_experiment_active": true,
+"explicit_parameters": [
+"should-enable-chair"
+],
+"is_user_in_experiment": true,
+"secondary_exposures": [],
+"undelegated_secondary_exposures": []
+},
+"468168202": {
+"name": "468168202",
+"value": {
+"is_team_enabled": true,
+"is_yearly_plus_subscription_enabled": false,
+"is_split_between_personal_and_business_enabled": true,
+"is_modal_fullscreen": true,
+"is_v2_toggle_labels_enabled": false,
+"is_bw": false,
+"is_produce_colors": false,
+"is_produce_color_scheme": false,
+"is_mobile_web_toggle_enabled": false,
+"is_enterprise_enabled": false
+},
+"rule_id": "67IhnB42X3KGgHCY4u9Xlk",
+"group": "67IhnB42X3KGgHCY4u9Xlk",
+"group_name": "Control",
+"allocated_experiment_name": "4252260612",
+"is_device_based": false,
+"is_experiment_active": true,
+"explicit_parameters": [
+"is_v2_toggle_labels_enabled"
+],
+"is_user_in_experiment": true,
+"secondary_exposures": [
+{
+"gate": "4Exg6vhN6upFNPEi27HmXqnFOxBGdDULbh1Ig7MWPYWR8Rh9O9HO7dFTuKf1pvP3Y",
+"gateValue": "false",
+"ruleID": "disabled"
+}
+],
+"undelegated_secondary_exposures": [
+{
+"gate": "4Exg6vhN6upFNPEi27HmXqnFOxBGdDULbh1Ig7MWPYWR8Rh9O9HO7dFTuKf1pvP3Y",
+"gateValue": "false",
+"ruleID": "disabled"
+}
+]
+},
+"668322707": {
+"name": "668322707",
+"value": {
+"show_citations_with_title": true
+},
+"rule_id": "default",
+"group": "default",
+"is_device_based": false,
+"explicit_parameters": [],
+"secondary_exposures": [],
+"undelegated_secondary_exposures": []
+},
+"717266490": {
+"name": "717266490",
+"value": {
+"optimize_initial_modals": true,
+"defer_memory_modal": true,
+"enable_v2_cleanup": true
+},
+"rule_id": "default",
+"group": "default",
+"is_device_based": false,
+"explicit_parameters": [],
+"secondary_exposures": [],
+"undelegated_secondary_exposures": []
+},
+"1238742812": {
+"name": "1238742812",
+"value": {
+"should_enable_zh_tw": false
+},
+"rule_id": "default",
+"group": "default",
+"is_device_based": false,
+"explicit_parameters": [],
+"secondary_exposures": [],
+"undelegated_secondary_exposures": []
+},
+"1320801051": {
+"name": "1320801051",
+"value": {
+"hide_new_at_workspace_section": false,
+"hide_section_new_at_workspace": false,
+"gpt_discovery_experiment_enabled": false
+},
+"rule_id": "prestart",
+"group": "prestart",
+"allocated_experiment_name": "1320801051",
+"is_device_based": false,
+"is_experiment_active": false,
+"explicit_parameters": [
+"gpt_discovery_experiment_enabled"
+],
+"is_user_in_experiment": false,
+"secondary_exposures": [],
+"undelegated_secondary_exposures": []
+},
+"1346366956": {
+"name": "1346366956",
+"value": {
+"use_email_otp": false,
+"show_phone_number_signup": false,
+"remove_edit_in_signup": false,
+"remove_edit_in_login": false
+},
+"rule_id": "5NrPQon0v2EV4xbYrIkBtN",
+"group": "5NrPQon0v2EV4xbYrIkBtN",
+"group_name": "Control",
+"allocated_experiment_name": "3074105577",
+"is_device_based": true,
+"is_experiment_active": true,
+"explicit_parameters": [
+"remove_edit_in_signup",
+"remove_edit_in_login"
+],
+"is_user_in_experiment": true,
+"secondary_exposures": [],
+"undelegated_secondary_exposures": []
+},
+"1547743984": {
+"name": "1547743984",
+"value": {
+"should_simplify_modal": false,
+"is_simplified_sharing_modal_enabled": false,
+"is_social_share_options_enabled": false,
+"is_update_shared_links_enabled": false,
+"is_discoverability_toggle_enabled": false,
+"show_copylink_state_if_no_updates": true
+},
+"rule_id": "3fdACNmSdaY0SPpdEdJNZI:override",
+"group": "3fdACNmSdaY0SPpdEdJNZI:override",
+"group_name": "Test",
+"allocated_experiment_name": "2919366999",
+"is_device_based": false,
+"is_experiment_active": false,
+"explicit_parameters": [
+"show_copylink_state_if_no_updates"
+],
+"is_user_in_experiment": false,
+"secondary_exposures": [
+{
+"gate": "5NstQwnAHpD6ZCeRH5iC9JRZxuBcTNjGWxk8wRU5eMJgjtLYNP95EJRIhdJZtMt7D",
+"gateValue": "true",
+"ruleID": "48mToGJmOtQ5aRx9MCjOor"
+}
+],
+"undelegated_secondary_exposures": [
+{
+"gate": "5NstQwnAHpD6ZCeRH5iC9JRZxuBcTNjGWxk8wRU5eMJgjtLYNP95EJRIhdJZtMt7D",
+"gateValue": "true",
+"ruleID": "48mToGJmOtQ5aRx9MCjOor"
+}
+]
+},
+"1696863369": {
+"name": "1696863369",
+"value": {
+"has_sidekick_access": true,
+"show_nux_banner": true
+},
+"rule_id": "4NoJQoCScwW5JMhVNjH4jM:override",
+"group": "4NoJQoCScwW5JMhVNjH4jM:override",
+"group_name": "Has Access Sees Banner",
+"allocated_experiment_name": "2346290881",
+"is_device_based": false,
+"is_experiment_active": true,
+"explicit_parameters": [
+"has_sidekick_access",
+"show_nux_banner"
+],
+"is_user_in_experiment": false,
+"secondary_exposures": [
+{
+"gate": "vVKbJ9za767vVaUHbk6KQToXT3GqyKA5ZZNPuslVlacq3JH9PNpvpDujpyMpzOfo",
+"gateValue": "true",
+"ruleID": "1vWEhLfJ39edDu8ZjE19dl:50.00:4"
+}
+],
+"undelegated_secondary_exposures": [
+{
+"gate": "vVKbJ9za767vVaUHbk6KQToXT3GqyKA5ZZNPuslVlacq3JH9PNpvpDujpyMpzOfo",
+"gateValue": "true",
+"ruleID": "1vWEhLfJ39edDu8ZjE19dl:50.00:4"
+}
+]
+},
+"2634128790": {
+"name": "2634128790",
+"value": {
+"is_nextjs_accounts_check_enabled": false,
+"is_nextjs_bootstrap_enabled": false
+},
+"rule_id": "default",
+"group": "default",
+"is_device_based": true,
+"explicit_parameters": [],
+"secondary_exposures": [],
+"undelegated_secondary_exposures": []
+},
+"3048336830": {
+"name": "3048336830",
+"value": {
+"is-enabled": true,
+"use-rtl-layout": false
+},
+"rule_id": "Nzc6Xnht6tIVmb48Ejg1T:override",
+"group": "Nzc6Xnht6tIVmb48Ejg1T:override",
+"group_name": "Test",
+"allocated_experiment_name": "4204547666",
+"is_device_based": false,
+"is_experiment_active": false,
+"explicit_parameters": [
+"is-enabled"
+],
+"is_user_in_experiment": false,
+"secondary_exposures": [
+{
+"gate": "b0qVilrqmyu3JmpNzUrLwstNKkgPJraGbVrzNuIumfd",
+"gateValue": "false",
+"ruleID": "14DZA2LumaPqAdCo52CrUB"
+},
+{
+"gate": "b0qVilrqmyu3JmpNzUrLwptY0jFVAi6yBpw0jkGAvcs",
+"gateValue": "true",
+"ruleID": "66covjaoZoe9pQR4I68jOB"
+}
+],
+"undelegated_secondary_exposures": [
+{
+"gate": "b0qVilrqmyu3JmpNzUrLwstNKkgPJraGbVrzNuIumfd",
+"gateValue": "false",
+"ruleID": "14DZA2LumaPqAdCo52CrUB"
+},
+{
+"gate": "b0qVilrqmyu3JmpNzUrLwptY0jFVAi6yBpw0jkGAvcs",
+"gateValue": "true",
+"ruleID": "66covjaoZoe9pQR4I68jOB"
+}
+]
+},
+"3637408529": {
+"name": "3637408529",
+"value": {
+"is_anon_chat_enabled": true,
+"anon_composer_display_variant": "default",
+"anon-is-spanish-translation-enabled": true,
+"should_show_anon_login_header_on_desktop": false,
+"is_anon_chat_enabled_for_new_users_only": false,
+"is_try_it_first_on_login_page_enabled": false,
+"is_no_auth_welcome_modal_enabled": false,
+"no_auth_soft_rate_limit": 10,
+"no_auth_hard_rate_limit": 1200,
+"should_show_no_auth_signup_banner": true,
+"is_no_auth_welcome_back_modal_enabled": true,
+"is_no_auth_soft_rate_limit_modal_enabled": true,
+"is_no_auth_gpt4o_modal_enabled": false,
+"is_login_primary_button": true,
+"is_desktop_primary_auth_button_on_right": false,
+"is_primary_btn_blue": false
+},
+"rule_id": "default",
+"group": "default",
+"is_device_based": false,
+"explicit_parameters": [],
+"secondary_exposures": [
+{
+"gate": "2YJN3jch7WmCCA8cl0Ta5AvF3oDePA7YTkR48XwxN50V0Ph7D9vjAl4SZufhbvwbQ",
+"gateValue": "false",
+"ruleID": "default"
+},
+{
+"gate": "1MYcsxeNaY9CfBP0KcxNWK1rpf05mfizLToIzwWdTxKNJhTa7DxSnPMOGf0ImQwRD",
+"gateValue": "false",
+"ruleID": "disabled"
+},
+{
+"gate": "2YJN3jch7WmCCA8cl0Ta5AFVwW3QWI6CFvBUw2895pQCrGiqBBVAyPuUtgzOlGzDS",
+"gateValue": "false",
+"ruleID": "disabled"
+}
+],
+"undelegated_secondary_exposures": [
+{
+"gate": "2YJN3jch7WmCCA8cl0Ta5AvF3oDePA7YTkR48XwxN50V0Ph7D9vjAl4SZufhbvwbQ",
+"gateValue": "false",
+"ruleID": "default"
+},
+{
+"gate": "1MYcsxeNaY9CfBP0KcxNWK1rpf05mfizLToIzwWdTxKNJhTa7DxSnPMOGf0ImQwRD",
+"gateValue": "false",
+"ruleID": "disabled"
+},
+{
+"gate": "2YJN3jch7WmCCA8cl0Ta5AFVwW3QWI6CFvBUw2895pQCrGiqBBVAyPuUtgzOlGzDS",
+"gateValue": "false",
+"ruleID": "disabled"
+}
+]
+},
+"3972089454": {
+"name": "3972089454",
+"value": {
+"search_scoring_dyconfig_name": "chatgpt_enterprise_gpt_search_test_group_1"
+},
+"rule_id": "19DiYHYHunu5U4PIYDytDH",
+"group": "19DiYHYHunu5U4PIYDytDH",
+"group_name": "Workspace Boost",
+"allocated_experiment_name": "1873047021",
+"is_device_based": false,
+"is_experiment_active": true,
+"explicit_parameters": [
+"search_scoring_dyconfig_name"
+],
+"is_user_in_experiment": true,
+"secondary_exposures": [
+{
+"gate": "3DgIJv0TDU0qwcixVGa6b5uylQ3X5M1swWgio62xNPa",
+"gateValue": "true",
+"ruleID": "3V8UhxmPzvjP9VtHWr27N6"
+}
+],
+"undelegated_secondary_exposures": []
+},
+"4031588851": {
+"name": "4031588851",
+"value": {
+"enable_hardcoded_vision_prompts": false,
+"enable_hardcoded_file_document_prompts": false,
+"enable_hardcoded_data_vis_prompts": false,
+"enable_hardcoded_browse_prompts": false,
+"enable_new_ranking": false,
+"is_two_line": true,
+"enable_new_homepage": false,
+"enable_autocomplete": false,
+"gen_autocomplete_prompt": "",
+"autocomplete_mode": "HARDCODED",
+"starter_prompt_ranking_algorithm": "v1",
+"autocomplete_min_char": 4,
+"autocomplete_max_char": 32
+},
+"rule_id": "5LnvikG8ltQiycZD2bBCBt",
+"group": "5LnvikG8ltQiycZD2bBCBt",
+"group_name": "Test",
+"allocated_experiment_name": "3701102259",
+"is_device_based": false,
+"is_experiment_active": true,
+"explicit_parameters": [
+"is_two_line"
+],
+"is_user_in_experiment": true,
+"secondary_exposures": [
+{
+"gate": "R2VrmDonlPQfdQWn1EzRqa9c45DruLhxna8W9BJhlgIElBxudyugd6ORLbZJOztURlCw88iRcmg70PvCBuMpL2",
+"gateValue": "true",
+"ruleID": "33g2a39i6ERewLPmzgNinx"
+}
+],
+"undelegated_secondary_exposures": []
+}
+},
+"sdkParams": {},
+"has_updates": true,
+"generator": "scrapi-nest",
+"time": 1724636541259,
+"company_lcut": 1724636541259,
+"evaluated_keys": {
+"userID": "user-1XRyOEvkrogdXJE41rHAN0KD",
+"stableID": "00000000-0000-0000-0000-000000000000", 
+"customIDs": {
+"WebAnonymousCookieID": "00000000-0000-0000-0000-000000000000",
+"DeviceId": "00000000-0000-0000-0000-000000000000",
+"stableID": "00000000-0000-0000-0000-000000000000"
+}
+},
+"hash_used": "djb2",
+"derived_fields": {
+"user_agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/17.6 Safari/605.1.15",
+"ip": "8.8.8.8"
+},
+"hashed_sdk_key_used": "1950608987",
+"can_record_session": true,
+"session_recording_rate": 1,
+"target_app_used": "js-client-browser"
+}

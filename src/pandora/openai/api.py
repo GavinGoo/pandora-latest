@@ -28,15 +28,20 @@ import time
 import urllib.parse
 from urllib.parse import quote
 import base64
+import hashlib
+from binascii import hexlify
+import traceback
+import random
+from dateutil.tz import tzlocal
 from bs4 import BeautifulSoup   # func get_origin_share_data
 
-if os.path.exists(USER_CONFIG_DIR + '/api.json') and not getenv('PANDORA_OAI_ONLY'):
+if getenv('PANDORA_ISOLATION') == 'True' or (os.path.exists(USER_CONFIG_DIR + '/api.json') and getenv('PANDORA_OAI_ONLY') != 'True'):
     from ..api.module import LocalConversation
     from ..api.module import API_CONFIG_FILE, API_DATA
 
 
 class API:
-    def __init__(self, proxy, ca_bundle):
+    def __init__(self, proxy, ca_bundle, req_timeout=60, LOCAL_OP=False, OAI_ONLY=False, PANDORA_DEBUG=False, ISOLATION_FLAG=False):
         # self.proxy = proxy    # httpx
         self.proxy = {
                         'http': proxy,
@@ -44,9 +49,11 @@ class API:
                     }if proxy else None
         self.ca_bundle = ca_bundle
         self.web_origin = ''
-        self.LOCAL_OP = getenv('PANDORA_LOCAL_OPTION')
-        self.OAI_ONLY = getenv('PANDORA_OAI_ONLY')
-        self.req_timeout = getenv('PANDORA_TIMEOUT')
+        self.LOCAL_OP = LOCAL_OP
+        self.OAI_ONLY = OAI_ONLY
+        self.req_timeout = req_timeout
+        self.PANDORA_DEBUG = PANDORA_DEBUG
+        self.ISOLATION_FLAG = ISOLATION_FLAG
 
         # curl_cffi
         if 'nt' == os.name:
@@ -58,15 +65,19 @@ class API:
         resp.headers = {'Content-Type': 'text/event-stream;charset=UTF-8'}
         resp.status_code = 200
 
+        if 'Failed to connect' in content and 'port' in content:
+            content = 'Internal Error!'
+
         if isinstance(content, (dict, list)):
-            content = json.dumps(content)
+            content = json.dumps(content, ensure_ascii=False)
 
         error_content = 'System Error: \n' + content
+        Console.warn(datetime.now().strftime('%Y-%m-%d %H:%M:%S') + ' | ' + '{}'.format(error_content))
         msg_id = str(uuid.uuid4())
         create_time = int(time.time())
         fake_json = {"message": {"id": msg_id, "author": {"role": "assistant", "name": None, "metadata": {}}, "create_time": create_time, "update_time": None, "content": {"content_type": "text", "parts": [error_content]}, "status": "in_progress", "end_turn": None, "weight": 1.0, "metadata": {"citations": [], "gizmo_id": None, "message_type": "next", "parent_id": ""}, "recipient": "all"}, "error": error_content}
 
-        resp_content = b'data: ' + json.dumps(fake_json).encode('utf-8') + b'\n\n' + b'data: [DONE]\n\n'
+        resp_content = b'data: ' + json.dumps(fake_json, ensure_ascii=False).encode('utf-8') + b'\n\n' + b'data: [DONE]\n\n'
         resp._content = resp_content
 
         return resp
@@ -76,20 +87,6 @@ class API:
         if status != 200:
             for line in generator:
                 yield json.dumps(line)
-                # data = json.dumps(line)
-                # Console.debug_b('wrap_stream_out => status != 200:{}'.format('data: ' + data + '\n\n'))
-
-                # msg_id = str(uuid.uuid4())
-                # create_time = int(time.time())
-                # fake_json = {"message": {"id": msg_id, "author": {"role": "assistant", "name": None, "metadata": {}}, "create_time": create_time, "update_time": None, "content": {"content_type": "text", "parts": [data]}, "status": "in_progress", "end_turn": None, "weight": 1.0, "metadata": {"citations": [], "gizmo_id": None, "message_type": "next", "parent_id": ""}, "recipient": "all"}, "error": data}
-                
-                # # 尝试返回错误信息               
-                # yield b'data: ' + json.dumps(fake_json).encode('utf-8') + b'\n\n'
-                # yield b'data: [DONE]\n\n'
-
-                # # yield json.dumps(line)
-
-                # return API.error_fallback(data)
 
             return
 
@@ -99,8 +96,10 @@ class API:
         yield b'data: [DONE]\n\n'
 
 
-    async def __process_sse(self, resp, conversation_id=None, message_id=None, model=None, action=None, prompt=None):
+    async def __process_sse(self, resp, conversation_id=None, message_id=None, model=None, action=None, prompt=None, isolation_code=None):
         if resp.status_code != 200:
+            Console.warn(datetime.now().strftime('%Y-%m-%d %H:%M:%S') + ' | ' + f'Model: {model} | Status_Code: {str(resp.status_code)}')
+            Console.warn(datetime.now().strftime('%Y-%m-%d %H:%M:%S') + ' | ' + f'Resp: {str(resp.text)}')
             yield await self.__process_sse_except(resp)
             return
         
@@ -125,25 +124,33 @@ class API:
 
         resp_content = ''
         yield_msg = ''
+        official_title = ''
         create_time = None
         msg_id = None
+        original_conv_id = conversation_id
         index = 0
         # SAVE_ASSISTANT_MSG = False
-
         msg_id = str(uuid.uuid4())
         create_time = int(time.time())
 
-        # SHOW_RESP_MSG = False  # dev
+        if model == 'gpt-4o' and not self.LOCAL_OP and not self.OAI_ONLY: # 0516: 同时启用OAI与API模式时避免与OAI模型冲突
+            if API_DATA and API_DATA.get(model):
+                model = 'gpt-4o-api'
+
+        SHOW_RESP_MSG = False  # dev
 
         if not BLOB_FLAGE:
             async for utf8_line in resp.aiter_lines():
                 if isinstance(utf8_line, bytes):
                     utf8_line = utf8_line.decode('utf-8')
-                
+
                 # dev
-                # if not SHOW_RESP_MSG:
-                #     Console.debug_b('{}'.format(utf8_line))
-                #     SHOW_RESP_MSG = True
+                # Console.warn(utf8_line)
+                
+                # debug mode
+                if not SHOW_RESP_MSG and self.PANDORA_DEBUG:
+                    Console.warn(datetime.now().strftime('%Y-%m-%d %H:%M:%S') + ' | ' + '{}'.format(utf8_line))
+                    SHOW_RESP_MSG = True
 
                 # 适配Real-Coze-API
                 if '{"content"' == utf8_line[0:10] or b'{"content"' == utf8_line[0:10]:
@@ -160,48 +167,87 @@ class API:
                     resp_content = '![img]({})'.format(resp_data['data'][0]['url'])
 
                 if 'data: [DONE]' == utf8_line[0:12] or 'data: [DONE]' == utf8_line:
-                    # if SAVE_ASSISTANT_MSG == False:
-                    #     Console.debug_b('End of assistant's answer, save assistant conversation.')
-                    #     LocalConversation.save_conversation(conversation_id, id, resp_content, 'assistant', datetime.now(tzutc()).isoformat(), model, action)
-                        
-                    # break
                     continue
 
-                if 'data: {"message":' == utf8_line[0:17] or 'data: {"id":' == utf8_line[0:12] or 'data: {"choices":' == utf8_line[0:17]:
+                if 'data: ' in utf8_line[0:6]:
                     json_data = json.loads(utf8_line[6:])
 
-                    if json_data.get('choices'):
-                        if json_data.get('created'):
-                            create_time = json_data['created']
+                    # 适配3.5
+                    if conversation_id is None and json_data.get('conversation_id'):
+                        conversation_id = json_data['conversation_id']
 
-                        if json_data.get('id'):
-                            msg_id = json_data['id']
+                    # Official Title
+                    if json_data.get('title'):
+                        official_title = json_data.get('title')
 
-                        if json_data['choices'][0].get('message'):
-                            resp_content = json_data['choices'][0]['message']['content']
+                        # 创建隔离OAI对话
+                        if not original_conv_id and self.ISOLATION_FLAG and isolation_code:
+                            if self.OAI_ONLY or (API_DATA and API_DATA.get(model) is None):
+                                Console.warn('OAI隔离模式, 创建对话')
+                                LocalConversation.create_conversation(conversation_id, official_title, datetime.now(tzutc()).isoformat(), isolation_code)
 
-                        elif json_data['choices'][0].get('delta'):  # 适配GLM
-                            # print('{}'.format(json_data['choices'][0]['delta']['content']), end='')
-                            try:
-                                resp_content += json_data['choices'][0]['delta']['content']
+                    # 0412: 为避免一些OAI接口返回重复id, 因此改为自主生成
+                    # if json_data.get('id'):
+                    #     msg_id = json_data['id']
 
-                            except KeyError:
-                                continue
+                    if json_data.get('message'):
+                        if json_data['message'].get('id'):
+                            previous_msg_id = msg_id
+                            msg_id = json_data['message']['id']
+
+                        if json_data['message'].get('create_time'):
+                            create_time = json_data['message']['create_time']
+                    
+                    if json_data.get('created'):
+                        create_time = json_data['created']
+
+                    if json_data.get('create_time'):
+                        create_time = json_data['create_time']
+
+                    # 适配cloudflare ai
+                    if 'data: {"response":' == utf8_line[0:18]:
+                        resp_content += json_data['response']
+
+                    else:
+                        if json_data.get('choices'):
+                            if json_data['choices'][0].get('message'):
+                                resp_content = json_data['choices'][0]['message']['content']
+
+                            elif json_data['choices'][0].get('delta'):  # 适配GLM
+                                try:
+                                    resp_content += json_data['choices'][0]['delta']['content']
+                                except KeyError:
+                                    continue
+
+                        # 适配3.5
+                        elif json_data.get('message'):
+                            if json_data['message'].get('content'):
+                                if json_data['message']['content'].get('parts'):
+                                    if not original_conv_id:
+                                        ## 新对话
+                                        if previous_msg_id == msg_id:
+                                            resp_content = json_data['message']['content']['parts'][0]
+                                    else:
+                                        resp_content = json_data['message']['content']['parts'][0]
 
                 # 适配Gemini
                 if '"text": ' == utf8_line[12:20] and 'gemini' in model:
                     text_json = json.loads('{' + utf8_line[12:] + '}')
                     resp_content += text_json['text']
 
-                # 适配cloudflare ai
-                if 'data: {"response":' == utf8_line[0:18]:
-                    json_data = json.loads(utf8_line[6:])
-                    resp_content += json_data['response']
-
                 # 适配Double
                 if 'double' in model:
                     resp_content += utf8_line
 
+                # 适配DALL·E
+                if 'dall' in model:
+                    if '      "revised_prompt": ' in utf8_line[0:25]:
+                        resp_content += utf8_line[25:-2]
+
+                    if '      "url": ' in utf8_line[0:14]:
+                        resp_content += '![img]({})'.format(utf8_line[14:-1])
+
+                
                 if resp_content:
                     for char in resp_content[index:]:
                         yield_msg += char
@@ -217,9 +263,19 @@ class API:
 
             yield fake_json
 
-
         # Console.debug_b("End of assistant's answer, save assistant conversation.")
-        LocalConversation.save_conversation(conversation_id, msg_id, resp_content, 'assistant', datetime.now(tzutc()).isoformat(), model, action)
+
+        if os.path.exists(USER_CONFIG_DIR + '/api.json') and not self.OAI_ONLY:
+            if API_DATA.get(model):
+                LocalConversation.save_conversation(conversation_id, msg_id, resp_content, 'assistant', datetime.now(tzutc()).isoformat(), model, action)
+        
+        # 创建隔离OAI对话(当无title生成时的兜底策略)
+        if not original_conv_id and self.ISOLATION_FLAG and isolation_code:
+            if self.OAI_ONLY or (API_DATA and API_DATA.get(model) is None):
+                if not official_title:
+                    official_title = prompt
+                    Console.warn('OAI隔离模式, 创建对话(无title生成)')
+                    LocalConversation.create_conversation(conversation_id, prompt, datetime.now(tzutc()).isoformat(), isolation_code)
   
     async def __process_sse_origin(self, resp):
         yield resp.status_code
@@ -278,33 +334,42 @@ class API:
 
     #             queue.put(None)
 
-    async def _do_request_sse(self, url, headers, data, queue, event, conversation_id=None, message_id=None, model=None, action=None, prompt=None):
-        proxy_url = API_DATA[model].get('proxy')
-        proxy = {
-                    "http": proxy_url,
-                    "https": proxy_url,
-                }if 'proxy' in API_DATA[model] else None
-        
-        # dev
-        # if proxy:
-        #     Console.debug_b('proxy: {}'.format(str(proxy)))
+    async def _do_request_sse(self, url, headers, data, queue, event, conversation_id=None, message_id=None, model=None, action=None, prompt=None, isolation_code=None):
+        proxy = None
+        if os.path.exists(USER_CONFIG_DIR + '/api.json') and not getenv('PANDORA_OAI_ONLY'):
+            if API_DATA.get(model):
+                proxy_url = API_DATA[model].get('proxy')
+                proxy = {
+                            "http": proxy_url,
+                            "https": proxy_url,
+                        }if 'proxy' in API_DATA[model] else None
+        try:
+            async with requests.AsyncSession(verify=self.ca_bundle, proxies=proxy if proxy else self.proxy, impersonate='chrome110') as client:
+                async with client.stream('POST', url, json=data, headers=headers, timeout=60 if not self.req_timeout else self.req_timeout, http_version=1) as resp:
+                    async for line in self.__process_sse(resp, conversation_id, message_id, model, action, prompt, isolation_code):
+                        queue.put(line)
 
-        async with requests.AsyncSession(verify=self.ca_bundle, proxies=proxy if proxy else self.proxy, impersonate='chrome110') as client:
-            async with client.stream('POST', url, json=data, headers=headers, timeout=60 if not self.req_timeout else self.req_timeout) as resp:
-                async for line in self.__process_sse(resp, conversation_id, message_id, model, action, prompt):
-                    queue.put(line)
+                        if event.is_set():
+                            # await client.aclose()     # httpx
+                            await client.close()
+                            break
 
-                    if event.is_set():
-                        # await client.aclose()     # httpx
-                        await client.close()
-                        break
+                    queue.put(None)
 
-                queue.put(None)
+        except Exception as e:
+            error_detail = traceback.format_exc()
+            Console.debug(error_detail)
+            Console.warn('_do_request_sse FAILED: {}'.format(e))
 
-    def _request_sse(self, url, headers, data, conversation_id=None, message_id=None, model=None, action=None, prompt=None):
-        # Console.warn('data: {}'.format(json.dumps(data))[:300]) # dev
+            return self.error_fallback('Internal Error!') 
+
+    def _request_sse(self, url, headers, data, conversation_id=None, message_id=None, model=None, action=None, prompt=None, isolation_code=None):
+        if self.PANDORA_DEBUG:
+            data_str = json.dumps(data, ensure_ascii=False)[:500]
+            Console.debug(datetime.now().strftime('%Y-%m-%d %H:%M:%S') + ' | ' + 'data: {}'.format(data_str)) # dev
+
         queue, e = block_queue.Queue(), threading.Event()
-        t = threading.Thread(target=asyncio.run, args=(self._do_request_sse(url, headers, data, queue, e, conversation_id, message_id, model, action, prompt),))
+        t = threading.Thread(target=asyncio.run, args=(self._do_request_sse(url, headers, data, queue, e, conversation_id, message_id, model, action, prompt, isolation_code),))
         t.start()
 
         return queue.get(), queue.get(), self.__generate_wrap(queue, t, e)
@@ -312,7 +377,7 @@ class API:
 
 
 class ChatGPT(API):
-    def __init__(self, access_tokens: dict, proxy=None):
+    def __init__(self, access_tokens: dict, proxy=None, req_timeout=60, LOCAL_OP=False, OAI_ONLY=False, PANDORA_DEBUG=False, ISOLATION_FLAG=False):
         self.access_tokens = access_tokens
         self.access_token_key_list = list(access_tokens)
         self.default_token_key = self.access_token_key_list[0]
@@ -323,20 +388,33 @@ class ChatGPT(API):
                 'https': proxy,
             } if proxy else None,
             'verify': where(),
-            'timeout': 60,
+            'timeout': req_timeout,
             'allow_redirects': False,
             'impersonate': 'chrome110',
         }
 
+        if len(self.access_token_key_list) > 1:
+            self.access_token_key_iter = iter(self.access_token_key_list)
+
         # self.user_agent = 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) ' \
         #                   'Pandora/{} Safari/537.36'.format(__version__)
-        self.user_agent = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/110.0.0.0 Safari/537.36 Edg/110.0.0.0'
+        self.user_agent = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/110.0.0.0 Safari/537.36'
         self.FILE_SIZE_LIMIT = int(getenv('PANDORA_FILE_SIZE')) if getenv('PANDORA_FILE_SIZE') else None
         self.OAI_Device_ID = uuid.uuid4()
         PANDORA_TYPE_WHITELIST = getenv('PANDORA_TYPE_WHITELIST')
         PANDORA_TYPE_BLACKLIST = getenv('PANDORA_TYPE_BLACKLIST')
         self.UPLOAD_TYPE_WHITELIST = []
         self.UPLOAD_TYPE_BLACKLIST = []
+        self.MODELS_LIST = []
+        self.MODELS_ICONS = []
+        
+        # if getenv('PANDORA_OAI_ONLY') != 'True' or self.ISOLATION_FLAG == 'True':
+        #     LocalConversation.initialize_database()
+
+        if ISOLATION_FLAG or not OAI_ONLY:
+            # Console.warn('Initialize LocalConversation Database')
+            LocalConversation.initialize_database()
+
         if PANDORA_TYPE_WHITELIST:
             self.UPLOAD_TYPE_WHITELIST = PANDORA_TYPE_WHITELIST.split(',')
             # Console.warn(f"PANDORA_TYPE_WHITELIST: {self.UPLOAD_TYPE_WHITELIST}")
@@ -349,7 +427,7 @@ class ChatGPT(API):
         hook_logging(level=self.log_level, format='[%(asctime)s] %(levelname)s in %(module)s: %(message)s')
         self.logger = logging.getLogger('waitress')
 
-        super().__init__(proxy, self.req_kwargs['verify'])
+        super().__init__(proxy, self.req_kwargs['verify'], req_timeout, LOCAL_OP, OAI_ONLY, PANDORA_DEBUG, ISOLATION_FLAG)
 
         if self.req_timeout:
             self.req_kwargs['timeout'] = self.req_timeout
@@ -370,13 +448,13 @@ class ChatGPT(API):
         headers = {
                     "Accept":"*/*",
                     "Accept-Encoding":"gzip, deflate, br, zstd",
-                    "Accept-Language":"zh-CN,zh;q=0.9",
+                    "Accept-Language":"en-US,en;q=0.9",
                     "Authorization":'Bearer ' + self.get_access_token(token_key),
                     "Cache-Control":"no-cache",
                     "Content-Type":"application/json",
                     "Oai-Device-Id":str(OAI_Device_ID),
                     "Oai-Language":"en-US",
-                    "Origin":"https://chat.openai.com",
+                    # "Origin":"https://chatgpt.com",
                     "Pragma":"no-cache",
                     "Sec-Ch-Ua":'"Google Chrome";v="110", "Not:A-Brand";v="8", "Chromium";v="110"',
                     "Sec-Ch-Ua-Mobile":"?0",
@@ -395,12 +473,14 @@ class ChatGPT(API):
     
     def __get_api_req_kwargs(self, model):
         req_kwargs = self.req_kwargs
-
-        if API_DATA[model].get('proxy'):
-            req_kwargs['proxies'] = {
-                'http': API_DATA[model]['proxy'],
-                'https': API_DATA[model]['proxy'],
-            }
+        proxy_url = API_DATA[model].get('proxy')
+        proxy = {
+                    "http": proxy_url,
+                    "https": proxy_url,
+                }if 'proxy' in API_DATA[model] else None
+        
+        if proxy:
+            req_kwargs['proxies'] = proxy
 
         return req_kwargs
 
@@ -442,37 +522,74 @@ class ChatGPT(API):
 
     def list_token_keys(self):
         return self.access_token_key_list
+
+    def model_icons(self, raw=False, token=None):
+        # if self.MODELS_ICONS:
+        #     return self.fake_resp(fake_data=json.dumps(self.MODELS_ICONS, ensure_ascii=False))
+
+        if not self.MODELS_ICONS and (not self.OAI_ONLY and API_DATA):
+            self.MODELS_ICONS = {}
+            icons = {
+                'stars': {
+                    "icon_filled_src": "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" fill=\"none\" viewBox=\"0 0 24 24\"><path fill=\"currentColor\" d=\"M19.92.897a.447.447 0 0 0-.89-.001c-.12 1.051-.433 1.773-.922 2.262-.49.49-1.21.801-2.262.923a.447.447 0 0 0 0 .888c1.035.117 1.772.43 2.274.922.499.49.817 1.21.91 2.251a.447.447 0 0 0 .89 0c.09-1.024.407-1.76.91-2.263.502-.502 1.238-.82 2.261-.908a.447.447 0 0 0 .001-.891c-1.04-.093-1.76-.411-2.25-.91-.493-.502-.806-1.24-.923-2.273ZM11.993 3.82a1.15 1.15 0 0 0-2.285-.002c-.312 2.704-1.115 4.559-2.373 5.817-1.258 1.258-3.113 2.06-5.817 2.373a1.15 1.15 0 0 0 .003 2.285c2.658.3 4.555 1.104 5.845 2.37 1.283 1.26 2.1 3.112 2.338 5.789a1.15 1.15 0 0 0 2.292-.003c.227-2.631 1.045-4.525 2.336-5.817 1.292-1.291 3.186-2.109 5.817-2.336a1.15 1.15 0 0 0 .003-2.291c-2.677-.238-4.529-1.056-5.789-2.34-1.266-1.29-2.07-3.186-2.37-5.844Z\"/></svg>",
+                    "icon_outline_src": "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" fill=\"none\" viewBox=\"0 0 24 24\"><path fill=\"currentColor\" d=\"M19.898.855a.4.4 0 0 0-.795 0c-.123 1.064-.44 1.802-.943 2.305-.503.503-1.241.82-2.306.943a.4.4 0 0 0 .001.794c1.047.119 1.801.436 2.317.942.512.504.836 1.241.93 2.296a.4.4 0 0 0 .796 0c.09-1.038.413-1.792.93-2.308.515-.516 1.269-.839 2.306-.928a.4.4 0 0 0 .001-.797c-1.055-.094-1.792-.418-2.296-.93-.506-.516-.823-1.27-.941-2.317Z\"/><path fill=\"currentColor\" d=\"M12.001 1.5a1 1 0 0 1 .993.887c.313 2.77 1.153 4.775 2.5 6.146 1.34 1.366 3.3 2.223 6.095 2.47a1 1 0 0 1-.003 1.993c-2.747.238-4.75 1.094-6.123 2.467-1.373 1.374-2.229 3.376-2.467 6.123a1 1 0 0 1-1.992.003c-.248-2.795-1.105-4.754-2.47-6.095-1.372-1.347-3.376-2.187-6.147-2.5a1 1 0 0 1-.002-1.987c2.818-.325 4.779-1.165 6.118-2.504 1.339-1.34 2.179-3.3 2.504-6.118A1 1 0 0 1 12 1.5ZM6.725 11.998c1.234.503 2.309 1.184 3.21 2.069.877.861 1.56 1.888 2.063 3.076.5-1.187 1.18-2.223 2.051-3.094.871-.87 1.907-1.55 3.094-2.05-1.188-.503-2.215-1.187-3.076-2.064-.885-.901-1.566-1.976-2.069-3.21-.505 1.235-1.19 2.3-2.081 3.192-.891.89-1.957 1.576-3.192 2.082Z\"/></svg>"
+                },
+                'star': {
+                    "icon_filled_src": "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" fill=\"none\" viewBox=\"0 0 24 24\"><path fill=\"currentColor\" d=\"M12.001 1.75c.496 0 .913.373.969.866.306 2.705 1.126 4.66 2.44 6 1.31 1.333 3.223 2.17 5.95 2.412a.976.976 0 0 1-.002 1.945c-2.682.232-4.637 1.067-5.977 2.408-1.34 1.34-2.176 3.295-2.408 5.977a.976.976 0 0 1-1.945.002c-.243-2.727-1.08-4.64-2.412-5.95-1.34-1.314-3.295-2.134-6-2.44a.976.976 0 0 1-.002-1.94c2.75-.317 4.665-1.137 5.972-2.444 1.307-1.307 2.127-3.221 2.444-5.972a.976.976 0 0 1 .971-.864Z\"/></svg>",
+                    "icon_outline_src": "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" fill=\"none\" viewBox=\"0 0 24 24\"><path fill=\"currentColor\" d=\"M12.001 1.5a1 1 0 0 1 .993.887c.313 2.77 1.153 4.775 2.5 6.146 1.34 1.366 3.3 2.223 6.095 2.47a1 1 0 0 1-.003 1.993c-2.747.238-4.75 1.094-6.123 2.467-1.373 1.374-2.229 3.376-2.467 6.123a1 1 0 0 1-1.992.003c-.248-2.795-1.105-4.754-2.47-6.095-1.372-1.347-3.376-2.187-6.147-2.5a1 1 0 0 1-.002-1.987c2.818-.325 4.779-1.165 6.118-2.504 1.339-1.34 2.179-3.3 2.504-6.118A1 1 0 0 1 12 1.5ZM6.725 11.998c1.234.503 2.309 1.184 3.21 2.069.877.861 1.56 1.888 2.063 3.076.5-1.187 1.18-2.223 2.051-3.094.871-.87 1.907-1.55 3.094-2.05-1.188-.503-2.215-1.187-3.076-2.064-.885-.901-1.566-1.976-2.069-3.21-.505 1.235-1.19 2.3-2.081 3.192-.891.89-1.957 1.576-3.192 2.082Z\"/></svg>"
+                },
+                'faster': {
+                    "icon_filled_src": "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" fill=\"none\" viewBox=\"0 0 24 24\"><path fill=\"currentColor\" fill-rule=\"evenodd\" d=\"M12.566 2.11c1.003-1.188 2.93-.252 2.615 1.271L14.227 8h5.697c1.276 0 1.97 1.492 1.146 2.467L11.434 21.89c-1.003 1.19-2.93.253-2.615-1.27L9.772 16H4.076c-1.276 0-1.97-1.492-1.147-2.467L12.565 2.11Z\" clip-rule=\"evenodd\"/></svg>",
+                    "icon_outline_src": "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" fill=\"none\" viewBox=\"0 0 24 24\"><path fill=\"currentColor\" d=\"M13.091 4.246 4.682 14H11a1 1 0 0 1 .973 1.23l-1.064 4.524L19.318 10H13a1 1 0 0 1-.973-1.229l1.064-4.525Zm-.848-2.08c1.195-1.386 3.448-.238 3.029 1.544L14.262 8h5.056c1.711 0 2.632 2.01 1.514 3.306l-9.075 10.528c-1.195 1.386-3.448.238-3.029-1.544L9.738 16H4.681c-1.711 0-2.632-2.01-1.514-3.306l9.075-10.527Z\"/></svg>"
+                }
+            }
+
+            for alias in API_DATA.keys():
+                item = API_DATA[alias]
+                icon_type = item.get('icon', 'stars')
+                self.MODELS_ICONS[alias] = icons.get(icon_type, 'stars')
+
+        return self.fake_resp(fake_data=json.dumps(self.MODELS_ICONS, ensure_ascii=False))
+
     
-    def list_models(self, raw=False, token=None, web_origin=None):
+    def list_models(self, raw=False, token=None, web_origin=None, gpt35_model=None, gpt4_model=None):
         self.web_origin = web_origin
+        OAI_FLAG = False
 
-        if self.OAI_ONLY:
-            try:
-                url = '{}/backend-api/models'.format(self.__get_api_prefix())
-                resp = self.session.get(url=url, headers=self.__get_headers(token), **self.req_kwargs)
+        if self.MODELS_LIST:
+            # Console.debug('MODELS_LIST 缓存')
 
-                if resp.status_code == 200:
-                    result = resp.json()
+            return self.fake_resp(fake_data=json.dumps(self.MODELS_LIST, ensure_ascii=False))
 
-                    return self.fake_resp(fake_data=json.dumps(result, ensure_ascii=False))
-                
-                return
-            
-            except:
-                return
+        else:
+            if getenv('PANDORA_OLD_CHAT') != 'True' and getenv('PANDORA_CLASSIC') != 'True':
+                NEW_CHAT_PAGE = True
+            else:
+                NEW_CHAT_PAGE = False
 
-        gpt4_model = getenv('PANDORA_GPT4_MODEL')
-        gpt4_category = {
+            result = {
+                "models": [],
+                "categories": [
+                    {
+                        "category": "gpt_3.5",
+                        "human_category_name": "GPT-3.5",
+                        "subscription_level": "free",
+                        "default_model": gpt35_model if gpt35_model else "text-davinci-002-render-sha",
+                        "code_interpreter_model": gpt35_model if gpt35_model else "text-davinci-002-render-sha-code-interpreter",
+                        "plugins_model": gpt35_model if gpt35_model else "text-davinci-002-render-sha-plugins"
+                    },
+                    {
                         "category": "gpt_4",
                         "human_category_name": "GPT-4",
                         "subscription_level": "free",
-                        "default_model": gpt4_model if gpt4_model else "gpt-4",
-                        "plugins_model": gpt4_model if gpt4_model else "gpt-4"
+                        "default_model": gpt4_model if gpt4_model else ("gpt-4o" if not self.LOCAL_OP else "gpt-4"),
+                        "plugins_model": gpt4_model if gpt4_model else ("gpt-4o" if not self.LOCAL_OP else "gpt-4")
                     }
+                ] if not NEW_CHAT_PAGE else []
+            }
 
-        result = {
-            "models": [
-                {
+            if not gpt35_model or OAI_FLAG:
+                result['models'].append({
                     "slug": "text-davinci-002-render-sha",
                     "max_tokens": 8191,
                     "title": "Default (GPT-3.5)",
@@ -482,103 +599,133 @@ class ChatGPT(API):
                     ],
                     "capabilities": {},
                     "product_features": {}
-                }
-            ],
-            "categories": [
-                {
-                    "category": "gpt_3.5",
-                    "human_category_name": "GPT-3.5",
-                    "subscription_level": "free",
-                    "default_model": "text-davinci-002-render-sha",
-                    "code_interpreter_model": "text-davinci-002-render-sha-code-interpreter",
-                    "plugins_model": "text-davinci-002-render-sha-plugins"
-                }
-            ]
-        }
-        result['categories'].append(gpt4_category)
+                })
 
-        if API_DATA:
-            for item in API_DATA.values():
-                title = item['title']
-                slug = item['slug']
-                description = item['description']
-                max_tokens = item['max_tokens']
-
-                model_json = {
-                    "capabilities": {},
-                    "description": description,
-                    "enabled_tools": [
-                        "tools",
-                        "tools2"
-                    ],
-                    "max_tokens": max_tokens,
-                    "product_features": {},
-                    "slug": slug,
+            # if OAI_GPT4O_FLAG:
+            if not self.LOCAL_OP:
+                result['models'].append({
+                    "slug": "gpt-4o",
+                    "max_tokens": 8191,
+                    "title": "GPT-4o",
+                    "description": "Newest and most advanced model",
+                    # "enabled_tools": [
+                    #     "tools",
+                    #     "tools2"
+                    # ],
                     "tags": [
                         "gpt3.5"
                     ],
-                    "title": title
-                }
+                    "capabilities": {},
+                    # "product_features": {"attachments":{"type":"retrieval","accepted_mime_types":["text/javascript","text/x-c","text/x-c++","application/msword","application/vnd.openxmlformats-officedocument.presentationml.presentation","text/plain","text/x-sh","application/vnd.openxmlformats-officedocument.wordprocessingml.document","application/x-latext","text/x-php","application/pdf","application/json","text/x-script.python","text/x-ruby","text/html","text/x-tex","text/x-typescript","text/x-java","text/x-csharp","text/markdown"],"image_mime_types":["image/gif","image/webp","image/png","image/jpeg"],"can_accept_all_mime_types":True}} if self.OAI_ONLY else {}
+                    "product_features": {}
+                })
 
-                if item.get('upload'):
-                    if item['upload'] == 'only_image':
-                        model_json['product_features'] = {
-                            "attachments": {
-                                "type": "retrieval",
-                                "image_mime_types": [
-                                    "image/png",
-                                    "image/gif",
-                                    "image/webp",
-                                    "image/jpeg"
-                                ],
-                                "can_accept_all_mime_types": False
-                            }
+
+            if not self.OAI_ONLY and API_DATA:
+                for alias in API_DATA.keys():
+                    item = API_DATA[alias]
+                    title = item['title']
+                    slug = 'gpt-4o-api' if item['slug'] == 'gpt-4o' and not self.LOCAL_OP else alias
+                    description = item['description']
+                    max_tokens = item['max_tokens']
+
+                    if NEW_CHAT_PAGE:
+                        category_json = {
+                            "category": slug,
+                            "human_category_name": title,
+                            "human_category_short_name": title,
+                            "color": "#00BCE5",
+                            "icon": "stars",
+                            "icon_outline_src": "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" fill=\"none\" viewBox=\"0 0 24 24\"><path fill=\"currentColor\" d=\"M19.898.855a.4.4 0 0 0-.795 0c-.123 1.064-.44 1.802-.943 2.305-.503.503-1.241.82-2.306.943a.4.4 0 0 0 .001.794c1.047.119 1.801.436 2.317.942.512.504.836 1.241.93 2.296a.4.4 0 0 0 .796 0c.09-1.038.413-1.792.93-2.308.515-.516 1.269-.839 2.306-.928a.4.4 0 0 0 .001-.797c-1.055-.094-1.792-.418-2.296-.93-.506-.516-.823-1.27-.941-2.317Z\"/><path fill=\"currentColor\" d=\"M12.001 1.5a1 1 0 0 1 .993.887c.313 2.77 1.153 4.775 2.5 6.146 1.34 1.366 3.3 2.223 6.095 2.47a1 1 0 0 1-.003 1.993c-2.747.238-4.75 1.094-6.123 2.467-1.373 1.374-2.229 3.376-2.467 6.123a1 1 0 0 1-1.992.003c-.248-2.795-1.105-4.754-2.47-6.095-1.372-1.347-3.376-2.187-6.147-2.5a1 1 0 0 1-.002-1.987c2.818-.325 4.779-1.165 6.118-2.504 1.339-1.34 2.179-3.3 2.504-6.118A1 1 0 0 1 12 1.5ZM6.725 11.998c1.234.503 2.309 1.184 3.21 2.069.877.861 1.56 1.888 2.063 3.076.5-1.187 1.18-2.223 2.051-3.094.871-.87 1.907-1.55 3.094-2.05-1.188-.503-2.215-1.187-3.076-2.064-.885-.901-1.566-1.976-2.069-3.21-.505 1.235-1.19 2.3-2.081 3.192-.891.89-1.957 1.576-3.192 2.082Z\"/></svg>",
+                            "icon_filled_src": "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" fill=\"none\" viewBox=\"0 0 24 24\"><path fill=\"currentColor\" d=\"M19.92.897a.447.447 0 0 0-.89-.001c-.12 1.051-.433 1.773-.922 2.262-.49.49-1.21.801-2.262.923a.447.447 0 0 0 0 .888c1.035.117 1.772.43 2.274.922.499.49.817 1.21.91 2.251a.447.447 0 0 0 .89 0c.09-1.024.407-1.76.91-2.263.502-.502 1.238-.82 2.261-.908a.447.447 0 0 0 .001-.891c-1.04-.093-1.76-.411-2.25-.91-.493-.502-.806-1.24-.923-2.273ZM11.993 3.82a1.15 1.15 0 0 0-2.285-.002c-.312 2.704-1.115 4.559-2.373 5.817-1.258 1.258-3.113 2.06-5.817 2.373a1.15 1.15 0 0 0 .003 2.285c2.658.3 4.555 1.104 5.845 2.37 1.283 1.26 2.1 3.112 2.338 5.789a1.15 1.15 0 0 0 2.292-.003c.227-2.631 1.045-4.525 2.336-5.817 1.292-1.291 3.186-2.109 5.817-2.336a1.15 1.15 0 0 0 .003-2.291c-2.677-.238-4.529-1.056-5.789-2.34-1.266-1.29-2.07-3.186-2.37-5.844Z\"/></svg>",
+                            "subscription_level": "plus",
+                            "default_model": slug,
+                            "code_interpreter_model": slug,
+                            "plugins_model": slug,
+                            "short_explainer": description,
+                            "tagline": description
                         }
 
-                    if item['upload'] == 'true' or item['upload'] == True:
-                        model_json['product_features'] = {
-                            "attachments": {
-                                "type": "retrieval",
-                                "accepted_mime_types": [
-                                    "text/html",
-                                    "application/msword",
-                                    "text/x-csharp",
-                                    "text/x-sh",
-                                    "text/markdown",
-                                    "application/pdf",
-                                    "text/javascript",
-                                    "text/x-java",
-                                    "text/x-ruby",
-                                    "text/x-script.python",
-                                    "text/x-php",
-                                    "application/json",
-                                    "application/x-latext",
-                                    "text/x-c",
-                                    "text/x-c++",
-                                    "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
-                                    "text/x-tex",
-                                    "text/plain",
-                                    "text/x-typescript",
-                                    "application/vnd.openxmlformats-officedocument.presentationml.presentation"
-                                ],
-                                "image_mime_types": [
-                                    "image/png",
-                                    "image/gif",
-                                    "image/webp",
-                                    "image/jpeg"
-                                ],
-                                "can_accept_all_mime_types": True
+                        result['categories'].append(category_json)
+
+                    model_json = {
+                        "capabilities": {},
+                        "description": description,
+                        "enabled_tools": [
+                            "tools",
+                            "tools2"
+                        ],
+                        "max_tokens": max_tokens,
+                        "product_features": {},
+                        "slug": slug,
+                        "tags": [
+                            "gpt3.5"
+                        ],
+                        "title": title
+                    }
+
+                    if item.get('upload'):
+                        if item['upload'] == 'only_image':
+                            model_json['product_features'] = {
+                                "attachments": {
+                                    "type": "retrieval",
+                                    "image_mime_types": [
+                                        "image/png",
+                                        "image/gif",
+                                        "image/webp",
+                                        "image/jpeg"
+                                    ],
+                                    "can_accept_all_mime_types": False
+                                }
                             }
-                        }
+
+                        if item['upload'] == 'true' or item['upload'] == True:
+                            model_json['product_features'] = {
+                                "attachments": {
+                                    "type": "retrieval",
+                                    "accepted_mime_types": [
+                                        "text/html",
+                                        "application/msword",
+                                        "text/x-csharp",
+                                        "text/x-sh",
+                                        "text/markdown",
+                                        "application/pdf",
+                                        "text/javascript",
+                                        "text/x-java",
+                                        "text/x-ruby",
+                                        "text/x-script.python",
+                                        "text/x-php",
+                                        "application/json",
+                                        "application/x-latext",
+                                        "text/x-c",
+                                        "text/x-c++",
+                                        "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+                                        "text/x-tex",
+                                        "text/plain",
+                                        "text/x-typescript",
+                                        "application/vnd.openxmlformats-officedocument.presentationml.presentation"
+                                    ],
+                                    "image_mime_types": [
+                                        "image/png",
+                                        "image/gif",
+                                        "image/webp",
+                                        "image/jpeg"
+                                    ],
+                                    "can_accept_all_mime_types": True
+                                }
+                            }
 
 
-                result['models'].append(model_json)
+                    result['models'].append(model_json)
 
-        return self.fake_resp(fake_data=json.dumps(result, ensure_ascii=False))
+            result['categories'].reverse()
+            self.MODELS_LIST = result
 
-    def list_conversations(self, offset, limit, raw=False, token=None):
-        ERROR_FLAG = False
-        if not self.LOCAL_OP:
+            return self.fake_resp(fake_data=json.dumps(result, ensure_ascii=False))
+
+    def list_conversations(self, offset, limit, raw=False, token=None, isolation_code=None):
+        OAI_ERROR_FLAG = False
+        if not self.LOCAL_OP and not self.ISOLATION_FLAG:
             # url = '{}/api/conversations?offset={}&limit={}'.format(self.__get_api_prefix(), offset, limit)
             url = '{}/backend-api/conversations?offset={}&limit={}&order=updated'.format(self.__get_api_prefix(), offset, limit)
             try:
@@ -589,14 +736,21 @@ class ChatGPT(API):
 
                     if self.OAI_ONLY:
                         return self.fake_resp(fake_data=json.dumps(result, ensure_ascii=False))
+                else:
+                    Console.warn(f'list_conversations: resp.status_code={str(resp.status_code)}')
+                    Console.warn(f'list_conversations: resp.text={str(resp.text)}')
+                    OAI_ERROR_FLAG = True
+
             except Exception as e:
+                error_detail = traceback.format_exc()
+                Console.debug(error_detail)
                 Console.warn('list_conversations FAILED: {}'.format(e))
-                ERROR_FLAG = True
+                OAI_ERROR_FLAG = True
 
                 if self.OAI_ONLY:
                     return
 
-        if self.LOCAL_OP or ERROR_FLAG == True or resp.status_code != 200:
+        if self.LOCAL_OP or self.ISOLATION_FLAG or OAI_ERROR_FLAG == True:
             result = {
                 'has_missing_conversations': False,
                 'items': [],
@@ -605,16 +759,16 @@ class ChatGPT(API):
                 'total': 0,
             }
 
-        convs_data = LocalConversation.list_conversations(offset, limit)
+        convs_data = LocalConversation.list_conversations(offset, limit, isolation_code)
         # Console.debug_b('Local conversation list: {}'.format(convs_data))
         if convs_data:
             convs_data_total = convs_data['total']
 
             if convs_data.get('list_data'):
                 for item in convs_data['list_data']:
-                    if item['visible'] == 1 or item['visible'] == '1':
+                    # if item['visible'] == 1 or item['visible'] == '1':    # 0516: MasterCode可查看已隐藏的对话
                         id = item['id']
-                        title = item['title']
+                        title = item['title'] if item['visible'] == 1 or item['visible'] == '1' else '🔒'+item['title']
                         create_time = item['create_time']
                         update_time = item['update_time']
 
@@ -637,7 +791,7 @@ class ChatGPT(API):
                 # 对话列表按更新时间'update_time'倒序重新排序
                 result['items'] = sorted(result['items'], key=lambda item: item['update_time'], reverse=True)
 
-                if not self.LOCAL_OP and ERROR_FLAG == False and resp.status_code == 200:
+                if not self.LOCAL_OP and not self.ISOLATION_FLAG and OAI_ERROR_FLAG == False:
                     result['total'] = convs_data_total if convs_data_total > result['total'] else result['total']
 
                     return self.fake_resp(resp, json.dumps(result, ensure_ascii=False))
@@ -673,10 +827,23 @@ class ChatGPT(API):
         try:
             url = '{}/backend-api/register-websocket'.format(self.__get_api_prefix())
             data = request.data
+            headers = self.__get_headers(token)
+
+            if url.startswith('https://chat.openai.com') or url.startswith('https://chatgpt.com'):
+                headers['Origin'] = 'https://chatgpt.com'
+            
             resp = self.session.post(url=url, headers=self.__get_headers(token), data=data, **self.req_kwargs)
 
-            return resp
+            if resp.status_code == 200:
+                Console.warn('register_websocket SUCCESS')
+                return resp
+            else:
+                Console.warn('register_websocket FAILED: Status_Code={} | Content_Type={}'.format(str(resp.status_code), resp.headers.get('Content-Type')))
+                return 404
+                
         except Exception as e:
+            error_detail = traceback.format_exc()
+            Console.debug(error_detail)
             Console.warn('register_websocket FAILED: {}'.format(e))
             return 404
     
@@ -687,12 +854,17 @@ class ChatGPT(API):
 
         return resp
 
-    def get_conversation(self, conversation_id, raw=False, token=None):
-        if os.path.exists(API_CONFIG_FILE) or not self.OAI_ONLY:
-            conversation_info = LocalConversation.check_conversation_exist(conversation_id)
-
-            if conversation_info:
-                return LocalConversation.get_conversation(conversation_id)
+    def get_conversation(self, conversation_id, raw=False, token=None, isolation_code=None):
+        # if self.ISOLATION_FLAG or os.path.exists(API_CONFIG_FILE) or not self.OAI_ONLY:
+        if self.ISOLATION_FLAG or not self.OAI_ONLY:
+            # conversation_info = LocalConversation.check_conversation_exist(conversation_id, isolation_code)
+            # if conversation_info:
+            #     return LocalConversation.get_conversation(conversation_id, isolation_code)
+            
+            # 不检查对话是否存在, 直接请求对话详情. 2024-05-05
+            conversation_detail = LocalConversation.get_conversation(conversation_id, isolation_code)
+            if conversation_detail:
+                return conversation_detail
 
         # url = '{}/api/conversation/{}'.format(self.__get_api_prefix(), conversation_id)
         url = '{}/backend-api/conversation/{}'.format(self.__get_api_prefix(), conversation_id)
@@ -727,12 +899,19 @@ class ChatGPT(API):
 
         return result['success']
 
-    def del_conversation(self, conversation_id, raw=False, token=None):
-        if os.path.exists(API_CONFIG_FILE):
-            conversation_info = LocalConversation.check_conversation_exist(conversation_id)
-            if conversation_info:
-                return LocalConversation.del_conversation(conversation_id)
-            
+    def del_conversation(self, conversation_id, raw=False, token=None, isolation_code=None):
+        if self.LOCAL_OP:
+            return LocalConversation.del_conversation(conversation_id, False, isolation_code)
+        
+        if self.ISOLATION_FLAG or not self.OAI_ONLY:
+            if not self.LOCAL_OP or self.ISOLATION_FLAG:
+                EXIT_FLAG = LocalConversation.check_conversation_exist(conversation_id)
+
+                if EXIT_FLAG:
+                    return LocalConversation.del_conversation(conversation_id, False, isolation_code)
+                else:
+                    LocalConversation.del_conversation(conversation_id, True)   # 0516: 完全删除OAI对话, 无视是否隐藏对话式删除
+
         data = {
             'is_visible': False,
         }
@@ -766,11 +945,17 @@ class ChatGPT(API):
         return result['title']
 
     def set_conversation_title(self, conversation_id, title, raw=False, token=None):
-        if os.path.exists(API_CONFIG_FILE):
-            conversation_info = LocalConversation.check_conversation_exist(conversation_id)
+        if self.LOCAL_OP:
+            return LocalConversation.rename_conversation(title, conversation_id)
+        
+        if self.ISOLATION_FLAG or not self.OAI_ONLY:
+            if not self.LOCAL_OP or self.ISOLATION_FLAG:
+                EXIT_FLAG = LocalConversation.check_conversation_exist(conversation_id)
 
-            if conversation_info:
-                return LocalConversation.rename_conversation(title, conversation_id)
+                if EXIT_FLAG:
+                    return LocalConversation.rename_conversation(title, conversation_id)
+                else:
+                    LocalConversation.rename_conversation(title, conversation_id)
             
         data = {
             'title': title,
@@ -779,7 +964,26 @@ class ChatGPT(API):
         return self.__update_conversation(conversation_id, data, raw, token)
     
     
-    def file_start_upload(self, file_name, file_size, web_origin):
+    def file_start_upload(self, file_name, file_size, web_origin=None, payload=None, token=None):
+        if self.OAI_ONLY:
+            url = '{}/backend-api/files'.format(self.__get_api_prefix())
+            resp = self.session.post(url=url, headers=self.__get_headers(token), json=payload, **self.req_kwargs)
+
+            if resp.status_code == 200:
+                Console.warn('file_start_upload SUCCESS')
+                result = resp.json()
+                Console.warn('file_start_upload result: {}'.format(result))
+                upload_url = result.get('upload_url')
+                fake_upload_url = web_origin + '/files/' + upload_url.split('/', maxsplit=3)[-1]
+                result['upload_url'] = fake_upload_url
+
+                return self.fake_resp(fake_data=json.dumps(result, ensure_ascii=False))
+            
+            else:
+                Console.warn('file_start_upload FAILED: ' + self.__get_error(resp))
+                return self.fake_resp(fake_data=json.dumps({'code': resp.status_code, 'message':'file_start_upload failed!'}))
+
+
         file_type = file_name.split('.')[-1].lower()
         # Console.warn('file_type: {}'.format(file_type))
         if self.UPLOAD_TYPE_WHITELIST and file_type not in self.UPLOAD_TYPE_WHITELIST:
@@ -793,8 +997,12 @@ class ChatGPT(API):
                 file_size_MB = int(file_size) / 1024 / 1024
                 if file_size_MB > self.FILE_SIZE_LIMIT:
                     return self.fake_resp(fake_data=json.dumps({'code': 403, 'message':'File size exceeds the limit!'}))
+                
             except Exception as e:
+                error_detail = traceback.format_exc()
+                Console.debug(error_detail)
                 Console.warn('file_upload FAILED: {}'.format(e))
+
                 return self.fake_resp(fake_data=json.dumps({f'code': 403, 'message':'file_start_upload FAILED: {e}'}))
 
         file_id = 'file-' + str(uuid.uuid4()).replace('-', '')
@@ -808,14 +1016,92 @@ class ChatGPT(API):
 
         return self.fake_resp(fake_data=json.dumps(data, ensure_ascii=False))
     
-    def file_upload(self, file_id, file_type, file):
+    def file_upload(self, file_id, file_type, file, req_path_with_args, original_headers, token=None):
+        if self.OAI_ONLY:
+            url = 'https://files.oaiusercontent.com/{}'.format(req_path_with_args)
+            op_header = {
+                'Accept': '*/*',
+                'Accept-Encoding': 'gzip, deflate, br, zstd',
+                'Accept-Language': 'en-US,en;q=0.9',
+                'Access-Control-Request-Headers': 'content-type,x-ms-blob-type,x-ms-version',
+                'Headers': '',
+                'Access-Control-Request-Method': 'PUT',
+                'Cache-Control': 'no-cache',
+                'Origin': 'https://chatgpt.com',
+                'Pragma': 'no-cache',
+                'Priority': 'u=1, i',
+                'Referer': 'https://chatgpt.com/',
+                'Sec-Fetch-Dest': 'empty',
+                'Sec-Fetch-Mode': 'cors',
+                'Sec-Fetch-Site': 'cross-site',
+                'User-Agent': self.user_agent
+            }
+            Console.warn(url)
+            op_resp = self.session.options(url=url, headers=op_header, **self.req_kwargs)
+
+            if op_resp.status_code == 200:
+                Console.warn('file_upload_options SUCCESS')
+                # return 201
+
+            else:
+                Console.warn('file_upload_options FAILED: ' + self.__get_error(op_resp))
+                error_response = Response()
+                error_response.status_code = op_resp.status_code
+                error_response._content = op_resp.content
+                error_response.headers = {'Content-Type': op_resp.headers.get('Content-Type')}
+
+                return error_response
+
+            put_header = {
+                'Accept': 'application/json, text/plain, */*',
+                'Accept-Encoding': 'gzip, deflate, br, zstd',
+                'Accept-Language': 'en-US,en;q=0.9',
+                # 'Authorization': 'Bearer ' + self.get_access_token(token),
+                'Cache-Control': 'no-cache',
+                'Content-Type': file_type,
+                'Origin': 'https://chatgpt.com',
+                'Pragma': 'no-cache',
+                'Priority': 'u=1, i',
+                'Referer': 'https://chatgpt.com/',
+                'Sec-Ch-Ua': self.user_agent,
+                'Sec-Ch-Ua-Mobile': '?0',
+                'Sec-Ch-Ua-Platform': "Windows",
+                'Sec-Fetch-Dest': 'empty',
+                'Sec-Fetch-Mode': 'cors',
+                'Sec-Fetch-Site': 'cross-site',
+                'User-Agent': self.user_agent,
+                'X-Ms-Blob-Type': 'BlockBlob',
+                'X-Ms-Version': '2020-04-08'
+            }
+            Console.debug(put_header)
+
+            put_resp = self.session.put(url=url, headers=put_header, data=file, **self.req_kwargs)
+
+            if put_resp.status_code == 200 or put_resp.status_code == 201:
+                Console.warn('file_upload_put SUCCESS')
+                return 201
+
+            else:
+                Console.warn('file_upload_put FAILED: ' + self.__get_error(put_resp))
+                error_response = Response()
+                error_response.status_code = put_resp.status_code
+                error_response._content = put_resp.content
+                error_response.headers = {'Content-Type': op_resp.headers.get('Content-Type')}
+
+                return error_response
+
+
         if self.FILE_SIZE_LIMIT:
             try:
                 file_size_MB = int(len(file)) / 1024 / 1024
                 if file_size_MB > self.FILE_SIZE_LIMIT:
                     return self.fake_resp(fake_data=json.dumps({'code': 500, 'message':'File size exceeds the limit!'}))
+                
             except Exception as e:
+                error_detail = traceback.format_exc()
+                Console.debug(error_detail)
                 Console.warn('file_upload FAILED: {}'.format(e))
+
                 return self.fake_resp(fake_data=json.dumps({f'code': 500, 'message':'file_upload FAILED: {e}'}))
             
         # Console.warn('file_size: {}'.format(len(file)))
@@ -823,7 +1109,26 @@ class ChatGPT(API):
 
         return 201
     
-    def file_ends_upload(self, file_id, web_origin):
+    def file_ends_upload(self, file_id, web_origin, token=None):
+        if self.OAI_ONLY:
+            url = '{}/backend-api/files/{}/uploaded'.format(self.__get_api_prefix(), file_id)
+            resp = self.session.post(url=url, headers=self.__get_headers(token), json={}, **self.req_kwargs)
+
+            if resp.status_code == 200:
+                Console.warn('file_ends_upload SUCCESS')
+                result = resp.json()
+                Console.warn('file_ends_upload result: {}'.format(result))
+                download_url = result.get('download_url')
+                fake_download_url = web_origin + '/files/' + download_url.split('/', maxsplit=3)[-1]
+                result['download_url'] = fake_download_url
+
+                return self.fake_resp(fake_data=json.dumps(result, ensure_ascii=False))
+            
+            else:
+                Console.warn('file_ends_upload FAILED: ' + self.__get_error(resp))
+                return self.fake_resp(fake_data=json.dumps({'code': resp.status_code, 'message':'file_ends_upload failed!'}))
+
+
         file_name, file_size, file_type, create_time = LocalConversation.get_file_upload_info(file_id)
 
         data = {
@@ -836,7 +1141,25 @@ class ChatGPT(API):
 
         return self.fake_resp(fake_data=json.dumps(data, ensure_ascii=False))
     
-    def file_upload_download(self, file_id, web_origin):
+    def file_upload_download(self, file_id, web_origin, token=None):
+        if self.OAI_ONLY:
+            url = '{}/backend-api/files/{}/download'.format(self.__get_api_prefix(), file_id)
+            resp = self.session.post(url=url, headers=self.__get_headers(token), json={}, **self.req_kwargs)
+
+            if resp.status_code == 200:
+                Console.warn('file_upload_download SUCCESS')
+                result = resp.json()
+                Console.warn('file_upload_download result: {}'.format(result))
+                download_url = result.get('download_url')
+                fake_download_url = web_origin + '/files/' + download_url.split('/', maxsplit=3)[-1]
+                result['download_url'] = fake_download_url
+
+                return self.fake_resp(fake_data=json.dumps(result, ensure_ascii=False))
+            
+            else:
+                Console.warn('file_upload_download FAILED: ' + self.__get_error(resp))
+                return self.fake_resp(fake_data=json.dumps({'code': resp.status_code, 'message':'file_upload_download failed!'}))
+
         file_name, file_size, file_type, create_time = LocalConversation.get_file_upload_info(file_id)
 
         data = {
@@ -849,7 +1172,23 @@ class ChatGPT(API):
 
         return self.fake_resp(fake_data=json.dumps(data, ensure_ascii=False))
     
-    def get_file_upload_info(self, file_id):
+    def get_file_upload_info(self, file_id, token=None):
+        if self.OAI_ONLY:
+            url = '{}/backend-api/files/{}'.format(self.__get_api_prefix(), file_id)
+            resp = self.session.post(url=url, headers=self.__get_headers(token), json={}, **self.req_kwargs)
+
+            if resp.status_code == 200:
+                Console.warn('get_file_upload_info SUCCESS')
+                result = resp.json()
+
+                return self.fake_resp(fake_data=json.dumps(result, ensure_ascii=False))
+            
+            else:
+                Console.warn('file_upload_download FAILED: ' + self.__get_error(resp))
+                return self.fake_resp(fake_data=json.dumps({'code': resp.status_code, 'message':'file_upload_download failed!'}))
+
+        file_name, file_size, file_type, create_time = LocalConversation.get_file_upload_info(file_id)
+
         file_name, file_size, file_type, create_time = LocalConversation.get_file_upload_info(file_id)
 
         data = {
@@ -872,27 +1211,65 @@ class ChatGPT(API):
         }
 
         return self.fake_resp(fake_data=json.dumps(data, ensure_ascii=False))
+    
+
+    def oai_file_proxy(self, file_id, req_path_with_args, original_headers, token=None):
+        url = 'https://files.oaiusercontent.com//{}'.format(req_path_with_args)
+        header = {
+                'Accept': 'image/avif,image/webp,image/apng,image/svg+xml,image/*,*/*;q=0.8',
+                'Accept-Encoding': 'gzip, deflate, br, zstd',
+                'Accept-Language': 'en-US,en;q=0.9',
+                'Authorization':'Bearer ' + self.get_access_token(token),
+                'Cache-Control': 'no-cache',
+                'Pragma': 'no-cache',
+                'Priority': 'u=1, i',
+                'Referer': 'https://chatgpt.com/',
+                'Sec-Ch-Ua': self.user_agent,
+                'Sec-Ch-Ua-Mobile': '?0',
+                'Sec-Ch-Ua-Platform': "Windows",
+                'Sec-Fetch-Dest': 'image',
+                'Sec-Fetch-Mode': 'no-cors',
+                'Sec-Fetch-Site': 'cross-site',
+                'User-Agent': self.user_agent,
+            }
+        
+        resp = self.session.get(url=url, headers=header, **self.req_kwargs)
+        if resp.status_code == 200:
+            Console.warn('oai_file_proxy SUCCESS')
+            return Response(resp.content, mimetype=resp.headers['Content-Type'])
+        
+        else:
+            Console.warn('oai_file_proxy FAILED: ' + self.__get_error(resp))
+            return Response(resp.text, status=resp.status_code)
 
 
     # def talk(self, prompt, model, message_id, parent_message_id, conversation_id=None, stream=True, token=None):
-    def talk(self, payload, stream=True, token=None, web_origin=None):
+    def talk(self, payload, stream=True, token=None, web_origin=None, isolation_code=None):
         if web_origin:
             self.web_origin = web_origin
 
-        try:
+        if payload.get('messages'):
+            action = payload['action']
             parts = payload['messages'][0]['content']['parts']
+            content = str(parts[0]) if len(parts) == 1 else str(parts[-1])
+            model = payload['model']
             message_id = payload['messages'][0]['id']
-        except KeyError:
-            # 兼容旧ui参数
+        else:
+            payload['action'] = 'next'
+            action = 'next'
             parts = payload['prompt']
+            content = str(parts)
+            model = payload['model']
             message_id = payload['message_id']
 
-        model = payload['model']
-        parent_message_id = payload['parent_message_id']
+        if model == 'gpt-4o-api':
+            model = 'gpt-4o'
+        
         conversation_id = payload.get('conversation_id')
+        parent_message_id = payload['parent_message_id']
 
         data = {
-            'action': 'next',
+            'action': action if action else 'next',
             'messages': [
                 {
                     'id': message_id,
@@ -904,7 +1281,7 @@ class ChatGPT(API):
                         'content_type': 'text',
                         'parts': parts if isinstance(parts, list) else [parts],
                     },
-                    'metadata': payload['messages'][0].get('metadata', {}),
+                    'metadata': payload['messages'][0].get('metadata', {}) if payload.get('messages') else {},
                 }
             ],
             'model': model,
@@ -914,32 +1291,163 @@ class ChatGPT(API):
         if conversation_id:
             data['conversation_id'] = conversation_id
 
-        return self.__request_conversation(data, token)
+        return self.__request_conversation(data, token, isolation_code)
     
-    def __chat_requirements(self, token=None):
-        url = 'https://chat.openai.com/backend-api/sentinel/chat-requirements'
-        resp = self.session.post(url=url, headers=self.__get_headers(token), json={}, **self.req_kwargs)
+    def __proof_token(self, seed, diff):
+        fake_config = self.__chat_requirements(GET_FAKE_CONFIG=True)
+        diff_len = len(diff) // 2
+        hasher = hashlib.sha3_512()
+        
+        for i in range(100000):
+            fake_config[3] = i
+            config_encode = json.dumps(fake_config).encode('utf-8')
+            base = base64.standard_b64encode(config_encode).decode('utf-8')
+            hasher.update((seed + base).encode('utf-8'))
+            hash = hasher.digest()
+            hasher = hashlib.sha3_512()  # 重置hasher
+            if hexlify(hash[:diff_len]).decode('utf-8') <= diff:
+                return "gAAAAAB" + base
+            
+        return ("gAAAAABwQ8Lk5FbGpA2NcR9dShT6gYjU7VxZ4D" + 
+                base64.standard_b64encode(json.dumps(seed).encode('utf-8')).decode('utf-8'))
+    
+    def __chat_requirements(self, token=None, OAI_Device_ID=None, GET_FAKE_CONFIG=False):
+        headers=self.__get_headers(token, OAI_Device_ID)
+        headers['Dnt'] = '1'
+        headers['Origin'] = 'https://chatgpt.com'
+
+        cores = [8, 12, 16, 24]
+        screens = [3000, 4000, 6000]
+        random.seed(int(time.time() * 1e9))
+        core = random.choice(cores)
+        screen = random.choice(screens)
+        now = datetime.now(tzlocal())
+        timeLayout = "%a %b %d %Y %H:%M:%S %Z"
+        parse_time = now.strftime(timeLayout)
+        fake_config = [
+            core + screen,
+            parse_time,
+            4294705152,
+            0,
+            self.user_agent,
+            "https://cdn.oaistatic.com/_next/static/2E3kyHMTDQPAokpbyfwns/_ssgManifest.js?dpl=ebab7301ae39fe916a5e1ce6d894b31921d5d573",
+            "dpl=ebab7301ae39fe916a5e1ce6d894b31921d5d573",
+            "zh-CN",
+            "zh-CN, zh"
+        ]
+
+        if GET_FAKE_CONFIG:
+            return fake_config
+
+        fake_config_encode = json.dumps(fake_config).encode()
+        fake_data_base64_string = base64.b64encode(fake_config_encode).decode()
+        fake_data = {'p': 'gAAAAAC' + fake_data_base64_string} 
+
+        url = 'https://chatgpt.com/backend-api/sentinel/chat-requirements'
+        resp = self.session.post(url=url, headers=headers, json=fake_data, **self.req_kwargs)
+
+        if resp.status_code == 200:
+            resp_data = resp.json()
+            # Console.warn(resp_data)
+            fallback_data = {'Openai-Sentinel-Chat-Requirements-Token': resp_data['token']}
+
+            if resp_data.get('proofofwork'):
+                if resp_data['proofofwork']['required'] == True:
+                    seed = resp_data['proofofwork']['seed']
+                    diff = resp_data['proofofwork']['difficulty']
+                    proff_token = self.__proof_token(seed, diff)
+                    fallback_data['Openai-Sentinel-Proof-Token'] = proff_token
+                
+            return fallback_data
+
+        else:
+            Console.warn('chat_requirements FAILED: resp.status_code={}'.format(resp.status_code))
+            Console.warn('chat_requirements FAILED: {}'.format(resp.text))
 
         return resp.json()['token']
 
-    def chat_ws(self, payload, token=None, OAI_Device_ID=None):
+    def chat_ws(self, payload, token=None, OAI_Device_ID=None, isolation_code=None):
         if self.LOCAL_OP:
             return API.error_fallback('OAI not supported!')
 
         try:
             url = '{}/backend-api/conversation'.format(self.__get_api_prefix())
+            # url = 'https://chatgpt.com/backend-api/conversation'
             headers = self.__get_headers(token, OAI_Device_ID)
-            if url.startswith('https://chat.openai.com'):
-                headers['Openai-Sentinel-Chat-Requirements-Token'] = self.__chat_requirements(token)
+            headers['Dnt'] = '1'
 
-            resp = self.session.post(url=url, headers=headers, json=payload, **self.req_kwargs)
+            if url.startswith('https://chat.openai.com') or url.startswith('https://chatgpt.com'):
+                chat_requirements_data = self.__chat_requirements(token, OAI_Device_ID)
+                headers['Openai-Sentinel-Chat-Requirements-Token'] = chat_requirements_data['Openai-Sentinel-Chat-Requirements-Token']
+                if chat_requirements_data.get('Openai-Sentinel-Proof-Token'):
+                    headers['Openai-Sentinel-Proof-Token'] = chat_requirements_data['Openai-Sentinel-Proof-Token']
+            # Console.warn('chat_ws:headers SUCCESS')
 
-            if resp.status_code == 200:
-                return resp
+            headers['Accept'] = 'text/event-stream'
+            model = payload['model']
+            if model == 'auto':
+                payload['model'] = 'gpt-4o'
+
+            # resp = self.session.post(url=url, headers=headers, json=payload, **self.req_kwargs)
+
+            # if resp.status_code == 200:
+            #     Console.warn('chat_ws SUCCESS')
+            #     return resp
+            # else:
+            #     Console.warn('chat_ws SUCCESS')
+            #     Console.warn('chat_ws FAILED: Status_Code={} | Content_Type={}'.format(str(resp.status_code), resp.headers.get('Content-Type')))
+            #     Console.warn('chat_ws FAILED: {}'.format(resp.text))
             
-            return API.error_fallback(resp.text)
+            # return API.error_fallback(resp.text)
+                
+            if payload.get('messages'):
+                action = payload['action']
+                parts = payload['messages'][0]['content']['parts']
+                content = str(parts[0]) if len(parts) == 1 else str(parts[-1])
+                model = payload['model']
+                # model = 'auto'
+                message_id = payload['messages'][0]['id']
+
+            else:
+                payload['action'] = 'next'
+                action = 'next'
+                parts = payload['prompt']
+                content = payload['prompt']
+                model = payload['model']
+                message_id = payload['message_id']
+
+            parent_message_id = payload['parent_message_id']
+
+            data = {
+                    'action': action if action else 'next',
+                    'messages': [
+                        {
+                            'id': message_id,
+                            'role': 'user',
+                            'author': {
+                                'role': 'user',
+                            },
+                            'content': {
+                                'content_type': 'text',
+                                'parts': parts if isinstance(parts, list) else [parts],
+                            },
+                            'metadata': payload['messages'][0].get('metadata', {}) if payload.get('messages') else {},
+                        }
+                    ],
+                    'model': model,
+                    'parent_message_id': parent_message_id,
+                }
+        
+            conversation_id = payload.get('conversation_id')
+
+            if conversation_id:
+                data['conversation_id'] = conversation_id
+
+            return self._request_sse(url, headers, data, conversation_id, message_id, model, action, content, isolation_code)
         
         except Exception as e:
+            error_detail = traceback.format_exc()
+            Console.debug(error_detail)
             Console.warn('chat_ws FAILED: {}'.format(e))
 
             return API.error_fallback('Error: {}'.format(e))
@@ -964,7 +1472,7 @@ class ChatGPT(API):
         if not prompt_model.startswith('@cf'):
             prompt_data['model'] = prompt_model
 
-            if 'glm' in prompt_model:
+            if 'glm' in prompt_model and prompt_model != 'glm-free-api':
                 auth = LocalConversation.glm_generate_token(auth, 3600)
 
             if 'double' in prompt_model:
@@ -1040,7 +1548,7 @@ class ChatGPT(API):
 
         return resp
 
-    def goon(self, model, parent_message_id, conversation_id, stream=True, token=None):
+    def goon(self, model, parent_message_id, conversation_id, stream=True, token=None, isolation_code=None):
         data = {
             'action': 'continue',
             'conversation_id': conversation_id,
@@ -1048,9 +1556,12 @@ class ChatGPT(API):
             'parent_message_id': parent_message_id,
         }
 
-        return self.__request_conversation(data, token)
+        return self.__request_conversation(data, token, isolation_code)
 
-    def regenerate_reply(self, prompt, model, conversation_id, message_id, parent_message_id, stream=True, token=None):
+    def regenerate_reply(self, prompt, model, conversation_id, message_id, parent_message_id, stream=True, token=None, isolation_code=None):
+        if model == 'gpt-4o-api':
+            model = 'gpt-4o'
+
         data = {
             'action': 'variant',
             'messages': [
@@ -1071,7 +1582,7 @@ class ChatGPT(API):
             'parent_message_id': parent_message_id,
         }
 
-        return self.__request_conversation(data, token)
+        return self.__request_conversation(data, token, isolation_code)
     
 
     def create_share(self, request, token=None):
@@ -1098,7 +1609,7 @@ class ChatGPT(API):
                         "has_been_auto_moderated": False
                     }
             }
-        title = self.cursor.execute("SELECT title FROM list_conversations WHERE id=?", (conversation_id,)).fetchone()
+        title = LocalConversation.check_conversation_exist(conversation_id)
         # Console.debug_b('create_share: {}'.format(title))
         if title:
             is_anonymous = payload['is_anonymous']
@@ -1174,6 +1685,8 @@ class ChatGPT(API):
                 Console.warn('file_to_base64 FAILED: No such file: {}'.format(file_path))
                 
         except Exception as e:
+            error_detail = traceback.format_exc()
+            Console.debug(error_detail)
             Console.warn('file_to_base64 FAILED: {}'.format(e))
             return file_path
         
@@ -1192,58 +1705,53 @@ class ChatGPT(API):
                 Console.warn('file_to_base64url FAILED: No such file: {}'.format(file_path))
                 
         except Exception as e:
+            error_detail = traceback.format_exc()
+            Console.debug(error_detail)
             Console.warn('file_to_base64url FAILED: {}'.format(e))
             return file_path
     
     def __gemini_msg_withfile(self, file_path, file_type):
-        if file_type == 'image_url':
+        if file_type.startswith('image'):
             file_path = USER_CONFIG_DIR + file_path
-            file_type = file_path.split('.')[-1].lower()
-
-            if file_type == 'jpg' or file_type == 'jpeg':
-                file_mimeType = 'image/jpeg'
-            elif file_type == 'png':
-                file_mimeType = 'image/png'
-            elif file_type == 'gif':
-                file_mimeType = 'image/gif'
-            elif file_type == 'webp':
-                file_mimeType = 'image/webp'
-
             file_base64 = self.__file_to_base64(file_path)
 
-            return {'inline_data': {'mime_type': file_mimeType, 'data': file_base64}}
+            return {'inline_data': {'mime_type': file_type, 'data': file_base64}}
         else:
             return None
 
-    def __request_conversation(self, data, token=None):
-        # if not getenv('PANDORA_LOCAL_OPTION'):
-        #     # url = '{}/api/conversation'.format(self.__get_api_prefix())
-        #     url = '{}/backend-api/conversation'.format(self.__get_api_prefix())
-        #     headers = {**self.session.headers, **self.__get_headers(token)}
-
-        # else:
-        #     # headers = {**self.session.headers, 'Accept': 'text/event-stream'}
-        #     headers = {**self.session.headers}
-
-        if data['model'] in API_DATA:
+    def __request_conversation(self, data, token=None, isolation_code=None):
+        model_alias = data['model']
+        if model_alias in API_DATA:
             # Console.warn('Request conversation: {}'.format(data['messages'][0]))
-            parts = data['messages'][0]['content']['parts']
-            attachments = data['messages'][0]['metadata'].get('attachments')
-            content = str(parts[0]) if len(parts) == 1 else str(parts[-1])
-            model = data['model']
+            if data.get('messages'):
+                action = data['action']
+                parts = data['messages'][0]['content']['parts']
+                attachments = data['messages'][0]['metadata'].get('attachments')
+                content = str(parts[0]) if len(parts) == 1 else str(parts[-1])
+                # model = data['model']
+                message_id = data['messages'][0]['id']
+            else:
+                action = data.get('action')
+                parts = data['prompt']
+                content = str(parts)
+                # model = API_DATA[model].get('slug')
+                # model = data['model']
+                message_id = data['message_id']
+                attachments = None
+            
+            model = model_alias  # 0521: 暂代
+            conversation_id = data.get('conversation_id')
             prompt_model = API_DATA[model].get('prompt_model')
             prompt = API_DATA[model].get('prompt')
-            message_id = data['messages'][0]['id']
-            action = data['action']
-            conversation_id = None
 
-            url = LocalConversation.get_url(model)
+            # url = LocalConversation.get_url(model)
+            url = API_DATA[model_alias].get('url')
             auth = LocalConversation.get_auth(model)
             headers = {'User-Agent': self.user_agent, 'Content-Type': 'application/json'}
             history_list = []
             fake_data = {
                 "messages": [],
-                "model": model,
+                "model": API_DATA[model].get('slug'),
                 "stream": True,
             } if 'gemini' not in model else {"contents":[]}
             # Console.warn('{} | {}'.format(model, auth))
@@ -1276,15 +1784,15 @@ class ChatGPT(API):
                 else:
                     fake_data['messages'].append({"role": "system", "content": prompt})
 
-            ### 插入历史消息
-            if data.get('conversation_id'):
-                conversation_id = data['conversation_id']
+            ## 插入历史消息
+            ### DALL·E不插入历史消息
+            if data.get('conversation_id') and 'dall-e' not in model:
                 history_list = LocalConversation.get_history_conversation(conversation_id, API_DATA[model].get('history_count'))
                 history_attaches_list = LocalConversation.get_history_conversation_attachments(conversation_id)
 
                 for item in history_list:
-                    message_id = item['message_id']
-                    if history_attaches_list and message_id in history_attaches_list:   # 历史消息带附件
+                    history_message_id = item['message_id']
+                    if history_attaches_list and history_message_id in history_attaches_list:   # 历史消息带附件
                         if 'gemini' not in model:
                             file_msg = {
                                 "role": item['role'],
@@ -1295,13 +1803,16 @@ class ChatGPT(API):
                         else:
                             file_msg = {"parts": [{"text": item['message']}]}
 
-                        for attach in history_attaches_list[message_id]:
+                        for attach in history_attaches_list[history_message_id]:
                             file_type = attach['file_type']
                             file_path = attach['file_path']
                             
                             if 'gemini' not in model:
                                 if API_DATA[model].get('file_base64') and (API_DATA[model].get('file_base64') == 'true' or API_DATA[model].get('file_base64') == True):
-                                    file_url = self.__file_to_base64(file_path)
+                                    if 'glm' in model:
+                                        file_url = self.__file_to_base64(file_path)
+                                    else:
+                                        file_url = f'data:{file_type};base64,' + self.__file_to_base64(file_path)
 
                                 elif API_DATA[model].get('file_base64url') and (API_DATA[model].get('file_base64url') == 'true' or API_DATA[model].get('file_base64url') == True):
                                     file_url = self.__file_to_base64url(file_path)
@@ -1311,7 +1822,7 @@ class ChatGPT(API):
 
                                 # file_msg['content'].append({"type": file_type, file_type+'_url' if file_type == 'file' else file_type: {'url': file_url}})
 
-                                file_msg['content'].append({"type": 'image_url' if file_type.startswith('image') else 'file', 'image_url' if file_type.startswith('image') else 'file': {'url': file_url}})
+                                file_msg['content'].append({"type": 'image_url' if file_type.startswith('image') else 'file', 'image_url' if file_type.startswith('image') else 'file_url': {'url': file_url}})
 
                                 if 'kimi' in model:
                                     fake_data['use_search'] = False # Kimi模型带附件不能联网搜索
@@ -1332,17 +1843,24 @@ class ChatGPT(API):
                         else:
                             fake_data['contents'].append({"role": "user" if item['role'] == 'user' else "model", "parts": [{"text": item['message']}]})
 
-            else:
-                # Console.debug_b('No conversation_id, create and save user conversation.')
-                conversation_id = str(uuid.uuid4())
-                LocalConversation.create_conversation(conversation_id, content, datetime.now(tzutc()).isoformat())
+            elif action != 'variant':
+                if not data.get('conversation_id'):
+                    # Console.debug_b('No conversation_id, create and save user conversation.')
+                    if API_DATA[model].get('getConvIDUrl'):
+                        getConvIDUrl = API_DATA[model].get('getConvIDUrl')
+                        get_conversation_id = self.session.get(url=getConvIDUrl, headers=headers, **self.req_kwargs)
+                        if get_conversation_id.status_code == 200:
+                            conversation_id = get_conversation_id.json()['conversation_id']
+                    else: 
+                        conversation_id = str(uuid.uuid4())
+                    LocalConversation.create_conversation(conversation_id, content, datetime.now(tzutc()).isoformat(), isolation_code)
                 
             LocalConversation.save_conversation(conversation_id, message_id, content, 'user', datetime.now(tzutc()).isoformat(), model, action)
 
             ###########            
             
-            ### 发送新消息
-            ## 带附件
+            ## 发送新消息
+            ### 带附件
             if attachments:
                 if 'gemini' not in model:
                     file_msg = {
@@ -1370,12 +1888,13 @@ class ChatGPT(API):
                         gemini_file_msg = self.__gemini_msg_withfile(file_path, file_type)
                         if gemini_file_msg:
                             file_msg['parts'].append(gemini_file_msg)
-                        else:
-                            file_msg['role'] = "user" if item['role'] == 'user' else "model"  # 非图片转为普通消息
 
                     else:
                         if API_DATA[model].get('file_base64') and (API_DATA[model].get('file_base64') == 'true' or API_DATA[model].get('file_base64') == True):
-                            file_url = self.__file_to_base64(file_path)
+                            if 'glm' in model:
+                                file_url = self.__file_to_base64(file_path)
+                            else:
+                                file_url = f'data:{file_mimeType};base64,' + self.__file_to_base64(file_path)
 
                         elif API_DATA[model].get('file_base64url') and (API_DATA[model].get('file_base64url') == 'true' or API_DATA[model].get('file_base64url') == True):
                             file_url = self.__file_to_base64url(file_path)
@@ -1384,12 +1903,15 @@ class ChatGPT(API):
                             file_url = quote(self.web_origin + file_path, safe='/:')
 
                         # file_msg['content'].append({"type": file_type, file_type+'_url' if file_type == 'file' else file_type: {'url': file_url}})
-                        file_msg['content'].append({"type": 'image_url' if file_type.startswith('image') else 'file', 'image_url' if file_type.startswith('image') else 'file': {'url': file_url}})
+                        file_msg['content'].append({"type": 'image_url' if file_type.startswith('image') else 'file', 'image_url' if file_type.startswith('image') else 'file_url': {'url': file_url}})
+                        # Console.warn({"type": 'image_url' if file_type.startswith('image') else 'file', 'image_url' if file_type.startswith('image') else 'file_url': {'url': file_path}})
 
                     if 'kimi' in model:
                         fake_data['use_search'] = False
 
                 fake_data['messages' if 'gemini' not in model else 'contents'].append(file_msg)
+
+                # Console.debug('New Message | message_id: {} | content: {} | url: {}'.format(message_id, content, fake_data['messages'][-1]['content'][1]['image_url']['url'][:10]))   # dev
 
             else:
                 # 调用其他模型优化生图Prompt
@@ -1406,11 +1928,22 @@ class ChatGPT(API):
 
                 # 适配Cloudflare AI: text_gen_img
                 if model == 'stable-diffusion-xl-base-1.0' or model == 'dreamshaper-8-lcm' or model == 'stable-diffusion-xl-lightning':
-                    base_url = LocalConversation.get_url(model) if not LocalConversation.get_url(model).endswith('/') else LocalConversation.get_url(model)[:-1]
+                    # base_url = LocalConversation.get_url(model) if not LocalConversation.get_url(model).endswith('/') else LocalConversation.get_url(model)[:-1]
+                    base_url = API_DATA[model_alias].get('url') if not API_DATA[model_alias].get('url').endswith('/') else API_DATA[model_alias].get('url')[:-1]
                     img_url = base_url + '/' + API_DATA[model].get('image_model')
                     gen_img_data = {"prompt": content}
 
                     return self._request_sse(img_url, headers, gen_img_data, conversation_id, message_id, model, action, content)
+
+                # 适配DALL·E
+                if 'dall' in model:
+                    fake_data = {
+                        "model": model,
+                        "prompt": content,
+                        "n": 1,
+                    }
+
+                    return self._request_sse(url, headers, fake_data, conversation_id, message_id, model, action, content)
 
                 # 适配Gemini
                 if 'gemini' in model:
@@ -1459,6 +1992,7 @@ class ChatGPT(API):
                             item['codeContexts'] = []   # user对话需要带上codeContexts, 否则报错
 
                 fake_data['messages'].append({"role": "user", "content": content})
+                
 
             return self._request_sse(url, headers, fake_data, conversation_id, message_id, model, action, content)
 
@@ -1468,6 +2002,14 @@ class ChatGPT(API):
         # return self._request_sse(url=url, headers=headers, data=data)
 
     def __update_conversation(self, conversation_id, data, raw=False, token=None):
+        if self.ISOLATION_FLAG:
+            if 'is_visible' in data.keys():
+                LocalConversation.del_conversation(conversation_id)
+
+            if 'title' in data.keys():
+                title = data['title']
+                LocalConversation.rename_conversation(title, conversation_id)
+
         url = '{}/backend-api/conversation/{}'.format(self.__get_api_prefix(), conversation_id)
         # url = '{}/backend-api/conversation/{}'.format(self.__get_api_prefix(), conversation_id)
         resp = self.session.patch(url=url, headers=self.__get_headers(token), json=data, **self.req_kwargs)
