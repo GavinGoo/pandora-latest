@@ -858,7 +858,7 @@ class ChatBot:
    
     def file_download(self, file_id, file_name):
         if not getenv('PANDORA_FILE_ACCESS') == 'True':
-            if not session.get("logged_in") or self.SITE_PASSWORD != 'I_KNOW_THE_RISKS_AND_STILL_NO_SITE_PASSWORD':
+            if not session.get("logged_in") and self.SITE_PASSWORD != 'I_KNOW_THE_RISKS_AND_STILL_NO_SITE_PASSWORD':
                 return redirect("/login")
             
         return send_from_directory(USER_CONFIG_DIR+'/files/'+file_id, file_name)

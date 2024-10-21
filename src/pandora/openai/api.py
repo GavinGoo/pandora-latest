@@ -1878,7 +1878,7 @@ class ChatGPT(API):
 
                 for item in attachments:
                     file_path = '/files/' + str(item['id']) + '/' + str(item['name'])
-                    file_mimeType = item['mimeType']
+                    file_mimeType = item.get('mimeType') or item.get('mime_type')
                     # file_type = "image_url" if file_mimeType.startswith('image') else "file"
                     file_type = file_mimeType
 
