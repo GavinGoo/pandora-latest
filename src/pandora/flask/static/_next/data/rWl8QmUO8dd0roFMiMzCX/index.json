@@ -1,0 +1,384 @@
+{
+    "pageProps": {
+        "user": {
+            "id": "user-000000000000000000000000",
+            "name": "admin@openai.com",
+            "email": "admin@openai.com",
+            "image": "https://s.gravatar.com/avatar/c682d0cb961f7f716b80a4f839b728b7?s=480&r=pg&d=https%3A%2F%2Fcdn.auth0.com%2Favatars%2Fp.png",
+            "picture": "https://s.gravatar.com/avatar/c682d0cb961f7f716b80a4f839b728b7?s=480&r=pg&d=https%3A%2F%2Fcdn.auth0.com%2Favatars%2Fp.png",
+            "idp": "auth0",
+            "iat": 1708264051,
+            "mfa": false,
+            "groups": [],
+            "intercom_hash": "41706c3eee7c0b84c12658016c0de3c1149a3efd526a90a0be8178bd5c0288f5"
+        },
+        "serviceStatus": {},
+        "serviceAnnouncement": {
+            "public": {},
+            "paid": {}
+        },
+        "cfConnectingIp": "2a0c:9a40:965f:21eb:414c:a10c:c10d:3299",
+        "statsig": {
+            "payload": {
+                "feature_gates": {
+                    "mC7arE5IsSMGuGv+JtQNn6PkLNjGMgnPGm4lNwCVcd4=": {
+                        "name": "mC7arE5IsSMGuGv+JtQNn6PkLNjGMgnPGm4lNwCVcd4=",
+                        "value": false,
+                        "rule_id": "default",
+                        "secondary_exposures": [
+                            {
+                                "gate": "segment:chatgpt_voice_team",
+                                "gateValue": "false",
+                                "ruleID": "default"
+                            }
+                        ]
+                    },
+                    "4bxrZiqrvUhz7pNmrq7/hje8GGth3CK38a+UCoGT55w=": {
+                        "name": "4bxrZiqrvUhz7pNmrq7/hje8GGth3CK38a+UCoGT55w=",
+                        "value": true,
+                        "rule_id": "1m1xZtjqqNjZ3o8AOuRHeU",
+                        "secondary_exposures": []
+                    },
+                    "BwgqaCydMQQ3DfMuT3le70YG2UMR90ZQUizkz8s87Og=": {
+                        "name": "BwgqaCydMQQ3DfMuT3le70YG2UMR90ZQUizkz8s87Og=",
+                        "value": false,
+                        "rule_id": "default",
+                        "secondary_exposures": [
+                            {
+                                "gate": "segment:chatgpt_voice_team",
+                                "gateValue": "false",
+                                "ruleID": "default"
+                            }
+                        ]
+                    },
+                    "sB09rxeNC0dm+q105n4ilqzJPvZ+fb8Adgn7dgHyAJs=": {
+                        "name": "sB09rxeNC0dm+q105n4ilqzJPvZ+fb8Adgn7dgHyAJs=",
+                        "value": false,
+                        "rule_id": "default",
+                        "secondary_exposures": [
+                            {
+                                "gate": "segment:chatgpt_voice_team",
+                                "gateValue": "false",
+                                "ruleID": "default"
+                            }
+                        ]
+                    },
+                    "/sqBSo8CbSfm33mGuPq/xK+GiRwPnbT26mPKmQkikn4=": {
+                        "name": "/sqBSo8CbSfm33mGuPq/xK+GiRwPnbT26mPKmQkikn4=",
+                        "value": false,
+                        "rule_id": "default",
+                        "secondary_exposures": []
+                    },
+                    "8YdWfy6BaXA6MDnlnTc17AwNRhxQ4rcfy5G+sYaHQ/A=": {
+                        "name": "8YdWfy6BaXA6MDnlnTc17AwNRhxQ4rcfy5G+sYaHQ/A=",
+                        "value": false,
+                        "rule_id": "63qNN5LSdeNXfSPo2Mwuv2:0.00:2",
+                        "secondary_exposures": []
+                    },
+                    "9frMP2Uapo9+GZFF/eyDv3qypmVGR3bBx7kQxlUjFL0=": {
+                        "name": "9frMP2Uapo9+GZFF/eyDv3qypmVGR3bBx7kQxlUjFL0=",
+                        "value": false,
+                        "rule_id": "4Cs7bnD6u8s4FIa2CdgJ7i",
+                        "secondary_exposures": []
+                    },
+                    "zP79mMrzyNTmUIk4BvnRSRf1QyskcWqpVbgx/DuBSlk=": {
+                        "name": "zP79mMrzyNTmUIk4BvnRSRf1QyskcWqpVbgx/DuBSlk=",
+                        "value": false,
+                        "rule_id": "default",
+                        "secondary_exposures": []
+                    },
+                    "G4FKkwqOMLlLXCjFizXkc6Fbyds7IQgmeDgcOnlzXcc=": {
+                        "name": "G4FKkwqOMLlLXCjFizXkc6Fbyds7IQgmeDgcOnlzXcc=",
+                        "value": false,
+                        "rule_id": "default",
+                        "secondary_exposures": []
+                    },
+                    "Ot01tCFiILXHbMzQliq1LFtcH9p484nys9JQ3jNBBSc=": {
+                        "name": "Ot01tCFiILXHbMzQliq1LFtcH9p484nys9JQ3jNBBSc=",
+                        "value": false,
+                        "rule_id": "default",
+                        "secondary_exposures": [
+                            {
+                                "gate": "segment:european_legal_restricted",
+                                "gateValue": "false",
+                                "ruleID": "default"
+                            }
+                        ]
+                    },
+                    "ZB1N+sYIfld1iUD73LMNp+7PHtb5fjkv1Fqd9stCmhM=": {
+                        "name": "ZB1N+sYIfld1iUD73LMNp+7PHtb5fjkv1Fqd9stCmhM=",
+                        "value": false,
+                        "rule_id": "default",
+                        "secondary_exposures": []
+                    },
+                    "AmHQM8fzcDgvtrUTWfKdHeeC+liSx6Ap3mIjS2v2T7k=": {
+                        "name": "AmHQM8fzcDgvtrUTWfKdHeeC+liSx6Ap3mIjS2v2T7k=",
+                        "value": true,
+                        "rule_id": "1IdfApkb0f3RHjOg804mYI:5.00:5",
+                        "secondary_exposures": []
+                    },
+                    "v6yV8GS0zH+VdEey3WZ8OCkuXSPit1tWZ1w5XGJKgwU=": {
+                        "name": "v6yV8GS0zH+VdEey3WZ8OCkuXSPit1tWZ1w5XGJKgwU=",
+                        "value": true,
+                        "rule_id": "VNBdYfNSNNUyDdMpaiaZ9:100.00:1",
+                        "secondary_exposures": []
+                    },
+                    "bZIChv8u2y59nAdcmf3Sxu+c4LOtTeRmbLn99GUUOrQ=": {
+                        "name": "bZIChv8u2y59nAdcmf3Sxu+c4LOtTeRmbLn99GUUOrQ=",
+                        "value": false,
+                        "rule_id": "default",
+                        "secondary_exposures": [
+                            {
+                                "gate": "segment:gizmo_store_team",
+                                "gateValue": "false",
+                                "ruleID": "default"
+                            },
+                            {
+                                "gate": "segment:memory_team",
+                                "gateValue": "false",
+                                "ruleID": "default"
+                            }
+                        ]
+                    },
+                    "NFLu/8gcH3+m9yHiY/kPxE83zLFYMhk3cWVEq2zR+NM=": {
+                        "name": "NFLu/8gcH3+m9yHiY/kPxE83zLFYMhk3cWVEq2zR+NM=",
+                        "value": false,
+                        "rule_id": "default",
+                        "secondary_exposures": [
+                            {
+                                "gate": "segment:employees",
+                                "gateValue": "false",
+                                "ruleID": "default"
+                            }
+                        ]
+                    },
+                    "XrhPGbeUzfIBQaHMWl4/GYZzdDnDMzHb96RYes5lw2w=": {
+                        "name": "XrhPGbeUzfIBQaHMWl4/GYZzdDnDMzHb96RYes5lw2w=",
+                        "value": false,
+                        "rule_id": "default",
+                        "secondary_exposures": [
+                            {
+                                "gate": "segment:employees",
+                                "gateValue": "false",
+                                "ruleID": "default"
+                            }
+                        ]
+                    },
+                    "FEo7XK0f7Hn3U2RwSds2DTiEYNIpKCqrSVA2UP0BK2M=": {
+                        "name": "FEo7XK0f7Hn3U2RwSds2DTiEYNIpKCqrSVA2UP0BK2M=",
+                        "value": true,
+                        "rule_id": "6sEu91zwlBGSKOqFiNpGlA:100.00:2",
+                        "secondary_exposures": [
+                            {
+                                "gate": "segment:employees",
+                                "gateValue": "false",
+                                "ruleID": "default"
+                            },
+                            {
+                                "gate": "segment:enterprise",
+                                "gateValue": "false",
+                                "ruleID": "default"
+                            },
+                            {
+                                "gate": "segment:teams_plan",
+                                "gateValue": "false",
+                                "ruleID": "default"
+                            }
+                        ]
+                    },
+                    "9WcM78XE5AQPxf3Yv9FxM5g14rV2Sk3HsGRha1mAnxc=": {
+                        "name": "9WcM78XE5AQPxf3Yv9FxM5g14rV2Sk3HsGRha1mAnxc=",
+                        "value": false,
+                        "rule_id": "default",
+                        "secondary_exposures": [
+                            {
+                                "gate": "segment:employees",
+                                "gateValue": "false",
+                                "ruleID": "default"
+                            }
+                        ]
+                    },
+                    "+ZnfGOKTXqj/PUluVHtQHH4xXcWomraW0OeynJkthMA=": {
+                        "name": "+ZnfGOKTXqj/PUluVHtQHH4xXcWomraW0OeynJkthMA=",
+                        "value": true,
+                        "rule_id": "2LpyNTIfbYC4R6XS6dfdIL",
+                        "secondary_exposures": [
+                            {
+                                "gate": "segment:employees",
+                                "gateValue": "false",
+                                "ruleID": "default"
+                            }
+                        ]
+                    },
+                    "a2qAmsyD94P0/7pZ6SpRYRKL9Odkp+5z2KgEZEYvsJg=": {
+                        "name": "a2qAmsyD94P0/7pZ6SpRYRKL9Odkp+5z2KgEZEYvsJg=",
+                        "value": false,
+                        "rule_id": "default",
+                        "secondary_exposures": []
+                    }
+                },
+                "dynamic_configs": {
+                    "krxquX5lr9NsWYuE6AxcgDMKBdc3hX7WV56L3qm2h+k=": {
+                        "name": "krxquX5lr9NsWYuE6AxcgDMKBdc3hX7WV56L3qm2h+k=",
+                        "value": {},
+                        "group": "default",
+                        "rule_id": "default",
+                        "is_device_based": false,
+                        "secondary_exposures": [
+                            {
+                                "gate": "segment:employees",
+                                "gateValue": "false",
+                                "ruleID": "default"
+                            },
+                            {
+                                "gate": "chatgpt-browse-sahara",
+                                "gateValue": "false",
+                                "ruleID": "default"
+                            }
+                        ]
+                    },
+                    "Xxhhbjq3NEImgVIfGzx+Ubl6ebJS1kwRjV/2YlHJ3Zs=": {
+                        "name": "Xxhhbjq3NEImgVIfGzx+Ubl6ebJS1kwRjV/2YlHJ3Zs=",
+                        "value": {
+                            "google.com": [
+                                "google.com",
+                                "googleapis.com",
+                                "www.googleapis.com",
+                                "oauth2.googleapis.com"
+                            ],
+                            "microsoftonline.com": [
+                                "microsoft.com",
+                                "microsoftonline.com"
+                            ],
+                            "adobelogin.com": [
+                                "adobe.com",
+                                "adobelogin.com"
+                            ],
+                            "useflorian.com": [
+                                "useflorian.com",
+                                "convex.site"
+                            ],
+                            "yahoo.com": [
+                                "yahooapis.com",
+                                "yahoo.com"
+                            ],
+                            "app.vssps.visualstudio.com": [
+                                "app.vssps.visualstudio.com",
+                                "dev.azure.com"
+                            ]
+                        },
+                        "group": "default",
+                        "rule_id": "default",
+                        "is_device_based": true,
+                        "secondary_exposures": []
+                    },
+                    "LH4aXUWdAthHnhoeezgqr9XUAj+EyFN9/INZTPgB8Rw=": {
+                        "name": "LH4aXUWdAthHnhoeezgqr9XUAj+EyFN9/INZTPgB8Rw=",
+                        "value": {},
+                        "group": "prestart",
+                        "rule_id": "prestart",
+                        "is_device_based": false,
+                        "secondary_exposures": [],
+                        "is_user_in_experiment": false,
+                        "is_experiment_active": false
+                    },
+                    "/NA6RKoyvTPtJS+65jbxYPRbn4zCKaPi28t+RGlIi74=": {
+                        "name": "/NA6RKoyvTPtJS+65jbxYPRbn4zCKaPi28t+RGlIi74=",
+                        "value": {},
+                        "group": "prestart",
+                        "rule_id": "prestart",
+                        "is_device_based": false,
+                        "secondary_exposures": [],
+                        "is_user_in_experiment": false,
+                        "is_experiment_active": false
+                    },
+                    "d88zqiv5tj+jTJIQj6D5/mZRDEaFP6YEIqcwlz6Nh+8=": {
+                        "name": "d88zqiv5tj+jTJIQj6D5/mZRDEaFP6YEIqcwlz6Nh+8=",
+                        "value": {},
+                        "group": "targetingGate",
+                        "rule_id": "targetingGate",
+                        "is_device_based": false,
+                        "secondary_exposures": [
+                            {
+                                "gate": "targeting-aa-web-240206",
+                                "gateValue": "false",
+                                "ruleID": "63qNN5LSdeNXfSPo2Mwuv2:0.00:2"
+                            }
+                        ],
+                        "is_user_in_experiment": false,
+                        "is_experiment_active": true
+                    },
+                    "hxxW3hikZ7rigchg97AizJTpHbpMCwkwvbZd7t9sblc=": {
+                        "name": "hxxW3hikZ7rigchg97AizJTpHbpMCwkwvbZd7t9sblc=",
+                        "value": {},
+                        "group": "targetingGate",
+                        "rule_id": "targetingGate",
+                        "is_device_based": false,
+                        "secondary_exposures": [
+                            {
+                                "gate": "targeting-aa-web-anon-240206",
+                                "gateValue": "false",
+                                "ruleID": "4Cs7bnD6u8s4FIa2CdgJ7i"
+                            }
+                        ],
+                        "is_user_in_experiment": false,
+                        "is_experiment_active": true
+                    },
+                    "2gcgWHw6EUQ7WzuausBVbg88/jglfC1LmtqhBF35u2c=": {
+                        "name": "2gcgWHw6EUQ7WzuausBVbg88/jglfC1LmtqhBF35u2c=",
+                        "value": {
+                            "show_new_ui": true
+                        },
+                        "group": "launchedGroup",
+                        "rule_id": "launchedGroup",
+                        "is_device_based": false,
+                        "secondary_exposures": [],
+                        "is_user_in_experiment": false,
+                        "is_experiment_active": false
+                    }
+                },
+                "layer_configs": {},
+                "sdkParams": {},
+                "has_updates": true,
+                "generator": "statsig-node-sdk",
+                "time": 0,
+                "evaluated_keys": {
+                    "userID": "user-000000000000000000000000",
+                    "customIDs": {
+                        "WebAnonymousCookieID": "b5a392ab-2a7d-49bd-87d2-3c945d48176a",
+                        "DeviceId": "b5a392ab-2a7d-49bd-87d2-3c945d48176a",
+                        "stableID": "b5a392ab-2a7d-49bd-87d2-3c945d48176a"
+                    }
+                },
+                "hash_used": "sha256",
+                "user_hash": "2965309063"
+            },
+            "user": {
+                "country": "US",
+                "custom": {
+                    "auth_status": "logged_in",
+                    "is_paid": true
+                },
+                "customIDs": {
+                    "WebAnonymousCookieID": "b5a392ab-2a7d-49bd-87d2-3c945d48176a",
+                    "DeviceId": "b5a392ab-2a7d-49bd-87d2-3c945d48176a",
+                    "stableID": "b5a392ab-2a7d-49bd-87d2-3c945d48176a"
+                },
+                "ip": "12.88.211.88",
+                "locale": "US",
+                "privateAttributes": {
+                    "email": "admin@openai.com"
+                },
+                "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/110.0.0.0 Safari/537.36",
+                "userID": "user-000000000000000000000000"
+            }
+        },
+        "serverPrimedAllowBrowserStorageValue": true,
+        "showCookieConsentBanner": false,
+        "isStorageComplianceEnabled": false,
+        "ageVerificationDeadline": null,
+        "ageVerificationType": "none",
+        "logOutUser": false
+    },
+    "__N_SSP": true
+}

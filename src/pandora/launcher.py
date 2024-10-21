@@ -204,6 +204,13 @@ def main():
         default=None,
     )
     parser.add_argument(
+        '--default_model',
+        help='Select your default model from the file "api.json".',
+        required=False,
+        type=str,
+        default=None,
+    )
+    parser.add_argument(
         '--history_count',
         help='Number of history messages carried for api, default: 4',
         required=False,
@@ -434,6 +441,9 @@ def main():
 
     if args.gpt35:
         os.environ['PANDORA_GPT35_MODEL'] = args.gpt35
+
+    if args.default_model:
+        os.environ['PANDORA_DEFAULT_MODEL'] = args.default_model
 
     if args.best_history:
         os.environ['PANDORA_BEST_HISTORY'] = 'True'

@@ -56,6 +56,10 @@ if [ -n "${PANDORA_GPT35_MODEL}" ]; then
   PANDORA_ARGS="${PANDORA_ARGS} --gpt35 ${PANDORA_GPT35_MODEL}"
 fi
 
+if [ -n "${PANDORA_DEFAULT_MODEL}" ]; then
+  PANDORA_ARGS="${PANDORA_ARGS} --default_model ${PANDORA_DEFAULT_MODEL}"
+fi
+
 # History settings
 if [ -n "${PANDORA_HISTORY_COUNT}" ]; then
   PANDORA_ARGS="${PANDORA_ARGS} --history_count ${PANDORA_HISTORY_COUNT}"

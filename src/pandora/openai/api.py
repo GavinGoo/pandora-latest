@@ -530,6 +530,9 @@ class ChatGPT(API):
         if not self.MODELS_ICONS and (not self.OAI_ONLY and API_DATA):
             self.MODELS_ICONS = {}
             icons = {
+                'best': {
+                    "icon_filled_src": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 36 36\" fill=\"none\" width=\"32\" height=\"32\"><circle cx=\"18\" cy=\"18\" r=\"18\" fill=\"#3c46ff\"></circle><path fill-rule=\"evenodd\" clip-rule=\"evenodd\" d=\"m7.358 14.641 5.056-5.055A2 2 0 0 1 13.828 9h8.343a2 2 0 0 1 1.414.586l5.056 5.055a2 2 0 0 1 .055 2.771l-9.226 9.996a2 2 0 0 1-2.94 0l-9.227-9.996a2 2 0 0 1 .055-2.77Zm6.86-1.939-.426 1.281a2.07 2.07 0 0 1-1.31 1.31l-1.28.426a.296.296 0 0 0 0 .561l1.28.428a2.07 2.07 0 0 1 1.31 1.309l.427 1.28c.09.27.471.27.56 0l.428-1.28a2.07 2.07 0 0 1 1.309-1.31l1.281-.427a.296.296 0 0 0 0-.56l-1.281-.428a2.07 2.07 0 0 1-1.309-1.309l-.427-1.28a.296.296 0 0 0-.561 0z\" fill=\"#fff\"></path></svg>"
+                },
                 'stars': {
                     "icon_filled_src": "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" fill=\"none\" viewBox=\"0 0 24 24\"><path fill=\"currentColor\" d=\"M19.92.897a.447.447 0 0 0-.89-.001c-.12 1.051-.433 1.773-.922 2.262-.49.49-1.21.801-2.262.923a.447.447 0 0 0 0 .888c1.035.117 1.772.43 2.274.922.499.49.817 1.21.91 2.251a.447.447 0 0 0 .89 0c.09-1.024.407-1.76.91-2.263.502-.502 1.238-.82 2.261-.908a.447.447 0 0 0 .001-.891c-1.04-.093-1.76-.411-2.25-.91-.493-.502-.806-1.24-.923-2.273ZM11.993 3.82a1.15 1.15 0 0 0-2.285-.002c-.312 2.704-1.115 4.559-2.373 5.817-1.258 1.258-3.113 2.06-5.817 2.373a1.15 1.15 0 0 0 .003 2.285c2.658.3 4.555 1.104 5.845 2.37 1.283 1.26 2.1 3.112 2.338 5.789a1.15 1.15 0 0 0 2.292-.003c.227-2.631 1.045-4.525 2.336-5.817 1.292-1.291 3.186-2.109 5.817-2.336a1.15 1.15 0 0 0 .003-2.291c-2.677-.238-4.529-1.056-5.789-2.34-1.266-1.29-2.07-3.186-2.37-5.844Z\"/></svg>",
                     "icon_outline_src": "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" fill=\"none\" viewBox=\"0 0 24 24\"><path fill=\"currentColor\" d=\"M19.898.855a.4.4 0 0 0-.795 0c-.123 1.064-.44 1.802-.943 2.305-.503.503-1.241.82-2.306.943a.4.4 0 0 0 .001.794c1.047.119 1.801.436 2.317.942.512.504.836 1.241.93 2.296a.4.4 0 0 0 .796 0c.09-1.038.413-1.792.93-2.308.515-.516 1.269-.839 2.306-.928a.4.4 0 0 0 .001-.797c-1.055-.094-1.792-.418-2.296-.93-.506-.516-.823-1.27-.941-2.317Z\"/><path fill=\"currentColor\" d=\"M12.001 1.5a1 1 0 0 1 .993.887c.313 2.77 1.153 4.775 2.5 6.146 1.34 1.366 3.3 2.223 6.095 2.47a1 1 0 0 1-.003 1.993c-2.747.238-4.75 1.094-6.123 2.467-1.373 1.374-2.229 3.376-2.467 6.123a1 1 0 0 1-1.992.003c-.248-2.795-1.105-4.754-2.47-6.095-1.372-1.347-3.376-2.187-6.147-2.5a1 1 0 0 1-.002-1.987c2.818-.325 4.779-1.165 6.118-2.504 1.339-1.34 2.179-3.3 2.504-6.118A1 1 0 0 1 12 1.5ZM6.725 11.998c1.234.503 2.309 1.184 3.21 2.069.877.861 1.56 1.888 2.063 3.076.5-1.187 1.18-2.223 2.051-3.094.871-.87 1.907-1.55 3.094-2.05-1.188-.503-2.215-1.187-3.076-2.064-.885-.901-1.566-1.976-2.069-3.21-.505 1.235-1.19 2.3-2.081 3.192-.891.89-1.957 1.576-3.192 2.082Z\"/></svg>"
@@ -1785,59 +1788,60 @@ class ChatGPT(API):
                     fake_data['messages'].append({"role": "system", "content": prompt})
 
             ## 插入历史消息
+            ## 2024-10-22: 不携带历史文件
             ### DALL·E不插入历史消息
             if data.get('conversation_id') and 'dall-e' not in model:
                 history_list = LocalConversation.get_history_conversation(conversation_id, API_DATA[model].get('history_count'))
-                history_attaches_list = LocalConversation.get_history_conversation_attachments(conversation_id)
+                # history_attaches_list = LocalConversation.get_history_conversation_attachments(conversation_id)
 
                 for item in history_list:
-                    history_message_id = item['message_id']
-                    if history_attaches_list and history_message_id in history_attaches_list:   # 历史消息带附件
-                        if 'gemini' not in model:
-                            file_msg = {
-                                "role": item['role'],
-                                "content": [
-                                    {'type': 'text', 'text': item['message']}
-                                ]
-                            }
-                        else:
-                            file_msg = {"parts": [{"text": item['message']}]}
+                    # history_message_id = item['message_id']
+                    # if history_attaches_list and history_message_id in history_attaches_list:   # 历史消息带附件
+                    #     if 'gemini' not in model:
+                    #         file_msg = {
+                    #             "role": item['role'],
+                    #             "content": [
+                    #                 {'type': 'text', 'text': item['message']}
+                    #             ]
+                    #         }
+                    #     else:
+                    #         file_msg = {"parts": [{"text": item['message']}]}
 
-                        for attach in history_attaches_list[history_message_id]:
-                            file_type = attach['file_type']
-                            file_path = attach['file_path']
+                        # for attach in history_attaches_list[history_message_id]:
+                        #     file_type = attach['file_type']
+                        #     file_path = attach['file_path']
                             
-                            if 'gemini' not in model:
-                                if API_DATA[model].get('file_base64') and (API_DATA[model].get('file_base64') == 'true' or API_DATA[model].get('file_base64') == True):
-                                    if 'glm' in model:
-                                        file_url = self.__file_to_base64(file_path)
-                                    else:
-                                        file_url = f'data:{file_type};base64,' + self.__file_to_base64(file_path)
+                        #     if 'gemini' not in model:
+                        #         if API_DATA[model].get('file_base64') and (API_DATA[model].get('file_base64') == 'true' or API_DATA[model].get('file_base64') == True):
+                        #             if 'glm' in model:
+                        #                 file_url = self.__file_to_base64(file_path)
+                        #             else:
+                        #                 file_url = f'data:{file_type};base64,' + self.__file_to_base64(file_path)
 
-                                elif API_DATA[model].get('file_base64url') and (API_DATA[model].get('file_base64url') == 'true' or API_DATA[model].get('file_base64url') == True):
-                                    file_url = self.__file_to_base64url(file_path)
+                        #         elif API_DATA[model].get('file_base64url') and (API_DATA[model].get('file_base64url') == 'true' or API_DATA[model].get('file_base64url') == True):
+                        #             file_url = self.__file_to_base64url(file_path)
 
-                                else:
-                                    file_url = quote((self.web_origin + file_path) if not file_path.startswith('http') else file_path, safe='/:')
+                        #         else:
+                        #             file_url = quote((self.web_origin + file_path) if not file_path.startswith('http') else file_path, safe='/:')
 
-                                # file_msg['content'].append({"type": file_type, file_type+'_url' if file_type == 'file' else file_type: {'url': file_url}})
+                        #         # file_msg['content'].append({"type": file_type, file_type+'_url' if file_type == 'file' else file_type: {'url': file_url}})
 
-                                file_msg['content'].append({"type": 'image_url' if file_type.startswith('image') else 'file', 'image_url' if file_type.startswith('image') else 'file_url': {'url': file_url}})
+                        #         file_msg['content'].append({"type": 'image_url' if file_type.startswith('image') else 'file', 'image_url' if file_type.startswith('image') else 'file_url': {'url': file_url}})
 
-                                if 'kimi' in model:
-                                    fake_data['use_search'] = False # Kimi模型带附件不能联网搜索
+                        #         if 'kimi' in model:
+                        #             fake_data['use_search'] = False # Kimi模型带附件不能联网搜索
 
-                            else:
-                                # Gemini处理逻辑
-                                gemini_file_msg = self.__gemini_msg_withfile(file_path, file_type)
-                                if gemini_file_msg:
-                                    file_msg['parts'].append(gemini_file_msg)
-                                else:
-                                    file_msg['role'] = "user" if item['role'] == 'user' else "model"
+                        #     else:
+                        #         # Gemini处理逻辑
+                        #         gemini_file_msg = self.__gemini_msg_withfile(file_path, file_type)
+                        #         if gemini_file_msg:
+                        #             file_msg['parts'].append(gemini_file_msg)
+                        #         else:
+                        #             file_msg['role'] = "user" if item['role'] == 'user' else "model"
 
-                        fake_data['messages' if 'gemini' not in model else 'contents'].append(file_msg)
+                        # fake_data['messages' if 'gemini' not in model else 'contents'].append(file_msg)
 
-                    else:
+                    # else:
                         if 'gemini' not in model:
                             fake_data['messages'].append({"role": item['role'], "content": item['message']})
                         else:

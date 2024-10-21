@@ -87,6 +87,7 @@
 -p/--proxy: 使用代理。格式为 protocol://user:pass@ip:port。
 --gpt4: 从 "api.json" 文件中选择 GPT-4 的请求模型。
 --gpt35: 从 "api.json" 文件中选择 GPT-3.5 的请求模型。
+--default_model: 新UI默认模型选择。
 --history_count: 为 API 携带的历史消息数量。默认为4。
 --best_history: 当历史消息数量大于设定数量时，自动携带第一组历史对话。
 --true_del: 【真正】从数据库中删除对话，而非将其设为隐藏(is_visible=0)。
@@ -131,28 +132,29 @@
 10. `PANDORA_PROXY`: 代理地址，可以通过命令行参数 `--proxy` 设置。
 11. `PANDORA_GPT4_MODEL`: 从 "api.json" 文件中选择`GPT-4`模型。
 12. `PANDORA_GPT35_MODEL`: 从 "api.json" 文件中选择`GPT-3.5`模型。
-13. `PANDORA_HISTORY_COUNT`: 设置历史消息的数量，默认为`4`。
-14. `PANDORA_BEST_HISTORY`: 当历史消息数量大于设定数量时，自动携带第一组历史对话。
-15. `PANDORA_TRUE_DELETE`: **真正从数据库中**删除对话，而非将其设为隐藏(is_visible=0)。
-16. `PANDORA_LOCAL_OPTION`: 仅API模式，不使用 OAI 服务。
-17. `PANDORA_TIMEOUT`: 请求超时，默认`60`s，单位(秒)。
-18. `PANDORA_OAI_ONLY`: 仅使用 OAI 服务。
-19. `PANDORA_OLD_LOGIN`: 使用老Pandora登陆页面。
-20. `PANDORA_OLD_CHAT`: 使用老Pandora聊天页面。
-21. `PANDORA_FILE_SIZE`: 限制上传文件的大小。单位：MB。
-22. `PANDORA_TYPE_WHITELIST`: 限制上传文件的后缀名(白名单)，以英文逗号","分隔。
-23. `PANDORA_TYPE_BLACKLIST`: 限制上传文件的后缀名(黑名单)，以英文逗号","分隔。
-24. `PANDORA_FILE_ACCESS`: 是否允许外网直接访问文件(如果对话希望以url携带文件，则需要True启用)。默认：`False`。
-25. `OPENAI_DEVICE_ID`: 官方OAI3.5对话时请求头参数"Oai-Device-Id", 若不配置则从用户浏览器的请求头中获取。多人共享**建议配置**。
-26. `PANDORA_API`: 使用`gpt-3.5-turbo`API请求，**你可能需要向`OpenAI`支付费用**。
-27. `PANDORA_LOGIN_LOCAL`: 使用本地环境登录，**你可能需要一个合适的代理IP以避免账号被风控！**
-28. `PANDORA_VERBOSE`: 显示调试信息，且出错时打印异常堆栈信息，供查错使用。
-29. `PANDORA_THREADS`: server模式的线程数，默认为`8`。
-30. `PANDORA_CLOUD`: Pandora Cloud模式(原参数，不知还可用否?)。
-31. `PANDORA_SERVERLESS`: vercel部署请启用，将`api.json`指向项目根目录的`data`文件夹(请不要将密钥直接填写到文件)
-32. `PANDORA_DEBUG`: 可设置`True`以打印发送消息的请求体(前500字符)与收到的第一条响应
-33. `PANDORA_ISOLATION`: 可设置`True`以启用隔离对话模式(隔离码长度不少于四位)。
-34. `PANDORA_ISOLATION_MASTERCODE`: 管理员隔离码。此隔离码允许管理者查看所有隔离对话。
+13. `PANDORA_DEFAULT_MODEL`: 新UI默认模型选择。
+14. `PANDORA_HISTORY_COUNT`: 设置历史消息的数量，默认为`4`。
+15. `PANDORA_BEST_HISTORY`: 当历史消息数量大于设定数量时，自动携带第一组历史对话。
+16. `PANDORA_TRUE_DELETE`: **真正从数据库中**删除对话，而非将其设为隐藏(is_visible=0)。
+17. `PANDORA_LOCAL_OPTION`: 仅API模式，不使用 OAI 服务。
+18. `PANDORA_TIMEOUT`: 请求超时，默认`60`s，单位(秒)。
+19. `PANDORA_OAI_ONLY`: 仅使用 OAI 服务。
+20. `PANDORA_OLD_LOGIN`: 使用老Pandora登陆页面。
+21. `PANDORA_OLD_CHAT`: 使用老Pandora聊天页面。
+22. `PANDORA_FILE_SIZE`: 限制上传文件的大小。单位：MB。
+23. `PANDORA_TYPE_WHITELIST`: 限制上传文件的后缀名(白名单)，以英文逗号","分隔。
+24. `PANDORA_TYPE_BLACKLIST`: 限制上传文件的后缀名(黑名单)，以英文逗号","分隔。
+25. `PANDORA_FILE_ACCESS`: 是否允许外网直接访问文件(如果对话希望以url携带文件，则需要True启用)。默认：`False`。
+26. `OPENAI_DEVICE_ID`: 官方OAI3.5对话时请求头参数"Oai-Device-Id", 若不配置则从用户浏览器的请求头中获取。多人共享**建议配置**。
+27. `PANDORA_API`: 使用`gpt-3.5-turbo`API请求，**你可能需要向`OpenAI`支付费用**。
+28. `PANDORA_LOGIN_LOCAL`: 使用本地环境登录，**你可能需要一个合适的代理IP以避免账号被风控！**
+29. `PANDORA_VERBOSE`: 显示调试信息，且出错时打印异常堆栈信息，供查错使用。
+30. `PANDORA_THREADS`: server模式的线程数，默认为`8`。
+31. `PANDORA_CLOUD`: Pandora Cloud模式(原参数，不知还可用否?)。
+32. `PANDORA_SERVERLESS`: vercel部署请启用，将`api.json`指向项目根目录的`data`文件夹(请不要将密钥直接填写到文件)
+33. `PANDORA_DEBUG`: 可设置`True`以打印发送消息的请求体(前500字符)与收到的第一条响应
+34. `PANDORA_ISOLATION`: 可设置`True`以启用隔离对话模式(隔离码长度不少于四位)。
+35. `PANDORA_ISOLATION_MASTERCODE`: 管理员隔离码。此隔离码允许管理者查看所有隔离对话。
 
 > 使用Docker仅配置环境变量即可，无视上述`程序参数`。
 >

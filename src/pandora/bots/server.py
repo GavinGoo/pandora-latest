@@ -21,6 +21,7 @@ from .. import __version__
 from ..exts.hooks import hook_logging
 from ..exts.config import USER_CONFIG_DIR
 from ..api.faker import fake_initialize, acc_check
+from ..api.module import API_DATA
 from ..openai.api import API
 from ..openai.utils import Console
 
@@ -38,6 +39,9 @@ class ChatBot:
         self.SITE_PASSWORD = getenv('PANDORA_SITE_PASSWORD') or getenv('PANDORA_SITE_PASSWD')
         self.ISOLATION_FLAG = getenv('PANDORA_ISOLATION')
         self.OAI_ONLY = getenv('PANDORA_OAI_ONLY')
+        self.PANDORA_GPT4_MODEL = getenv('PANDORA_GPT4_MODEL')
+        self.PANDORA_GPT35_MODEL = getenv('PANDORA_GPT35_MODEL')
+        self.PANDORA_DEFAULT_MODEL = getenv('PANDORA_DEFAULT_MODEL')
         self.fake_initialize_data = None
         self.fake_account_data = None
         self.SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
@@ -100,7 +104,7 @@ class ChatBot:
             Session(app)
 
         # dev
-        # app.config['TEMPLATES_AUTO_RELOAD'] = True
+        app.config['TEMPLATES_AUTO_RELOAD'] = True
         
         
 
@@ -118,15 +122,22 @@ class ChatBot:
         for ex in default_exceptions:
             app.register_error_handler(ex, self.__handle_error)
 
-        app.route('/ces/v1/t')(self.fake_check)    # check
+        app.route('/ces/v1/t', methods=['GET', 'POST'])(self.fake_check)    # check
+        app.route('/ces/v1/p', methods=['GET', 'POST'])(self.fake_check)    # check
+        app.route('/ces/v1/i', methods=['GET', 'POST'])(self.fake_check)    # check
+        app.route('/ces/v1/projects/oai/settings')(self.fake_proj_settings)    # check
         app.route('/v1/rgstr', methods=['GET', 'POST', 'PATCH'])(self.fake_check)    # check
         app.route('/rgstr', methods=['GET', 'POST', 'PATCH'])(self.fake_check)    # check
         app.route('/backend-api/lat/tti', methods=['GET', 'POST'])(self.fake_check_tti)    # check
         app.route('/backend-api/lat/r', methods=['GET', 'POST'])(self.fake_check_tti)    # check
         app.route('/backend-api/user_surveys/active')(self.fake_check_active)    # check
         app.route('/backend-api/compliance')(self.fake_compliance)    # check
-        app.route('/backend-api/models')(self.list_models)
+        app.route('/backend-api/edge', methods=['GET'])(self.fake_edge)
+
         app.route('/public-api/conversation_limit')(self.fake_conversation_limit)
+        app.route('/backend-api/models')(self.list_models)
+        app.route('/backend-api/conversation/init', methods=['POST'])(self.conversation_init)
+        app.route('/backend-api/memories', methods=['GET'])(self.fake_memories)
         app.route('/backend-api/sentinel/chat-requirements', methods=['POST'])(self.fake_chat_requirements)
         app.route('/backend-api/conversations')(self.list_conversations)
         app.route('/backend-api/conversations', methods=['DELETE'])(self.clear_conversations)
@@ -143,6 +154,8 @@ class ChatBot:
         app.route('/backend-api/files/<file_id>', methods=['GET'])(self.get_file_upload_info)   # Except for the img file
         app.route('/files/<file_id>/<file_name>', methods=['GET'])(self.file_download)
         app.route('/files/<file_id>', methods=['GET'])(self.oai_file_download)
+        app.route('/backend-api/lat/retrieval', methods=['POST'])(self.retrieval)
+        app.route('/backend-api/connectors/check', methods=['GET'])(self.file_upload_channel)
 
         app.route('/backend-api/register-websocket', methods=['POST'])(self.register_websocket)
         app.route('/backend-api/conversation', methods=['POST'])(self.talk)
@@ -491,8 +504,25 @@ class ChatBot:
     def list_models(self):
         web_origin = request.host_url[:-1]
         
-        return self.__proxy_result(self.chatgpt.list_models(True, self.__get_token_key(), web_origin, getenv('PANDORA_GPT35_MODEL'), getenv('PANDORA_GPT4_MODEL')))
+        return self.__proxy_result(self.chatgpt.list_models(True, self.__get_token_key(), web_origin, self.PANDORA_GPT35_MODEL, self.PANDORA_GPT4_MODEL))
     
+    def conversation_init(self):
+        data = {
+                "type": "conversation_detail_metadata",
+                # "banner_info": "Hello, I'm ChatGPT! I'm here to help you with your questions. Feel free to ask me anything.",
+                "banner_info": None,
+                "blocked_features": [],
+                "model_limits": [],
+                "default_model_slug": self.PANDORA_DEFAULT_MODEL if self.PANDORA_DEFAULT_MODEL else "gpt-4o-mini",
+            }
+
+        return jsonify(data)
+    
+    def fake_memories(self):
+        data = {"memories":[],"memory_max_tokens":8000,"memory_num_tokens":766}
+
+        return jsonify(data)
+
     @staticmethod
     def fake_conversation_limit():
         data = {
@@ -512,6 +542,10 @@ class ChatBot:
     @staticmethod
     def fake_check():
         return jsonify({"success":True})
+    
+    @staticmethod
+    def fake_proj_settings():
+        return jsonify({"integrations":{"Segment.io":{"host":""}}})
     
     @staticmethod
     def old_check():
@@ -552,7 +586,7 @@ class ChatBot:
                     "id": "user-000000000000000000000000",
                     "email": "admin@openai.com",
                     "name": "PandoraWeb",
-                    "picture": None,
+                    "picture": "/_next/static/media/minimalist.c2220384.jpg",
                     "created": 1675749539,
                     "phone_number": "+1675749539",
                     "platform_ui_refresh": True,
@@ -695,6 +729,12 @@ class ChatBot:
         return jsonify(data)
     
     @staticmethod
+    def fake_edge():
+        resp = make_response()
+        resp.status_code = 204
+        return resp
+    
+    @staticmethod
     def fake_invites():
         data = {"status":"success","claimed_invites":0,"invites_remaining":0,"invite_codes":[]}
         return jsonify(data)
@@ -831,6 +871,12 @@ class ChatBot:
         req_path_with_args = req_url.split('/', maxsplit=3)[-1]
 
         return self.chatgpt.oai_file_proxy(file_id, req_path_with_args, request.headers, self.__get_token_key())
+    
+    def retrieval(self):
+        return jsonify({"status": "success"})
+    
+    def file_upload_channel(self):
+        return jsonify({})
     
     def register_websocket(self):
         # if self.LOCAL_FLAG and self.LOCAL_FLAG == 'True':
