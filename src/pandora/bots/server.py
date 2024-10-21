@@ -104,7 +104,7 @@ class ChatBot:
             Session(app)
 
         # dev
-        app.config['TEMPLATES_AUTO_RELOAD'] = True
+        # app.config['TEMPLATES_AUTO_RELOAD'] = True
         
         
 
