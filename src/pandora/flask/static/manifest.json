@@ -1,6 +1,6 @@
 {
     "short_name": "PandoraWeb",
-    "name": "ChatGPT app powered by Pandora-Web. Thanks Wozulong!",
+    "name": "PandoraWeb",
     "start_url": ".",
     "display": "standalone",
     "theme_color": "#212121",

@@ -1,4 +1,4 @@
-from ..api.database import convs_database
+from ..transactions.database import convs_database
 # convs_database_cursor
 from ..exts.config import USER_CONFIG_DIR
 from ..openai.utils import Console
@@ -15,6 +15,7 @@ import json
 from requests.models import Response
 import jwt
 import traceback
+import uuid
 
 API_CONFIG_FILE = (USER_CONFIG_DIR + '/api.json') if not getenv('PANDORA_SERVERLESS') else join(os.path.dirname(os.path.abspath(__file__)), '../../../data/api.json')
 API_DATA = []
@@ -32,45 +33,52 @@ class LocalConversation:
     global ISOLATION_FLAG
     global ISOLATION_MASTER_CODE
 
-    if os.path.exists(API_CONFIG_FILE):
-        with open(API_CONFIG_FILE, 'r', encoding='utf-8') as f:
-            API_DATA = json.load(f)
+    @staticmethod
+    def initialize_model():
+        global API_DATA
+        global API_AUTH_DATA
 
-        def __auth_generator(auth_list):
-            while True:
-                for auth in auth_list:
-                    yield auth
+        if os.path.exists(API_CONFIG_FILE):
+            with open(API_CONFIG_FILE, 'r', encoding='utf-8') as f:
+                API_DATA = json.load(f)
 
-        # Console.warn('Your API Config:')
-        for alias in API_DATA.keys():
-            item = API_DATA[alias]
+            def __auth_generator(auth_list):
+                while True:
+                    for auth in auth_list:
+                        yield auth
 
-            if item['url'].find('<Your Google AI Key>') != -1:
-                item['url'] = item['url'].replace('<Your Google AI Key>', getenv('GOOGLE_KEY'))
+            # Console.warn('Your API Config:')
+            for alias in API_DATA.keys():
+                item = API_DATA[alias]
 
-            if item['url'].find('<Your Cloudflare Account ID>') != -1:
-                item['url'] = item['url'].replace('<Your Cloudflare Account ID>', getenv('CF_ID'))
+                if item['url'].find('<Your Google AI Key>') != -1:
+                    item['url'] = item['url'].replace('<Your Google AI Key>', getenv('GOOGLE_KEY'))
 
-            if item['url'].find('<REPLACE>') != -1:
-                item['url'] = item['url'].replace('<REPLACE>', getenv(alias+'_REPLACE'))
+                if item['url'].find('<Your Cloudflare Account ID>') != -1:
+                    item['url'] = item['url'].replace('<Your Cloudflare Account ID>', getenv('CF_ID'))
 
-            os.environ[alias + '_URL'] = item['url']
-            # Console.debug_b('{}  |  URL  |  {}'.format(slug, item['url']))
-            if item.get('auth'):
-                # os.environ[slug + '_AUTH'] = item['auth']
-                # Console.debug_b('{}  |  AUTH  |  {}'.format(slug, item['auth'] if not isinstance(item['auth'], list) else ', '.join(item['auth'])))
+                if item['url'].find('<REPLACE>') != -1:
+                    item['url'] = item['url'].replace('<REPLACE>', getenv(alias+'_REPLACE'))
 
-                if isinstance(item['auth'], list):
-                    API_AUTH_DATA[alias] = __auth_generator(item['auth'])
-                else:
-                    API_AUTH_DATA[alias] = __auth_generator([item['auth']])
+                os.environ[alias + '_URL'] = item['url']
+                # Console.debug_b('{}  |  URL  |  {}'.format(slug, item['url']))
+                if item.get('auth'):
+                    # os.environ[slug + '_AUTH'] = item['auth']
+                    # Console.debug_b('{}  |  AUTH  |  {}'.format(slug, item['auth'] if not isinstance(item['auth'], list) else ', '.join(item['auth'])))
 
-            elif getenv(alias+'_AUTH'):
-                auth = getenv(alias+'_AUTH')
-                if auth:
-                    auth_list = auth.split(',')
-                    API_AUTH_DATA[alias] = __auth_generator(auth_list)
-        
+                    if isinstance(item['auth'], list):
+                        API_AUTH_DATA[alias] = __auth_generator(item['auth'])
+                    else:
+                        API_AUTH_DATA[alias] = __auth_generator([item['auth']])
+
+                elif getenv(alias+'_AUTH'):
+                    auth = getenv(alias+'_AUTH')
+                    if auth:
+                        auth_list = auth.split(',')
+                        API_AUTH_DATA[alias] = __auth_generator(auth_list)
+
+            return API_DATA
+            
 
     @staticmethod
     def initialize_database():
@@ -83,7 +91,6 @@ class LocalConversation:
         convs_database_cursor = convs_database.cursor()
 
         if ISOLATION_FLAG == 'True':
-            # Console.warn('Isolation Mode: ON')
             convs_database_cursor.execute('''
                 CREATE TABLE IF NOT EXISTS list_conversations_isolated (
                     id TEXT PRIMARY KEY,
@@ -194,7 +201,7 @@ class LocalConversation:
 
             if not (action == 'variant' and role == 'user'):
                 convs_database_cursor.execute("INSERT INTO conversations (id, message_id, role, message, model, create_time, local_time) VALUES (?, ?, ?, ?, ?, ?, ?)",
-                    (conversation_id, message_id, role, content, model, str(time), str(local_time)))
+                    (conversation_id if conversation_id else str(uuid.uuid4()), message_id if message_id else str(uuid.uuid4()), role, content, model, str(time), str(local_time)))
             
             convs_database_cursor.execute(f"UPDATE {'list_conversations_isolated' if ISOLATION_FLAG=='True' else 'list_conversations'} SET update_time = ? WHERE id = ?",
                 (str(time), conversation_id)

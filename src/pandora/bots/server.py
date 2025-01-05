@@ -20,8 +20,8 @@ import traceback
 from .. import __version__
 from ..exts.hooks import hook_logging
 from ..exts.config import USER_CONFIG_DIR
-from ..api.faker import fake_initialize, acc_check
-from ..api.module import API_DATA
+from ..transactions.faker import fake_initialize, acc_check
+from ..transactions.module import API_DATA
 from ..openai.api import API
 from ..openai.utils import Console
 
@@ -184,6 +184,7 @@ class ChatBot:
         app.route('/')(self.chat)
         app.route('/chat')(self.chat)
         app.route('/chat/<conversation_id>')(self.chat)
+        app.route('/c/<conversation_id>')(self.chat)
         app.route('/img/<path:filename>')(self.get_text_gen_image_file)     # 文生图
 
         app.route('/backend-api/gizmos/bootstrap')(self.list_models)    # gpts
@@ -205,6 +206,8 @@ class ChatBot:
         app.route('/api/auth/session')(self.fake_session)
         app.route('/api/accounts/check')(self.old_check)
         app.route('/_next/data/olf4sv64FWIcQ_zCGl90t/chat.json')(self.fake_chat_info)
+
+        app.route('/api/refresh_model', methods=['GET'])(self.refresh_model)
 
         # app.route('/')(self.chat)
         # app.route('/chat')(self.chat)
@@ -335,6 +338,8 @@ class ChatBot:
                 return redirect("/login")
     
         query = {'chatId': [conversation_id]} if conversation_id else {}
+        q = request.args.get('q')
+        model = request.args.get('model')
 
         token_key = request.args.get('token')
 
@@ -343,7 +348,7 @@ class ChatBot:
         elif getenv('PANDORA_CLASSIC') == 'True':
             rendered = render_template('chat_classic.html', pandora_base=request.url_root.strip('/'), query=query)
         else:
-            rendered = render_template('chat_juice.html', pandora_base=request.url_root.strip('/'), query=query)
+            rendered = render_template('chat_juice.html', pandora_base=request.url_root.strip('/'), query=query, model=model, q=q)
         
         resp = make_response(rendered)
 
@@ -353,6 +358,26 @@ class ChatBot:
             self.__set_cookie(resp, token_key, timedelta(days=30))
 
         return resp
+    
+    def refresh_model(self):
+        ip = request.remote_addr
+        if 'X-Forwarded-For' in request.headers:
+            ip = request.headers['X-Forwarded-For'].split(',')[0].strip()
+
+        if ip == '127.0.0.1' or ip.startswith('172.17') or ip.startswith('172.18'):
+            ISOLATION_MASTER_CODE = getenv('PANDORA_ISOLATION_MASTERCODE')
+            if not ISOLATION_MASTER_CODE:
+                return jsonify({"msg": "Master code is not set"})
+            
+            auth = request.headers.get('Authorization')
+            if auth != ISOLATION_MASTER_CODE:
+                return jsonify({"msg": "Authorization failed"})
+
+            self.chatgpt.refresh_model()
+            return self.__proxy_result(self.chatgpt.refresh_model(self.__get_token_key()))
+        
+        else:
+            return jsonify({"msg": "IP limited"})
     
     # @staticmethod
     def model_icons(self):
@@ -586,7 +611,8 @@ class ChatBot:
                     "id": "user-000000000000000000000000",
                     "email": "admin@openai.com",
                     "name": "PandoraWeb",
-                    "picture": "/_next/static/media/minimalist.c2220384.jpg",
+                    # "picture": "/_next/static/media/minimalist.c2220384.jpg", # Cat by OpnenAI
+                    "picture": "/_next/static/media/neo.png",
                     "created": 1675749539,
                     "phone_number": "+1675749539",
                     "platform_ui_refresh": True,

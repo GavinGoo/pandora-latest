@@ -36,8 +36,8 @@ from dateutil.tz import tzlocal
 from bs4 import BeautifulSoup   # func get_origin_share_data
 
 if getenv('PANDORA_ISOLATION') == 'True' or (os.path.exists(USER_CONFIG_DIR + '/api.json') and getenv('PANDORA_OAI_ONLY') != 'True'):
-    from ..api.module import LocalConversation
-    from ..api.module import API_CONFIG_FILE, API_DATA
+    from ..transactions.module import LocalConversation
+    from ..transactions.module import API_CONFIG_FILE, API_DATA
 
 
 class API:
@@ -211,11 +211,17 @@ class API:
                     else:
                         if json_data.get('choices'):
                             if json_data['choices'][0].get('message'):
-                                resp_content = json_data['choices'][0]['message']['content']
+                                _resp_content = json_data['choices'][0]['message']['content']
 
-                            elif json_data['choices'][0].get('delta'):  # 适配GLM
+                                if _resp_content:
+                                    resp_content = _resp_content
+
+                            if json_data['choices'][0].get('delta'):  # 适配GLM
                                 try:
-                                    resp_content += json_data['choices'][0]['delta']['content']
+                                    _resp_content = json_data['choices'][0]['delta']['content']
+
+                                    if _resp_content:
+                                        resp_content += _resp_content
                                 except KeyError:
                                     continue
 
@@ -412,8 +418,10 @@ class ChatGPT(API):
         #     LocalConversation.initialize_database()
 
         if ISOLATION_FLAG or not OAI_ONLY:
+            global API_DATA
             # Console.warn('Initialize LocalConversation Database')
             LocalConversation.initialize_database()
+            API_DATA = LocalConversation.initialize_model()
 
         if PANDORA_TYPE_WHITELIST:
             self.UPLOAD_TYPE_WHITELIST = PANDORA_TYPE_WHITELIST.split(',')
@@ -505,6 +513,22 @@ class ChatGPT(API):
 
     def get_access_token(self, token_key=None):
         return self.access_tokens[token_key or self.default_token_key]
+
+    def refresh_model(self, token_key=None):
+        global API_DATA
+
+        try:
+            API_DATA = LocalConversation.initialize_model()
+
+            # 清空缓存
+            self.MODELS_LIST = None
+            self.MODELS_ICONS = None
+
+            # Console.warn(API_DATA.keys())
+            return self.fake_resp(fake_data=json.dumps({"msg": "Succeeded"}, ensure_ascii=False))
+
+        except Exception as e:
+            return self.fake_resp(fake_data=json.dumps({"msg": f"Failed: {str(e)}"}, ensure_ascii=False))
     
     def double_generate_token(self, model, double_api_key):
         url = 'https://api.double.bot/api/auth/refresh'
@@ -531,9 +555,9 @@ class ChatGPT(API):
             self.MODELS_ICONS = {}
             icons = {
                 'best': {
-                    "icon_filled_src": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 36 36\" fill=\"none\" width=\"32\" height=\"32\"><path fill-rule=\"evenodd\" clip-rule=\"evenodd\" d=\"m7.358 14.641 5.056-5.055A2 2 0 0 1 13.828 9h8.343a2 2 0 0 1 1.414.586l5.056 5.055a2 2 0 0 1 .055 2.771l-9.226 9.996a2 2 0 0 1-2.94 0l-9.227-9.996a2 2 0 0 1 .055-2.77Zm6.86-1.939-.426 1.281a2.07 2.07 0 0 1-1.31 1.31l-1.28.426a.296.296 0 0 0 0 .561l1.28.428a2.07 2.07 0 0 1 1.31 1.309l.427 1.28c.09.27.471.27.56 0l.428-1.28a2.07 2.07 0 0 1 1.309-1.31l1.281-.427a.296.296 0 0 0 0-.56l-1.281-.428a2.07 2.07 0 0 1-1.309-1.309l-.427-1.28a.296.296 0 0 0-.561 0z\" fill=\"#fff\"></path></svg>",
+                    "icon_filled_src": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 36 36\" fill=\"none\" width=\"32\" height=\"32\"><path fill=\"currentColor\" d=\"m7.358 14.641 5.056-5.055A2 2 0 0 1 13.828 9h8.343a2 2 0 0 1 1.414.586l5.056 5.055a2 2 0 0 1 .055 2.771l-9.226 9.996a2 2 0 0 1-2.94 0l-9.227-9.996a2 2 0 0 1 .055-2.77Zm6.86-1.939-.426 1.281a2.07 2.07 0 0 1-1.31 1.31l-1.28.426a.296.296 0 0 0 0 .561l1.28.428a2.07 2.07 0 0 1 1.31 1.309l.427 1.28c.09.27.471.27.56 0l.428-1.28a2.07 2.07 0 0 1 1.309-1.31l1.281-.427a.296.296 0 0 0 0-.56l-1.281-.428a2.07 2.07 0 0 1-1.309-1.309l-.427-1.28a.296.296 0 0 0-.561 0z\"></path></svg>",
 
-                    "icon_outline_src": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 36 36\" fill=\"none\" width=\"32\" height=\"32\"><path fill-rule=\"evenodd\" clip-rule=\"evenodd\" d=\"m7.358 14.641 5.056-5.055A2 2 0 0 1 13.828 9h8.343a2 2 0 0 1 1.414.586l5.056 5.055a2 2 0 0 1 .055 2.771l-9.226 9.996a2 2 0 0 1-2.94 0l-9.227-9.996a2 2 0 0 1 .055-2.77Zm6.86-1.939-.426 1.281a2.07 2.07 0 0 1-1.31 1.31l-1.28.426a.296.296 0 0 0 0 .561l1.28.428a2.07 2.07 0 0 1 1.31 1.309l.427 1.28c.09.27.471.27.56 0l.428-1.28a2.07 2.07 0 0 1 1.309-1.31l1.281-.427a.296.296 0 0 0 0-.56l-1.281-.428a2.07 2.07 0 0 1-1.309-1.309l-.427-1.28a.296.296 0 0 0-.561 0z\" fill=\"#fff\"></path></svg>"
+                    "icon_outline_src": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 36 36\" fill=\"none\" width=\"32\" height=\"32\"><path fill=\"currentColor\" d=\"m7.358 14.641 5.056-5.055A2 2 0 0 1 13.828 9h8.343a2 2 0 0 1 1.414.586l5.056 5.055a2 2 0 0 1 .055 2.771l-9.226 9.996a2 2 0 0 1-2.94 0l-9.227-9.996a2 2 0 0 1 .055-2.77Zm6.86-1.939-.426 1.281a2.07 2.07 0 0 1-1.31 1.31l-1.28.426a.296.296 0 0 0 0 .561l1.28.428a2.07 2.07 0 0 1 1.31 1.309l.427 1.28c.09.27.471.27.56 0l.428-1.28a2.07 2.07 0 0 1 1.309-1.31l1.281-.427a.296.296 0 0 0 0-.56l-1.281-.428a2.07 2.07 0 0 1-1.309-1.309l-.427-1.28a.296.296 0 0 0-.561 0z\"></path></svg>"
                 },
                 'stars': {
                     "icon_filled_src": "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" fill=\"none\" viewBox=\"0 0 24 24\"><path fill=\"currentColor\" d=\"M19.92.897a.447.447 0 0 0-.89-.001c-.12 1.051-.433 1.773-.922 2.262-.49.49-1.21.801-2.262.923a.447.447 0 0 0 0 .888c1.035.117 1.772.43 2.274.922.499.49.817 1.21.91 2.251a.447.447 0 0 0 .89 0c.09-1.024.407-1.76.91-2.263.502-.502 1.238-.82 2.261-.908a.447.447 0 0 0 .001-.891c-1.04-.093-1.76-.411-2.25-.91-.493-.502-.806-1.24-.923-2.273ZM11.993 3.82a1.15 1.15 0 0 0-2.285-.002c-.312 2.704-1.115 4.559-2.373 5.817-1.258 1.258-3.113 2.06-5.817 2.373a1.15 1.15 0 0 0 .003 2.285c2.658.3 4.555 1.104 5.845 2.37 1.283 1.26 2.1 3.112 2.338 5.789a1.15 1.15 0 0 0 2.292-.003c.227-2.631 1.045-4.525 2.336-5.817 1.292-1.291 3.186-2.109 5.817-2.336a1.15 1.15 0 0 0 .003-2.291c-2.677-.238-4.529-1.056-5.789-2.34-1.266-1.29-2.07-3.186-2.37-5.844Z\"/></svg>",
@@ -563,6 +587,7 @@ class ChatGPT(API):
     def list_models(self, raw=False, token=None, web_origin=None, gpt35_model=None, gpt4_model=None):
         self.web_origin = web_origin
         OAI_FLAG = False
+        global API_DATA
 
         if self.MODELS_LIST:
             # Console.debug('MODELS_LIST 缓存')
