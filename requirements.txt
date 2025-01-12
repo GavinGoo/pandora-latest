@@ -1,5 +1,5 @@
 certifi
-curl_cffi
+curl_cffi==0.8.1b8
 python-dateutil
 beautifulsoup4
 pyreadline3 ~= 3.4.0; platform_system == 'Windows'

@@ -159,6 +159,8 @@ class ChatBot:
 
         app.route('/backend-api/register-websocket', methods=['POST'])(self.register_websocket)
         app.route('/backend-api/conversation', methods=['POST'])(self.talk)
+        app.route('/api/voice/get_url', methods=['POST'])(self.get_voice_url)
+        app.route('/api/voice/get_status', methods=['GET'])(self.get_voice_status)
         app.route('/backend-api/conversation/regenerate', methods=['POST'])(self.regenerate)
         app.route('/backend-api/conversation/goon', methods=['POST'])(self.goon)
         # app.route('/backend-api/share/create', methods=['POST'])(self.create_share)  # 饼
@@ -213,12 +215,13 @@ class ChatBot:
         # app.route('/chat')(self.chat)
         # app.route('/chat/<conversation_id>')(self.chat)
 
+        self.protected_paths = ('/backend-api', '/api', '/chat', '/voice')
         self.route_whiteList = ['/backend-api/accounts/check/v4-2023-04-27', '/backend-api/me', '/backend-api/settings/user', '/backend-api/lat/tti']
 
         @app.before_request
         def require_login():
             path = request.path
-            if not session.get("logged_in") and self.SITE_PASSWORD != 'I_KNOW_THE_RISKS_AND_STILL_NO_SITE_PASSWORD' and path.startswith('/backend-api') and path not in self.route_whiteList:
+            if not session.get("logged_in") and self.SITE_PASSWORD != 'I_KNOW_THE_RISKS_AND_STILL_NO_SITE_PASSWORD' and path.startswith(self.protected_paths) and path not in self.route_whiteList:
                 ip = request.remote_addr
                 Console.warn("IP: {} | Not logged in | Path: {}".format(ip, path))
                 self.log(datetime.strftime(datetime.now(),'%Y/%m/%d %H:%M:%S'), ip, 'Not logged in |   Path: ' + path)
@@ -348,7 +351,7 @@ class ChatBot:
         elif getenv('PANDORA_CLASSIC') == 'True':
             rendered = render_template('chat_classic.html', pandora_base=request.url_root.strip('/'), query=query)
         else:
-            rendered = render_template('chat_juice.html', pandora_base=request.url_root.strip('/'), query=query, model=model, q=q)
+            rendered = render_template('chat_juice.html', pandora_base=request.url_root.strip('/'), query=query, model=model, q=q, voice_switch='true')
         
         resp = make_response(rendered)
 
@@ -930,6 +933,15 @@ class ChatBot:
         return self.__process_stream(
             *self.chatgpt.talk(payload, stream,
                                self.__get_token_key(), web_origin, session.get("isolation_code")), stream)
+    
+    def get_voice_status(self):
+        
+        return self.__proxy_result(self.chatgpt.oai_voice_status(self.__get_token_key()))
+
+    def get_voice_url(self):
+        payload = request.json
+        model = payload['model']
+        return self.__proxy_result(self.chatgpt.oai_voice(model, self.__get_token_key()))
 
     def goon(self):
         payload = request.json

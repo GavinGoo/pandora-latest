@@ -374,6 +374,28 @@ def main():
         type=str,
         default=None,
     )
+
+    parser.add_argument(
+        '--oai_proxy',
+        help='Proxy OAI.',
+        required=False,
+        type=str,
+        default=None,
+    )
+
+    parser.add_argument(
+        '--oai_voice',
+        help='Enable OAI Voice.',
+        action='store_true',
+    )
+
+    parser.add_argument(
+        '--voice_wssurl',
+        help='Replace OAI Voice WSS Url.',
+        required=False,
+        type=str,
+        default=None,
+    )
     
     args, _ = parser.parse_known_args()
     __show_verbose = args.verbose
@@ -495,6 +517,15 @@ def main():
 
     if args.isolate_master:
         os.environ['PANDORA_ISOLATION_MASTERCODE'] = args.isolate_master
+
+    if args.oai_proxy:
+        os.environ['OAI_PROXY'] = args.oai_proxy
+
+    if args.oai_voice:
+        os.environ['OAI_VOICE'] = 'True'
+
+    if args.voice_wssurl:
+        os.environ['VOICE_WSS_URL'] = args.voice_wssurl
 
     
     Console.debug_b(

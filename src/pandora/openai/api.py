@@ -17,6 +17,7 @@ from .utils import Console
 import logging
 from ..exts.hooks import hook_logging
 from ..exts.config import USER_CONFIG_DIR
+from .pow import get_requirements_token, get_voice_url
 
 from os import getenv
 import os
@@ -399,8 +400,18 @@ class ChatGPT(API):
             'impersonate': 'chrome110',
         }
 
-        if len(self.access_token_key_list) > 1:
-            self.access_token_key_iter = iter(self.access_token_key_list)
+        access_token_file = os.path.join(USER_CONFIG_DIR, 'access_token.dat')
+        access_token_file_exists = os.path.isfile(access_token_file)
+        if access_token_file_exists:
+            with open(access_token_file, 'r', encoding='utf-8') as f:
+                self.access_token_key_list = [line.strip() for line in f.readlines()]
+                Console.success(f'Access Token Count: {len(self.access_token_key_list)}')
+        if self.access_token_key_list:
+            def __auth_generator(auth_list):
+                while True:
+                    for auth in auth_list:
+                        yield auth
+            self.access_token_key_iter = __auth_generator(self.access_token_key_list)
 
         # self.user_agent = 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) ' \
         #                   'Pandora/{} Safari/537.36'.format(__version__)
@@ -413,6 +424,7 @@ class ChatGPT(API):
         self.UPLOAD_TYPE_BLACKLIST = []
         self.MODELS_LIST = []
         self.MODELS_ICONS = []
+        self.VOICE_STATUS = getenv('OAI_VOICE', 'False')
         
         # if getenv('PANDORA_OAI_ONLY') != 'True' or self.ISOLATION_FLAG == 'True':
         #     LocalConversation.initialize_database()
@@ -1325,6 +1337,38 @@ class ChatGPT(API):
             data['conversation_id'] = conversation_id
 
         return self.__request_conversation(data, token, isolation_code)
+
+    def oai_voice_status(self, token=None):
+        data = {"status": True if self.VOICE_STATUS == 'True' else False}
+        return self.fake_resp(fake_data=json.dumps(data, ensure_ascii=False))
+
+    def oai_voice(self, model, token=None):
+        if self.access_token_key_list and len(self.access_token_key_list) >=1:
+            try:
+                acccess_token = next(self.access_token_key_iter)
+                Console.success(f'oai_voice get access_token[-10:]: {acccess_token[-10:]}')
+
+                voice_mode = 'standard'
+                if 'gpt-4' in model:
+                    if 'gpt-4o' not in model:
+                        voice_mode = 'advanced'
+                else:
+                    voice_mode = 'standard'
+
+                voice_url = get_voice_url(acccess_token, voice_mode)
+                data = {"url": voice_url}
+
+            except Exception as e:
+                error_detail = traceback.format_exc()
+                Console.debug(error_detail)
+                Console.warn('oai_voice FAILED: {}'.format(e))
+                data = {"url": None}
+
+        else:
+            data = {"url": None}
+
+        return self.fake_resp(fake_data=json.dumps(data, ensure_ascii=False))
+
     
     def __proof_token(self, seed, diff):
         fake_config = self.__chat_requirements(GET_FAKE_CONFIG=True)
